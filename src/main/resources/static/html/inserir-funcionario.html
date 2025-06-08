@@ -45,11 +45,46 @@
         <label for="cep">CEP:</label>
         <input id="cep" type="text" name="cep"><br>
 
+
+        <label for="departamentos">Departamento:</label>
+        <select name="idDepartamento" id="departamentos" required>
+            <option value="">Selecione...</option>
+        </select>
+        <br>
+
+
+        <!--  
         <label for="idDepartamento">ID do Departamento:</label>
         <input id="idDepartamento" type="number" name="idDepartamento" required><br>
-
+        -->
         <button type="submit">Cadastrar</button>
     </form>
+
+
+
+    <script>
+        async function carregarDepartamentos() {
+            try {
+                const response = await fetch('http://localhost:8080/departamentos');
+                if (!response.ok) throw new Error('Erro ao buscar departamentos');
+
+                const departamentos = await response.json();
+                const select = document.getElementById('departamentos');
+
+                departamentos.forEach(dep => {
+                    const option = document.createElement('option');
+                    option.value = dep.idDepartamento;
+                    option.textContent = dep.nmDepartamento;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                alert('Erro ao carregar departamentos: ' + error.message);
+            }
+        }
+
+        carregarDepartamentos();
+    </script>
+
 
 
     <script>
