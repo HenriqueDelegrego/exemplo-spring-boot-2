@@ -1,6 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,6 +34,12 @@ public class FuncionarioController {
 	@GetMapping
 	public List<Funcionario> listarFuncionarios() {
 		return servico.listarFuncionarios();
+	}
+	
+	@GetMapping("/{id}")
+	public Optional<Funcionario> obterFuncionarioPorId(@PathVariable int id) {
+		System.out.println(id);
+		return servico.obterFuncionarioPorId(id);
 	}
 
 	@PutMapping

@@ -1,6 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class FuncionarioService {
 
 	public List<Funcionario> listarFuncionarios() {
 		return repo.findAll();
+	}
+	
+	public Optional<Funcionario> obterFuncionarioPorId(int id) {
+		return repo.findById(id);
 	}
 
 	public void atualizarFuncionario(Funcionario f) {
