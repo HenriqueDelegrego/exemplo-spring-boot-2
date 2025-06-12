@@ -9,6 +9,8 @@ CREATE TABLE funcionario (
 	nome VARCHAR(100) NOT NULL,
 	cpf CHAR(11) NOT NULL UNIQUE,
 	email VARCHAR(100) NOT NULL UNIQUE,
+	senha VARCHAR(100) NOT NULL,
+	data_nascimento DATE NOT NULL,
 	salario DECIMAL(10, 2),
 	is_gerente BOOLEAN NOT NULL,
 	pais VARCHAR(50) NOT NULL,
