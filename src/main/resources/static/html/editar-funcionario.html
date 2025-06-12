@@ -42,7 +42,7 @@
     <label>CPF: <input type="text" name="cpf" required /></label>
     <label>Email: <input type="email" name="email" required /></label>
     <label>Salário: <input type="number" name="salario" step="0.01" /></label>
-    <label>Ativo: <input type="checkbox" name="ativo" /></label>
+    <label>Gerente: <input type="checkbox" name="gerente" /></label>
 
     <fieldset>
       <legend>Endereço</legend>
@@ -102,7 +102,7 @@
         form.cpf.value = func.cpf;
         form.email.value = func.email;
         form.salario.value = func.salario;
-        form.ativo.checked = func.ativo;
+        form.gerente.checked = func.isGerente;
 
         form.pais.value = func.endereco?.pais || "";
         form.estado.value = func.endereco?.estado || "";
@@ -128,7 +128,7 @@
         cpf: form.cpf.value,
         email: form.email.value,
         salario: parseFloat(form.salario.value) || 0,
-        ativo: form.ativo.checked,
+        isGerente: form.gerente.checked,
         endereco: {
           pais: form.pais.value,
           estado: form.estado.value,

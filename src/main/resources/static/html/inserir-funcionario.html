@@ -21,8 +21,8 @@
         <label for="salario">Salário:</label>
         <input id="salario" type="number" step="0.01" name="salario"><br>
 
-        <label for="ativo">Ativo:</label>
-        <input id="ativo" type="checkbox" name="ativo"><br>
+        <label for="gerente">Gerente:</label>
+        <input id="gerente" type="checkbox" name="gerente"><br>
 
         <label for="pais">País:</label>
         <input id="pais" type="text" name="pais" required><br>
@@ -98,7 +98,7 @@
                 cpf: form.cpf.value,
                 email: form.email.value,
                 salario: parseFloat(form.salario.value) || 0,
-                ativo: form.ativo.checked,
+                isGerente: form.gerente.checked,
                 endereco: {
                     pais: form.pais.value,
                     estado: form.estado.value,

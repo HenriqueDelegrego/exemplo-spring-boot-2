@@ -89,7 +89,7 @@
                         <strong>CPF:</strong> <span>${func.cpf}</span>
                         <strong>Email:</strong> <span>${func.email}</span>
                         <strong>Salário:</strong> <span>R$ ${func.salario?.toFixed(2) || "0.00"}</span>
-                        <strong>Status:</strong> <span>${func.ativo ? "Ativo" : "Inativo"}</span>
+                        <strong>Função:</strong> <span>${func.isGerente ? "Gerente" : "Funcionário"}</span>
                         <strong>Departamento:</strong> <span>${func.idDepartamento?.nmDepartamento || "N/A"}</span>
                         <strong>Endereço:</strong>
                         <span>${func.endereco?.logradouro || ""}, ${func.endereco?.numero || ""} - ${func.endereco?.bairro || ""}</span>

@@ -32,8 +32,8 @@ public class Funcionario {
 	@Column(name = "salario", precision = 10, scale = 2)
 	private BigDecimal salario;
 
-	@Column(name = "ativo", nullable = false)
-	private boolean ativo;
+	@Column(name = "is_gerente", nullable = false)
+	private boolean isGerente;
 
 	@Embedded
 	private Endereco endereco;
@@ -46,15 +46,14 @@ public class Funcionario {
 
 	}
 
-	public Funcionario(int idFuncionario, String nome, String cpf, String email, BigDecimal salario, boolean ativo,
+	public Funcionario(int idFuncionario, String nome, String cpf, String email, BigDecimal salario, boolean isGerente,
 			Endereco endereco, Departamento idDepartamento) {
-		super();
 		this.idFuncionario = idFuncionario;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.salario = salario;
-		this.ativo = ativo;
+		this.isGerente = isGerente;
 		this.endereco = endereco;
 		this.idDepartamento = idDepartamento;
 	}
@@ -99,12 +98,12 @@ public class Funcionario {
 		this.salario = salario;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
+	public boolean isGerente() {
+		return isGerente;
 	}
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
+	public void setGerente(boolean isGerente) {
+		this.isGerente = isGerente;
 	}
 
 	public Endereco getEndereco() {
