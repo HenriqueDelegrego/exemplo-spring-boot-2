@@ -18,6 +18,12 @@
         <label for="email">Email:</label>
         <input id="email" type="email" name="email" required><br>
 
+        <label for="senha">Senha:</label>
+        <input id="senha" type="password" name="senha" required><br>
+
+        <label for="dataNascimento">Data de Nascimento:</label>
+        <input id="dataNascimento" type="date" name="dataNascimento" required><br>
+
         <label for="salario">Salário:</label>
         <input id="salario" type="number" step="0.01" name="salario"><br>
 
@@ -47,16 +53,13 @@
 
 
         <label for="departamentos">Departamento:</label>
-        <select name="idDepartamento" id="departamentos" required>
+        <select name="departamento" id="departamentos" required>
             <option value="">Selecione...</option>
         </select>
         <br>
 
 
-        <!--  
-        <label for="idDepartamento">ID do Departamento:</label>
-        <input id="idDepartamento" type="number" name="idDepartamento" required><br>
-        -->
+       
         <button type="submit">Cadastrar</button>
     </form>
 
@@ -97,8 +100,10 @@
                 nome: form.nome.value,
                 cpf: form.cpf.value,
                 email: form.email.value,
+                senha: form.senha.value,
+                dataNascimento: form.dataNascimento.value,
                 salario: parseFloat(form.salario.value) || 0,
-                isGerente: form.gerente.checked,
+                gerente: form.gerente.checked,
                 endereco: {
                     pais: form.pais.value,
                     estado: form.estado.value,
@@ -108,10 +113,12 @@
                     numero: form.numero.value,
                     cep: form.cep.value
                 },
-                idDepartamento: {
-                    idDepartamento: parseInt(form.idDepartamento.value)
+                departamento: {
+                    idDepartamento: parseInt(form.departamento.value)
                 }
             };
+
+            console.log(funcionario);
 
             try {
                 const response = await fetch('http://localhost:8080/funcionarios', {

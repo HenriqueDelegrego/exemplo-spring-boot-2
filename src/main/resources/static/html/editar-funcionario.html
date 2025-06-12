@@ -41,6 +41,8 @@
     <label>Nome: <input type="text" name="nome" required /></label>
     <label>CPF: <input type="text" name="cpf" required /></label>
     <label>Email: <input type="email" name="email" required /></label>
+    <label>Senha: <input type="password" name="senha" required /></label>
+    <label>Data de Nacimento: <input type="date" name="dataNascimento" required /></label>
     <label>Salário: <input type="number" name="salario" step="0.01" /></label>
     <label>Gerente: <input type="checkbox" name="gerente" /></label>
 
@@ -57,7 +59,7 @@
 
     <fieldset>
       <legend>Departamento</legend>
-      <select name="idDepartamento" required id="departamentosSelect">
+      <select name="departamento" required id="departamentosSelect">
         <option value="">Selecione...</option>
       </select>
     </fieldset>
@@ -101,8 +103,10 @@
         form.nome.value = func.nome;
         form.cpf.value = func.cpf;
         form.email.value = func.email;
+        form.senha.value = func.senha; 
+        form.dataNascimento.value = func.dataNascimento;
         form.salario.value = func.salario;
-        form.gerente.checked = func.isGerente;
+        form.gerente.checked = func.gerente;
 
         form.pais.value = func.endereco?.pais || "";
         form.estado.value = func.endereco?.estado || "";
@@ -112,7 +116,7 @@
         form.numero.value = func.endereco?.numero || "";
         form.cep.value = func.endereco?.cep || "";
 
-        await carregarDepartamentosSelecionaveis(func.idDepartamento?.idDepartamento);
+        await carregarDepartamentosSelecionaveis(func.departamento?.idDepartamento);
 
       } catch (error) {
         alert("Erro ao carregar funcionário: " + error.message);
@@ -127,6 +131,8 @@
         nome: form.nome.value,
         cpf: form.cpf.value,
         email: form.email.value,
+        senha: form.senha.value,
+        dataNascimento: form.dataNascimento.value,
         salario: parseFloat(form.salario.value) || 0,
         isGerente: form.gerente.checked,
         endereco: {
@@ -138,8 +144,8 @@
           numero: form.numero.value,
           cep: form.cep.value,
         },
-        idDepartamento: {
-          idDepartamento: parseInt(form.idDepartamento.value),
+        departamento: {
+          idDepartamento: parseInt(form.departamento.value),
         }
       };
 

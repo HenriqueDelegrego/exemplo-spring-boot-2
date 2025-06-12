@@ -1,6 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -29,33 +30,42 @@ public class Funcionario {
 	@Column(name = "email", length = 100, nullable = false, unique = true)
 	private String email;
 
+	@Column(name = "senha", length = 100, nullable = false)
+	private String senha;
+
+	@Column(name = "data_nascimento", nullable = false)
+	private LocalDate dataNascimento;
+
 	@Column(name = "salario", precision = 10, scale = 2)
 	private BigDecimal salario;
 
-	@Column(name = "is_gerente", nullable = false)
-	private boolean isGerente;
+	@Column(name = "gerente", nullable = false)
+	private boolean gerente;
 
 	@Embedded
 	private Endereco endereco;
 
 	@ManyToOne
 	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
-	private Departamento idDepartamento;
+	private Departamento departamento;
 
 	public Funcionario() {
 
 	}
 
-	public Funcionario(int idFuncionario, String nome, String cpf, String email, BigDecimal salario, boolean isGerente,
-			Endereco endereco, Departamento idDepartamento) {
+	public Funcionario(int idFuncionario, String nome, String cpf, String email, String senha, LocalDate dataNascimento,
+			BigDecimal salario, boolean gerente, Endereco endereco, Departamento departamento) {
+		super();
 		this.idFuncionario = idFuncionario;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
+		this.senha = senha;
+		this.dataNascimento = dataNascimento;
 		this.salario = salario;
-		this.isGerente = isGerente;
+		this.gerente = gerente;
 		this.endereco = endereco;
-		this.idDepartamento = idDepartamento;
+		this.departamento = departamento;
 	}
 
 	public int getIdFuncionario() {
@@ -90,6 +100,22 @@ public class Funcionario {
 		this.email = email;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
 	public BigDecimal getSalario() {
 		return salario;
 	}
@@ -99,11 +125,11 @@ public class Funcionario {
 	}
 
 	public boolean isGerente() {
-		return isGerente;
+		return gerente;
 	}
 
-	public void setGerente(boolean isGerente) {
-		this.isGerente = isGerente;
+	public void setGerente(boolean gerente) {
+		this.gerente = gerente;
 	}
 
 	public Endereco getEndereco() {
@@ -114,12 +140,12 @@ public class Funcionario {
 		this.endereco = endereco;
 	}
 
-	public Departamento getIdDepartamento() {
-		return idDepartamento;
+	public Departamento getDepartamento() {
+		return departamento;
 	}
 
-	public void setIdDepartamento(Departamento idDepartamento) {
-		this.idDepartamento = idDepartamento;
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 
 }

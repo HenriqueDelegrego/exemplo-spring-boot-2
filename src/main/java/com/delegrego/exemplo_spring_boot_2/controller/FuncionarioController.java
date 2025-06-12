@@ -27,7 +27,6 @@ public class FuncionarioController {
 
 	@PostMapping
 	public void cadastrarFuncionario(@RequestBody Funcionario f) {
-		System.out.println();
 		servico.cadastrarFuncionario(f);
 	}
 
@@ -38,7 +37,6 @@ public class FuncionarioController {
 	
 	@GetMapping("/{id}")
 	public Optional<Funcionario> obterFuncionarioPorId(@PathVariable int id) {
-		System.out.println(id);
 		return servico.obterFuncionarioPorId(id);
 	}
 
