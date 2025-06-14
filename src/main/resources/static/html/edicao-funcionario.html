@@ -134,7 +134,7 @@
         senha: form.senha.value,
         dataNascimento: form.dataNascimento.value,
         salario: parseFloat(form.salario.value) || 0,
-        isGerente: form.gerente.checked,
+        gerente: form.gerente.checked,
         endereco: {
           pais: form.pais.value,
           estado: form.estado.value,
@@ -160,7 +160,7 @@
 
         if (res.ok) {
           alert("Funcionário atualizado com sucesso!");
-          window.location.href = "listar-funcionarios.html";
+          window.location.href = "lista-funcionarios.html";
         } else {
           const erro = await res.text();
           alert("Erro ao atualizar: " + erro);
