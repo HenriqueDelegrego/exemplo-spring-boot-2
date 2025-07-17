@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Editar Departamento</title>
 </head>
+
 <body>
 
     <header>
@@ -12,7 +14,7 @@
                 <li><a href="/html/cadastro-funcionario.html">Cadastrar Funcionário</a></li>
                 <li><a href="/html/lista-funcionarios.html">Listar Funcionários</a></li>
                 <li><a href="/html/cadastro-departamento.html">Cadastrar Departamento</a></li>
-                <li><a href="/html/lista-departamentos.html">Listar Departamentos</a></li>                
+                <li><a href="/html/lista-departamentos.html">Listar Departamentos</a></li>
             </ul>
         </nav>
     </header>
@@ -37,11 +39,11 @@
                 document.getElementById('nome').value = dep.nmDepartamento;
             });
         // Salva alterações
-        document.getElementById('form-editar').onsubmit = function(e) {
+        document.getElementById('form-editar').onsubmit = function (e) {
             e.preventDefault();
             fetch('/departamentos', {
                 method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     idDepartamento: document.getElementById('idDepartamento').value,
                     nmDepartamento: document.getElementById('nome').value
@@ -57,4 +59,5 @@
         };
     </script>
 </body>
+
 </html>

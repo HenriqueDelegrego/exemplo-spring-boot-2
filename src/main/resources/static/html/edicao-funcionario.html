@@ -1,49 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <title>Editar Funcionário</title>
-  <style>
-    form {
-      max-width: 600px;
-      margin: 40px auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
-
-    label {
-      display: flex;
-      flex-direction: column;
-    }
-
-    button {
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/edicao-funcionario-style.css">
 </head>
+
 <body>
-    
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/html/cadastro-funcionario.html">Cadastrar Funcionário</a></li>
-                <li><a href="/html/lista-funcionarios.html">Listar Funcionários</a></li>
-                <li><a href="/html/cadastro-departamento.html">Cadastrar Departamento</a></li>
-                <li><a href="/html/lista-departamentos.html">Listar Departamentos</a></li>                
-            </ul>
-        </nav>
-    </header>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/html/cadastro-funcionario.html">Cadastrar Funcionário</a></li>
+        <li><a href="/html/lista-funcionarios.html">Listar Funcionários</a></li>
+        <li><a href="/html/cadastro-departamento.html">Cadastrar Departamento</a></li>
+        <li><a href="/html/lista-departamentos.html">Listar Departamentos</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <h1 style="text-align:center">Editar Funcionário</h1>
 
@@ -114,7 +89,7 @@
         form.nome.value = func.nome;
         form.cpf.value = func.cpf;
         form.email.value = func.email;
-        form.senha.value = func.senha; 
+        form.senha.value = func.senha;
         form.dataNascimento.value = func.dataNascimento;
         form.salario.value = func.salario;
         form.gerente.checked = func.gerente;
@@ -184,4 +159,5 @@
     carregarFuncionario();
   </script>
 </body>
+
 </html>
