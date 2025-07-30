@@ -19,6 +19,9 @@ import com.delegrego.exemplo_spring_boot_2.model.Departamento;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
 @RestController
+
+// Define o endpoint base para todos os métodos deste controlador
+// Todas as rotas deste controller começam com /departamentos 
 @RequestMapping("/departamentos")
 @CrossOrigin
 public class DepartamentoController {
