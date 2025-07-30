@@ -18,14 +18,14 @@ public class Departamento {
 
 	@Column(name = "nm_departamento", nullable = false, length = 50)
 	private String nmDepartamento;
-	
+
 	public Departamento(int idDepartamento, String nmDepartamento) {
 		this.idDepartamento = idDepartamento;
 		this.nmDepartamento = nmDepartamento;
 	}
-	
+
 	public Departamento() {
-		
+
 	}
 
 	public int getIdDepartamento() {
@@ -43,9 +43,5 @@ public class Departamento {
 	public void setNmDepartamento(String nmDepartamento) {
 		this.nmDepartamento = nmDepartamento;
 	}
-	
-	
-	
-	
 
 }
