@@ -20,7 +20,6 @@ public class Departamento {
 	private String nmDepartamento;
 	
 	public Departamento(int idDepartamento, String nmDepartamento) {
-		super();
 		this.idDepartamento = idDepartamento;
 		this.nmDepartamento = nmDepartamento;
 	}

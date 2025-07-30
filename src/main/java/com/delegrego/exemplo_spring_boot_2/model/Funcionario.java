@@ -57,7 +57,6 @@ public class Funcionario {
 
 	public Funcionario(int idFuncionario, String nome, String cpf, String email, String senha, LocalDate dataNascimento,
 			BigDecimal salario, boolean gerente, Endereco endereco, Departamento departamento) {
-		super();
 		this.idFuncionario = idFuncionario;
 		this.nome = nome;
 		this.cpf = cpf;
