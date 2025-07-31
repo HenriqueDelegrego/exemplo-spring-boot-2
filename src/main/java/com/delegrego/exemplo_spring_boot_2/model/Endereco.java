@@ -3,6 +3,8 @@ package com.delegrego.exemplo_spring_boot_2.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+
+// Indica que esta classe pode ser incorporada em outra entidade JPA
 @Embeddable
 public class Endereco {
 
@@ -33,7 +35,6 @@ public class Endereco {
 
 	public Endereco(String pais, String estado, String cidade, String bairro, String logradouro, String numero,
 			String cep) {
-		super();
 		this.pais = pais;
 		this.estado = estado;
 		this.cidade = cidade;

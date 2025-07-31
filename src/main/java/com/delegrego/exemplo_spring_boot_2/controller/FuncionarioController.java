@@ -20,7 +20,7 @@ import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
 @RestController
 
 // Define o endpoint base para todos os métodos deste controlador
-// Todas as rotas deste controller começam com /funcionarios 
+// Todas as rotas deste controller começam com /funcionarios
 @RequestMapping("/funcionarios")
 @CrossOrigin
 public class FuncionarioController {
@@ -37,7 +37,8 @@ public class FuncionarioController {
 	public List<Funcionario> listarFuncionarios() {
 		return servico.listarFuncionarios();
 	}
-	
+
+	// Get de somente 1 Funcionario
 	@GetMapping("/{id}")
 	public Optional<Funcionario> obterFuncionarioPorId(@PathVariable int id) {
 		return servico.obterFuncionarioPorId(id);

@@ -39,6 +39,7 @@ public class DepartamentoController {
 		return servico.listarDepartamentos();
 	}
 
+	// Get de somente 1 Departamento
 	@GetMapping("/{id}")
 	public Optional<Departamento> obterDepartamentoPorId(@PathVariable int id) {
 		return servico.obterDepartamentoPorId(id);

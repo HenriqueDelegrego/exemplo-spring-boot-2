@@ -12,10 +12,15 @@ import jakarta.persistence.Table;
 public class Departamento {
 
 	@Id
+
+	// Define que o valor do campo será gerado automaticamente pelo banco
+	// (AUTO_INCREMENT)
+	// IDENTITY é o tipo utilizado pelo MySQL
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_departamento")
 	private int idDepartamento;
 
+	// Restringe o atributo para não ser nulo e ter limite de 50 caracteres
 	@Column(name = "nm_departamento", nullable = false, length = 50)
 	private String nmDepartamento;
 

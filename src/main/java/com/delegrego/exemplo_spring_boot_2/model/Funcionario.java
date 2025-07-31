@@ -18,12 +18,18 @@ import jakarta.persistence.Table;
 public class Funcionario {
 
 	@Id
+
+	// Define que o valor do campo será gerado automaticamente pelo banco
+	// (AUTO_INCREMENT)
+	// IDENTITY é o tipo utilizado pelo MySQL
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idFuncionario;
 
 	@Column(name = "nome", length = 100, nullable = false)
 	private String nome;
 
+	// Restringe o atributo para não ser nulo, ser único
+	// E ter limite de 11 caracteres
 	@Column(name = "cpf", length = 11, nullable = false, unique = true)
 	private String cpf;
 
@@ -42,10 +48,13 @@ public class Funcionario {
 	@Column(name = "gerente", nullable = false)
 	private boolean gerente;
 
+	// Indica que o campo abaixo é um objeto incorporado
 	@Embedded
 	private Endereco endereco;
 
+	// Indica relacionamento muitos-para-um com Departamento
 	@ManyToOne
+	// Mapeia a chave estrangeira para departamento
 	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
 	private Departamento departamento;
 
