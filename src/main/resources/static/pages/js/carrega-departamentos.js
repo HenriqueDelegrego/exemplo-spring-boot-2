@@ -26,12 +26,9 @@ function carregarDepartamentos() {
 }
 
 
-
-
 function editarDepartamento(idDepartamento) {
     window.location.href = `edicao-departamento.html?id=${idDepartamento}`;
 }
-
 
 
 async function confirmarExclusao(idDepartamento) {

@@ -12,10 +12,10 @@
     <header>
         <nav>
             <ul>
-                <li><a href="/html/cadastro-funcionario.html">Cadastrar Funcionário</a></li>
-                <li><a href="/html/lista-funcionarios.html">Listar Funcionários</a></li>
-                <li><a href="/html/cadastro-departamento.html">Cadastrar Departamento</a></li>
-                <li><a href="/html/lista-departamentos.html">Listar Departamentos</a></li>
+                <li><a href="cadastro-funcionario.html">Cadastrar Funcionário</a></li>
+                <li><a href="lista-funcionarios.html">Listar Funcionários</a></li>
+                <li><a href="cadastro-departamento.html">Cadastrar Departamento</a></li>
+                <li><a href="lista-departamentos.html">Listar Departamentos</a></li>
             </ul>
         </nav>
     </header>
@@ -70,35 +70,12 @@
         </select>
         <br>
 
-
-
         <button type="submit">Cadastrar</button>
     </form>
 
 
 
-    <script>
-        async function carregarDepartamentos() {
-            try {
-                const response = await fetch('http://localhost:8080/departamentos');
-                if (!response.ok) throw new Error('Erro ao buscar departamentos');
-
-                const departamentos = await response.json();
-                const select = document.getElementById('departamentos');
-
-                departamentos.forEach(dep => {
-                    const option = document.createElement('option');
-                    option.value = dep.idDepartamento;
-                    option.textContent = dep.nmDepartamento;
-                    select.appendChild(option);
-                });
-            } catch (error) {
-                alert('Erro ao carregar departamentos: ' + error.message);
-            }
-        }
-
-        carregarDepartamentos();
-    </script>
+    <script src="../js/carrega-departamento-opcoes.js"></script>
 
 
 

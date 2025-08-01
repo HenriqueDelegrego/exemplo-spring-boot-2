@@ -1,19 +1,25 @@
 package com.delegrego.exemplo_spring_boot_2.security;
 
-import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
-import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.*;
+import java.util.Collections;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
 @Service
 public class FuncionarioDetailsService implements UserDetailsService {
 
-	@Autowired
 	private FuncionarioRepository repo;
+
+	public FuncionarioDetailsService(FuncionarioRepository repo) {
+		this.repo = repo;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
