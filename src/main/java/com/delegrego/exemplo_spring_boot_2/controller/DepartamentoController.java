@@ -26,9 +26,18 @@ import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 @CrossOrigin
 public class DepartamentoController {
 
-	@Autowired
-	private DepartamentoService servico;
+	// Maneira correta de acoplar camada de serviço
+	private final DepartamentoService servico;
 
+	@Autowired
+	public DepartamentoController(DepartamentoService servico) {
+		this.servico = servico;
+	}
+
+	// A anotação de @Autowired é opcional
+	// O Spring já faz a injeção automaticamente se:
+	// A classe é um bean (@RestController, por exemplo)
+	// E a classe tem somente 1 construtor
 	@PostMapping
 	public void cadastrarDepartamento(@RequestBody Departamento d) {
 		servico.cadastrarDepartamento(d);

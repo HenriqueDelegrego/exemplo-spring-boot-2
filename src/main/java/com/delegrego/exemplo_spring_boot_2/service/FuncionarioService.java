@@ -12,8 +12,17 @@ import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 @Service
 public class FuncionarioService {
 
+	// Maneira correta de acoplar camada de repositório
+	private final FuncionarioRepository repo;
+
+	// A anotação de @Autowired é opcional
+	// O Spring já faz a injeção automaticamente se:
+	// A classe é um bean (@Service, por exemplo)
+	// E a classe tem somente 1 construtor
 	@Autowired
-	private FuncionarioRepository repo;
+	public FuncionarioService(FuncionarioRepository repo) {
+		this.repo = repo;
+	}
 
 	public void cadastrarFuncionario(Funcionario f) {
 		repo.save(f);
@@ -22,7 +31,7 @@ public class FuncionarioService {
 	public List<Funcionario> listarFuncionarios() {
 		return repo.findAll();
 	}
-	
+
 	public Optional<Funcionario> obterFuncionarioPorId(int id) {
 		return repo.findById(id);
 	}
