@@ -1,15 +1,9 @@
 
 fetch('../../components/header/header.html')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(data => {
-        document.getElementById('header').innerHTML = data;
+    .then(response => response.text())
+    .then(header => {
+        document.getElementById('header').innerHTML = header;
     })
     .catch(error => {
-        console.error('Error loading header:', error);
-        document.getElementById('header').innerHTML = '<p>Error loading header.</p>';
+        document.getElementById('header').innerHTML = `<p>Erro ao carregar o header</p>`;
     });
