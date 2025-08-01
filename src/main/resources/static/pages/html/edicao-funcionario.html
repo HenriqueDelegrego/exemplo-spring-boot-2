@@ -5,8 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="../../components/header/header.js" defer></script>
   <link rel="stylesheet" href="../css/edicao-funcionario-style.css">
+
+  <script src="../../components/header/header.js" defer></script>
+  <script src="../../components/footer/footer.js" defer></script>
+  <script src="../js/carrega-funcionario-por-id.js" defer></script>
 </head>
 
 <body>
@@ -17,7 +20,7 @@
   <h1 style="text-align:center">Editar Funcionário</h1>
 
   <form id="formEdicaoFuncionario">
-    <input type="hidden" name="id"/>
+    <input type="hidden" name="id" />
     <label>Nome: <input type="text" name="nome" required /></label>
     <label>CPF: <input type="text" name="cpf" required /></label>
     <label>Email: <input type="email" name="email" required /></label>
@@ -47,7 +50,9 @@
     <button type="submit">Salvar Alterações</button>
   </form>
 
-  <script src="../js/carrega-funcionario-por-id.js"></script>
+  <div id="footer"></div>
+
+
 </body>
 
 </html>
