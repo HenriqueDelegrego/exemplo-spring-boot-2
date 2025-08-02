@@ -19,10 +19,17 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-				.formLogin(form -> form.usernameParameter("email")
-						.defaultSuccessUrl("/pages/html/lista-funcionarios.html", true).permitAll())
-				.logout(logout -> logout.permitAll());
+		http.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/pages/css/**", "/components/**", "/pages/js/**").permitAll()
+						.anyRequest().authenticated()) // Exige autenticação para outras páginas
+				.formLogin(form -> form
+						.loginPage("/login") // Define a página de login personalizada
+						.usernameParameter("email") // Campo de email no formulário
+						.passwordParameter("password") // Campo de senha no formulário
+						.defaultSuccessUrl("/pages/html/lista-funcionarios.html", true)
+						.permitAll()) // Permite acesso à página de login sem autenticação
+				.logout(logout -> logout.permitAll()); // Permite logout sem autenticação
 		return http.build();
 	}
 
