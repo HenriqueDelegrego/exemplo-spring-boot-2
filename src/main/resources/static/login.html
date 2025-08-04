@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../css/login-style.css">
+    <link rel="stylesheet" href="/src/main/resources/static/pages/css/login-style.css">
 </head>
 
 <body>
     <div class="login-container">
-        <form class="login-form" method="post" action="/login">
+        <form class="login-form" method="post" action="/perform_login">
             <h2>Entrar</h2>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" required autocomplete="username">
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="password" required autocomplete="current-password">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Login</button>
         </form>
