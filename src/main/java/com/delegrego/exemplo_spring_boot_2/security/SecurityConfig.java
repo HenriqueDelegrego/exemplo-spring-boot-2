@@ -24,7 +24,7 @@ public class SecurityConfig {
 						.requestMatchers("/pages/css/**", "/components/**", "/pages/js/**").permitAll()
 						.anyRequest().authenticated()) // Exige autenticação para outras páginas
 				.formLogin(form -> form
-						.loginPage("/login.html") // Define a página de login personalizada
+						.loginPage("/pages/html/login.html") // Define a página de login personalizada
 		                .loginProcessingUrl("/perform_login")
 						.usernameParameter("email") // Campo de email no formulário
 						.passwordParameter("password") // Campo de senha no formulário
