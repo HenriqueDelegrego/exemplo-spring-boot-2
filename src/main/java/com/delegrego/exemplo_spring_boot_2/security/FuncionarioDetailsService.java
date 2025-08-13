@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
+// Classe para carregar informações do funcionário para autenticação
+
 @Service
 public class FuncionarioDetailsService implements UserDetailsService {
 
