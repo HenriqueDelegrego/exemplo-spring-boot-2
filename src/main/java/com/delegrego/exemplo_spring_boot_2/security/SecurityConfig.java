@@ -23,12 +23,10 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/pages/css/**", "/components/**", "/pages/js/**")
 						.permitAll().anyRequest().authenticated()) // Exige autenticação para outras páginas
 				.formLogin(form -> form.loginPage("/pages/html/login.html") // Define a página de login personalizada
-						.loginProcessingUrl("/perform_login").usernameParameter("email") // Campo de email no formulário
+						.loginProcessingUrl("/perform_login") // Action do formulário de login
+						.usernameParameter("email") // Campo de email no formulário
 						.passwordParameter("password") // Campo de senha no formulário
-						.defaultSuccessUrl("/pages/html/lista-funcionarios.html", true).permitAll()) // Permite acesso à
-																										// página de
-																										// login sem
-																										// autenticação
+						.defaultSuccessUrl("/pages/html/lista-funcionarios.html", true).permitAll()) // Redirecionamento após login bem-sucedido
 				.logout(logout -> logout.permitAll()); // Permite logout sem autenticação
 		return http.build();
 	}
