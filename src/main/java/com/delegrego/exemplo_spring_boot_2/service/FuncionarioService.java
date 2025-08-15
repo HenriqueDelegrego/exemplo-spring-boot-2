@@ -29,6 +29,10 @@ public class FuncionarioService {
 			throw new RuntimeException("Já existe um funcionário com esse cpf");
 		}
 
+		if (repo.findByEmail(f.getEmail()).isPresent()) {
+			throw new RuntimeException("Já existe um funcionário com esse email");
+		}
+
 		repo.save(f);
 	}
 
