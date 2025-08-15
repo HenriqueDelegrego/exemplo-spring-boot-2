@@ -45,6 +45,15 @@ public class FuncionarioService {
 	}
 
 	public void atualizarFuncionario(Funcionario f) {
+
+		if (repo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
+			throw new RuntimeException("Já existe um funcionário com esse cpf");
+		}
+
+		if (repo.existsByEmailAndIdFuncionarioNot(f.getEmail(), f.getIdFuncionario())) {
+			throw new RuntimeException("Já existe um funcionário com esse cpf");
+		}
+
 		repo.save(f);
 	}
 

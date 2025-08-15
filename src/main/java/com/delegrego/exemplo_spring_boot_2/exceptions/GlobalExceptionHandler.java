@@ -1,4 +1,4 @@
-package com.delegrego.exemplo_spring_boot_2.exception;
+package com.delegrego.exemplo_spring_boot_2.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
