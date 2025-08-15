@@ -25,6 +25,10 @@ public class FuncionarioService {
 	}
 
 	public void cadastrarFuncionario(Funcionario f) {
+		if (repo.findByCpf(f.getCpf()).isPresent()) {
+			throw new RuntimeException("Já existe um funcionário com esse cpf");
+		}
+
 		repo.save(f);
 	}
 
