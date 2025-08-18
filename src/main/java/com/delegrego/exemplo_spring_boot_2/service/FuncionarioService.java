@@ -25,13 +25,10 @@ public class FuncionarioService {
 	}
 
 	public void cadastrarFuncionario(Funcionario f) {
-		if (repo.findByCpf(f.getCpf()).isPresent()) {
-			throw new RuntimeException("Já existe um funcionário com esse cpf");
-		}
 
-		if (repo.findByEmail(f.getEmail()).isPresent()) {
-			throw new RuntimeException("Já existe um funcionário com esse email");
-		}
+		validarEmailUnico(f.getEmail(), f.getIdFuncionario());
+
+		validarCpfUnico(f.getCpf(), f.getIdFuncionario());
 
 		repo.save(f);
 	}
@@ -46,19 +43,41 @@ public class FuncionarioService {
 
 	public void atualizarFuncionario(Funcionario f) {
 
-		if (repo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
-			throw new RuntimeException("Já existe um funcionário com esse cpf");
-		}
+		validarEmailUnico(f.getEmail(), f.getIdFuncionario());
 
-		if (repo.existsByEmailAndIdFuncionarioNot(f.getEmail(), f.getIdFuncionario())) {
-			throw new RuntimeException("Já existe um funcionário com esse cpf");
-		}
+		validarCpfUnico(f.getCpf(), f.getIdFuncionario());
 
 		repo.save(f);
 	}
 
 	public void deletarFuncionario(int id) {
 		repo.deleteById(id);
+	}
+
+	private void validarCpfUnico(String cpf, Integer id) {
+		boolean cpfEmUso;
+		if (id == null) {
+			cpfEmUso = repo.findByCpf(cpf).isPresent();
+		} else {
+			cpfEmUso = repo.existsByCpfAndIdFuncionarioNot(cpf, id);
+		}
+
+		if (cpfEmUso) {
+			throw new RuntimeException("Já existe um funcionário com esse CPF");
+		}
+	}
+
+	private void validarEmailUnico(String email, Integer id) {
+		boolean emailEmUso;
+		if (id == null) {
+			emailEmUso = repo.findByEmail(email).isPresent();
+		} else {
+			emailEmUso = repo.existsByEmailAndIdFuncionarioNot(email, id);
+		}
+
+		if (emailEmUso) {
+			throw new RuntimeException("Já existe um funcionário com esse email");
+		}
 	}
 
 }
