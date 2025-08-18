@@ -13,9 +13,19 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 
 	Optional<Funcionario> findByCpf(String cpf);
 
-	// Utilizado para verificar se o CPF já existe, exceto para o funcionário com o ID fornecido
+	// Utilizado para verificar se o CPF já existe, exceto para o funcionário com o
+	// ID fornecido
 	boolean existsByCpfAndIdFuncionarioNot(String cpf, int id);
 
-	// Utilizado para verificar se o email já existe, exceto para o funcionário com o ID fornecido
+	/**
+	 * Retorna um boolean indicando se o email já existe para outro funcionário
+	 * diferente do fornecido.
+	 * 
+	 * @param email - O email do funcionário
+	 * @param id    - A id do funcionário
+	 * @return Um boolean indicando se o email já existe para outro funcionário
+	 *         diferente do fornecido
+	 *
+	 */
 	boolean existsByEmailAndIdFuncionarioNot(String email, int id);
 }
