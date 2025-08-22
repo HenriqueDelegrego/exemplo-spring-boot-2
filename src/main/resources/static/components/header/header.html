@@ -8,10 +8,17 @@
                 <li><a href="lista-departamentos.html">Listar Departamentos</a></li>
             </ul>
         </nav>
-        <div id="boas-vindas">
-            <span>Bem vindo, </span>
-            <div id="nomeUsuario"></div>
-            <span>!</span>
+        <div id="boas-vindas" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Olá,
+            </button>
+            <span id="nomeUsuario"></span>
+            <ul class="dropdown-menu">
+                <li>
+                    <form action="/logout" method="post"><button class="dropdown-item">Logout</button></form>
+                </li>
+            </ul>
         </div>
     </div>
 </header>
