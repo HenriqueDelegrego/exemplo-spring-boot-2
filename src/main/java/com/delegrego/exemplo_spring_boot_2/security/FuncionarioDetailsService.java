@@ -27,7 +27,7 @@ public class FuncionarioDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Funcionario funcionario = repo.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
-		return new User(funcionario.getEmail(), funcionario.getSenha(),
-				Collections.singletonList(new SimpleGrantedAuthority("USER")));
+		return new FuncionarioDetails(funcionario); // Retorna os detalhes do funcionário para autenticação
 	}
+
 }
