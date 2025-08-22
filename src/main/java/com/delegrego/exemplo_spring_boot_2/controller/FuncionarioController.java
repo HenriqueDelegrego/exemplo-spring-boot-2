@@ -58,22 +58,42 @@ public class FuncionarioController {
 		return ResponseEntity.ok(Map.of("nome", funcionarioDetails.obterNome()));
 	}
 
+	/**
+	 * Endpoint para listar todos os funcionários
+	 * 
+	 * @return Lista de funcionários
+	 */
 	@GetMapping
 	public List<Funcionario> listarFuncionarios() {
 		return servico.listarFuncionarios();
 	}
 
-	// Get de somente 1 Funcionario
+	/**
+	 * Endpoint para obter um funcionário por ID
+	 * 
+	 * @param id - ID do funcionário a ser obtido
+	 * @return Funcionário encontrado ou vazio se não existir
+	 */
 	@GetMapping("/{id}")
 	public Optional<Funcionario> obterFuncionarioPorId(@PathVariable int id) {
 		return servico.obterFuncionarioPorId(id);
 	}
 
+	/**
+	 * Endpoint para atualizar um funcionário
+	 * 
+	 * @param f - Funcionário com os dados atualizados
+	 */
 	@PutMapping
 	public void atualizarFuncionario(@RequestBody Funcionario f) {
 		servico.atualizarFuncionario(f);
 	}
 
+	/**
+	 * Endpoint para deletar um funcionário por ID
+	 * 
+	 * @param id - ID do funcionário a ser deletado
+	 */
 	@DeleteMapping("/{id}")
 	public void deletarFuncionario(@PathVariable int id) {
 		servico.deletarFuncionario(id);

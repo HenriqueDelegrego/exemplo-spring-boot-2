@@ -29,36 +29,62 @@ public class DepartamentoController {
 	// Maneira correta de acoplar camada de serviço
 	private final DepartamentoService servico;
 
+	// A anotação de @Autowired é opcional
+	// O Spring já faz a injeção automaticamente se:
+	// A classe é um bean (@RestController, por exemplo)
+	// E a classe tem somente 1 construtor
 	@Autowired
 	public DepartamentoController(DepartamentoService servico) {
 		this.servico = servico;
 	}
 
-	// A anotação de @Autowired é opcional
-	// O Spring já faz a injeção automaticamente se:
-	// A classe é um bean (@RestController, por exemplo)
-	// E a classe tem somente 1 construtor
+	/**
+	 * Cadastra um novo departamento
+	 * 
+	 * @param d - Objeto Departamento a ser cadastrado
+	 */
 	@PostMapping
 	public void cadastrarDepartamento(@RequestBody Departamento d) {
 		servico.cadastrarDepartamento(d);
 	}
 
+	/**
+	 * Lista todos os departamentos
+	 * 
+	 * @return Lista de departamentos
+	 */
 	@GetMapping
 	public List<Departamento> listarDepartamentos() {
 		return servico.listarDepartamentos();
 	}
 
-	// Get de somente 1 Departamento
+	/**
+	 * Obtém um departamento pelo ID
+	 * 
+	 * @param id - ID do departamento
+	 * @return Departamento encontrado ou vazio se não existir
+	 */
 	@GetMapping("/{id}")
 	public Optional<Departamento> obterDepartamentoPorId(@PathVariable int id) {
 		return servico.obterDepartamentoPorId(id);
 	}
 
+	/**
+	 * Atualiza um departamento existente
+	 * 
+	 * @param d - Departamento com os dados atualizados
+	 */
 	@PutMapping
 	public void atualizarDepartamento(@RequestBody Departamento d) {
 		servico.atualizarDepartamento(d);
 	}
 
+	/**
+	 * Deleta um departamento pelo ID
+	 * 
+	 * @param id - ID do departamento a ser deletado
+	 * @return ResponseEntity com status apropriado
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity deletarDepartamento(@PathVariable int id) {
 		servico.deletarDepartamento(id);
