@@ -9,8 +9,19 @@ import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer> {
 
 	// Derived query
+
+	/**
+	 * Retorna um funcionário com o email fornecido
+	 * @param email - O email do funcionário
+	 * @return O funcionário, ou vazio se não encontrado
+	 */
 	Optional<Funcionario> findByEmail(String email);
 
+	/**
+	 * Retorna um funcionário com o cpf fornecido
+	 * @param cpf - O cpf do funcionário
+	 * @return O funcionário, ou vazio se não encontrado
+	 */
 	Optional<Funcionario> findByCpf(String cpf);
 
 	/**
