@@ -8,6 +8,16 @@ import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Implementação de UserDetails para representar os detalhes do funcionário
+ * autenticado no sistema.
+ * 
+ * Esta classe encapsula um objeto Funcionario e fornece as informações
+ * necessárias para o Spring Security durante o processo de autenticação e
+ * autorização.
+ * 
+ * @see UserDetails
+ */
 public class FuncionarioDetails implements UserDetails {
 
 	private final Funcionario f;

@@ -1,9 +1,5 @@
 package com.delegrego.exemplo_spring_boot_2.security;
 
-import java.util.Collections;
-
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
-// Classe para carregar informações do funcionário para autenticação
+/**
+ * Serviço para carregar os detalhes do funcionário durante o processo de
+ * autenticação.
+ */
 
 @Service
 public class FuncionarioDetailsService implements UserDetailsService {
