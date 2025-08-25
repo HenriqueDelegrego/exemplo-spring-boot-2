@@ -1,6 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
@@ -37,7 +38,10 @@ public class FuncionarioDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of();
+		if (f.isGerente()) {
+			return List.of(new SimpleGrantedAuthority("ROLE_GERENTE"));
+		}
+		return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
 	}
 
 	@Override
