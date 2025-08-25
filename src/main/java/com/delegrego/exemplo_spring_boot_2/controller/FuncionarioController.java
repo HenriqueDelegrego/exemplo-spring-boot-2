@@ -47,13 +47,13 @@ public class FuncionarioController {
 	}
 
 	/**
-	 * Endpoint para validação do usuário autenticado
-	 * 
+	 * Endpoint para obter o nome do usuário autenticado
+	 *  
 	 * @param autenticacao - Informações da autenticação atual
 	 * @return ResponseEntity com o nome do usuário autenticado
 	 */
-	@GetMapping("/validacao")
-	public ResponseEntity<?> getCurrentUser(Authentication autenticacao) {
+	@GetMapping("/me")
+	public ResponseEntity<?> obterNomeAutenticado(Authentication autenticacao) {
 		FuncionarioDetails funcionarioDetails = (FuncionarioDetails) autenticacao.getPrincipal();
 		return ResponseEntity.ok(Map.of("nome", funcionarioDetails.obterNome()));
 	}

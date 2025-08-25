@@ -1,5 +1,5 @@
 async function carregarNomeUsuarios() {
-  fetch('/funcionarios/validacao')
+  fetch('/funcionarios/me')
     .then(response => {
       return response.json();
     })
