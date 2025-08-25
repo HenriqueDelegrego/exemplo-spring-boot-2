@@ -1,10 +1,12 @@
   h1 {
       margin-bottom: 20px;
+      padding: 10px;
   }
 
   .lista-funcionarios {
       display: flex;
       flex-wrap: wrap;
+      padding: 10px;
       gap: 15px;
   }
 
