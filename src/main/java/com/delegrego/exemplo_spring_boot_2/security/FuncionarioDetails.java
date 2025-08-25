@@ -17,7 +17,7 @@ public class FuncionarioDetails implements UserDetails {
 	}
 
 	/**
-	 * Obtém o nome do funcionario
+	 * Obtém o nome do funcionario validado
 	 * 
 	 * @return nome do funcionário
 	 */
