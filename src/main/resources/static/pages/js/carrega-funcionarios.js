@@ -44,6 +44,7 @@ async function carregarFuncionarios() {
     <strong>Salário:</strong> <span>R$ ${func.salario?.toFixed(2) || "0.00"}</span>
     <strong>Função:</strong> <span>${func.gerente ? "Gerente" : "Funcionário"}</span>
     <strong>Departamento:</strong> <span>${func.departamento?.nmDepartamento || "N/A"}</span>
+    <strong>Criado por:</strong> <span>${func.criadoPor?.nome || "N/A"}</span>
     <strong>Endereço:</strong>
     <span>${func.endereco?.logradouro || ""}, ${func.endereco?.numero || ""} - ${func.endereco?.bairro || ""}</span>
     <span>${func.endereco?.cidade || ""} - ${func.endereco?.estado || ""}</span>
