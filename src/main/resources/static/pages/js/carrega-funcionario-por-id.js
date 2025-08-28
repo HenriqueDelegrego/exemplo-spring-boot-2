@@ -30,6 +30,7 @@ async function carregarFuncionario() {
 
         const func = await response.json();
         form.id.value = func.idFuncionario;
+        form.criadoPor.value = func.criadoPor.idFuncionario;
         form.nome.value = func.nome;
         form.cpf.value = func.cpf;
         form.email.value = func.email;
@@ -38,7 +39,6 @@ async function carregarFuncionario() {
         form.salario.value = func.salario;
         form.gerente.checked = func.gerente;
 
-        form.pais.value = func.endereco?.pais || "";
         form.estado.value = func.endereco?.estado || "";
         form.cidade.value = func.endereco?.cidade || "";
         form.bairro.value = func.endereco?.bairro || "";
@@ -66,7 +66,6 @@ form.addEventListener("submit", async function (e) {
         salario: parseFloat(form.salario.value) || 0,
         gerente: form.gerente.checked,
         endereco: {
-            pais: form.pais.value,
             estado: form.estado.value,
             cidade: form.cidade.value,
             bairro: form.bairro.value,
@@ -76,6 +75,9 @@ form.addEventListener("submit", async function (e) {
         },
         departamento: {
             idDepartamento: parseInt(form.departamento.value),
+        },
+        criadoPor: {
+            idFuncionario: parseInt(form.criadoPor.value)
         }
     };
 

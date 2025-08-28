@@ -55,15 +55,21 @@ public class Funcionario {
 	// Indica relacionamento muitos-para-um com Departamento
 	@ManyToOne
 	// Mapeia a chave estrangeira para departamento
+	// name é o nome da coluna na tabela funcionario
+	// referencedColumnName é o nome da coluna na tabela departamento
 	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
 	private Departamento departamento;
+
+	@ManyToOne
+	@JoinColumn(name = "criado_por")
+	private Funcionario criadoPor;
 
 	public Funcionario() {
 
 	}
 
 	public Funcionario(int idFuncionario, String nome, String cpf, String email, String senha, LocalDate dataNascimento,
-			BigDecimal salario, boolean gerente, Endereco endereco, Departamento departamento) {
+			BigDecimal salario, boolean gerente, Endereco endereco, Departamento departamento, Funcionario criadoPor) {
 		this.idFuncionario = idFuncionario;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -74,6 +80,7 @@ public class Funcionario {
 		this.gerente = gerente;
 		this.endereco = endereco;
 		this.departamento = departamento;
+		this.criadoPor = criadoPor;
 	}
 
 	public int getIdFuncionario() {
@@ -154,6 +161,14 @@ public class Funcionario {
 
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+
+	public Funcionario getCriadoPor() {
+		return criadoPor;
+	}
+
+	public void setCriadoPor(Funcionario criadoPor) {
+		this.criadoPor = criadoPor;
 	}
 
 }
