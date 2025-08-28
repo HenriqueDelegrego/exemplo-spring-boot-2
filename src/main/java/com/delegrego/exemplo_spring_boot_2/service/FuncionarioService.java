@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
@@ -24,6 +25,7 @@ public class FuncionarioService {
 		this.repo = repo;
 	}
 
+    @PreAuthorize("hasRole('GERENTE')")
 	public void cadastrarFuncionario(Funcionario f) {
 
 		validarEmailUnico(f.getEmail(), f.getIdFuncionario());
@@ -33,14 +35,17 @@ public class FuncionarioService {
 		repo.save(f);
 	}
 
+    @PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public List<Funcionario> listarFuncionarios() {
 		return repo.findAll();
 	}
 
+    @PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public Optional<Funcionario> obterFuncionarioPorId(int id) {
 		return repo.findById(id);
 	}
 
+    @PreAuthorize("hasRole('GERENTE')")
 	public void atualizarFuncionario(Funcionario f) {
 
 		validarEmailUnico(f.getEmail(), f.getIdFuncionario());
@@ -50,6 +55,7 @@ public class FuncionarioService {
 		repo.save(f);
 	}
 
+    @PreAuthorize("hasRole('GERENTE')")
 	public void deletarFuncionario(int id) {
 		repo.deleteById(id);
 	}
