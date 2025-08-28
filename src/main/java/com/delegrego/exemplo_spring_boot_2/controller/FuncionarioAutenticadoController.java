@@ -15,24 +15,29 @@ import com.delegrego.exemplo_spring_boot_2.security.FuncionarioDetails;
 @CrossOrigin
 @RestController
 public class FuncionarioAutenticadoController {
-	
 
 	/**
 	 * Endpoint para obter o nome do usuário autenticado
-	 *  
+	 * 
 	 * @param autenticacao - Informações da autenticação atual
 	 * @return ResponseEntity com o nome do usuário autenticado
 	 */
 	@GetMapping("/nome")
-	public ResponseEntity<?> obterNomeAutenticado(Authentication autenticacao) {
+	public ResponseEntity<?> obterNome(Authentication autenticacao) {
 		FuncionarioDetails funcionarioDetails = (FuncionarioDetails) autenticacao.getPrincipal();
 		return ResponseEntity.ok(Map.of("nome", funcionarioDetails.obterNome()));
 	}
-	
+
 	@GetMapping("/gerente")
 	public ResponseEntity<?> isGerente(Authentication autenticacao) {
 		FuncionarioDetails funcionarioDetails = (FuncionarioDetails) autenticacao.getPrincipal();
 		return ResponseEntity.ok(Map.of("gerente", funcionarioDetails.isGerente()));
+	}
+
+	@GetMapping("/id")
+	public ResponseEntity<?> obterId(Authentication autenticacao) {
+		FuncionarioDetails funcionarioDetails = (FuncionarioDetails) autenticacao.getPrincipal();
+		return ResponseEntity.ok(Map.of("id", funcionarioDetails.obterId()));
 	}
 
 }

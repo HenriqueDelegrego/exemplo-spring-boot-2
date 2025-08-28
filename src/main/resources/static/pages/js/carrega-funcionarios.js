@@ -46,7 +46,7 @@ async function carregarFuncionarios() {
     <strong>Departamento:</strong> <span>${func.departamento?.nmDepartamento || "N/A"}</span>
     <strong>Endereço:</strong>
     <span>${func.endereco?.logradouro || ""}, ${func.endereco?.numero || ""} - ${func.endereco?.bairro || ""}</span>
-    <span>${func.endereco?.cidade || ""} - ${func.endereco?.estado || ""}, ${func.endereco?.pais || ""}</span>
+    <span>${func.endereco?.cidade || ""} - ${func.endereco?.estado || ""}</span>
     <span>CEP: ${func.endereco?.cep || ""}</span>
 `;
 

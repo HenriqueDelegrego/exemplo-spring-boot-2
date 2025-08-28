@@ -35,13 +35,18 @@ public class FuncionarioDetails implements UserDetails {
 	public String obterNome() {
 		return f.getNome();
 	}
-	
+
 	/**
 	 * Verifica se o funcionário validado é um gerente
+	 * 
 	 * @return true se for gerente, false caso contrário
 	 */
 	public boolean isGerente() {
 		return f.isGerente();
+	}
+
+	public int obterId() {
+		return f.getIdFuncionario();
 	}
 
 	@Override

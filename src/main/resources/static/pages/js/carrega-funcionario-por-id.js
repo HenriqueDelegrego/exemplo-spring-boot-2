@@ -38,7 +38,6 @@ async function carregarFuncionario() {
         form.salario.value = func.salario;
         form.gerente.checked = func.gerente;
 
-        form.pais.value = func.endereco?.pais || "";
         form.estado.value = func.endereco?.estado || "";
         form.cidade.value = func.endereco?.cidade || "";
         form.bairro.value = func.endereco?.bairro || "";
