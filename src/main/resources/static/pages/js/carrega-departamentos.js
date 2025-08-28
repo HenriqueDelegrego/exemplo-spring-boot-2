@@ -1,8 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
-    carregarDepartamentos();
-});
 
-function carregarDepartamentos() {
+async function carregarDepartamentos() {
     fetch('/departamentos')
         .then(res => res.json())
         .then(departamentos => {
@@ -25,6 +22,8 @@ function carregarDepartamentos() {
         });
 }
 
+carregarDepartamentos();
+
 
 function editarDepartamento(idDepartamento) {
     window.location.href = `edicao-departamento.html?id=${idDepartamento}`;
@@ -41,7 +40,6 @@ async function confirmarExclusao(idDepartamento) {
         });
 
         if (resposta.ok) {
-            alert("Departamento excluído com sucesso!");
             window.location.reload();
         } else {
             const erro = await resposta.text();
