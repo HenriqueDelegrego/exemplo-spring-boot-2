@@ -55,6 +55,8 @@ public class Funcionario {
 	// Indica relacionamento muitos-para-um com Departamento
 	@ManyToOne
 	// Mapeia a chave estrangeira para departamento
+	// name é o nome da coluna na tabela funcionario
+	// referencedColumnName é o nome da coluna na tabela departamento
 	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
 	private Departamento departamento;
 
