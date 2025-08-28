@@ -1,3 +1,16 @@
+async function isGerente() {
+    fetch('/funcionarios/me/gerente')
+        .then(response => {
+            return response.json();
+        })
+        .then(funcionario => {
+            // document.getElementById('acoes').style.display = "none";
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
 async function carregarFuncionarios() {
     try {
         const response = await fetch('http://localhost:8080/funcionarios');
@@ -16,7 +29,7 @@ async function carregarFuncionarios() {
             div.className = 'funcionario';
 
             div.innerHTML = `
-                        <div class="acoes">
+                        <div id="acoes" class="acoes">
                             <button class="btn-editar" title="Editar" onclick="editarFuncionario(${func.idFuncionario})">✏️</button>
                             <button class="btn-excluir" title="Excluir" onclick="confirmarExclusao(${func.idFuncionario})">❌</button>
                         </div>
@@ -42,6 +55,7 @@ async function carregarFuncionarios() {
             `<p style="color: red;">Erro ao carregar funcionários: ${error.message}</p>`;
     }
 }
+
 
 
 function editarFuncionario(id) {
