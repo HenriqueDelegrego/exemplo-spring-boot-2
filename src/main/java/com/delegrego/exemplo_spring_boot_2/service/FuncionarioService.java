@@ -54,7 +54,6 @@ public class FuncionarioService {
 
 		if (repo.existsByEmailAndIdFuncionarioNot(f.getEmail(), f.getIdFuncionario())) {
 			throw new RuntimeException("Usuário com esse email já existe");
-
 		}
 
 		if (repo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
