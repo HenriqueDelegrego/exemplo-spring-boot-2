@@ -25,65 +25,48 @@ public class FuncionarioService {
 		this.repo = repo;
 	}
 
-    @PreAuthorize("hasRole('GERENTE')")
+	@PreAuthorize("hasRole('GERENTE')")
 	public void cadastrarFuncionario(Funcionario f) {
 
-		validarEmailUnico(f.getEmail(), f.getIdFuncionario());
+		if (repo.findByEmail(f.getEmail()).isPresent()) {
+			throw new RuntimeException("Usuário com esse email já existe");
+		}
 
-		validarCpfUnico(f.getCpf(), f.getIdFuncionario());
+		if (repo.findByCpf(f.getCpf()).isPresent()) {
+			throw new RuntimeException("Usuário com esse CPF já existe");
+		}
 
 		repo.save(f);
 	}
 
-    @PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
+	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public List<Funcionario> listarFuncionarios() {
 		return repo.findAll();
 	}
 
-    @PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
+	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public Optional<Funcionario> obterFuncionarioPorId(int id) {
 		return repo.findById(id);
 	}
 
-    @PreAuthorize("hasRole('GERENTE')")
+	@PreAuthorize("hasRole('GERENTE')")
 	public void atualizarFuncionario(Funcionario f) {
 
-		validarEmailUnico(f.getEmail(), f.getIdFuncionario());
+		if (repo.existsByEmailAndIdFuncionarioNot(f.getEmail(), f.getIdFuncionario())) {
+			throw new RuntimeException("Usuário com esse email já existe");
 
-		validarCpfUnico(f.getCpf(), f.getIdFuncionario());
+		}
+
+		if (repo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
+			throw new RuntimeException("Usuário com esse CPF já existe");
+		}
 
 		repo.save(f);
 	}
 
-    @PreAuthorize("hasRole('GERENTE')")
+	@PreAuthorize("hasRole('GERENTE')")
 	public void deletarFuncionario(int id) {
 		repo.deleteById(id);
-	}
-
-	private void validarCpfUnico(String cpf, Integer id) {
-		boolean cpfEmUso;
-		if (id == null) {
-			cpfEmUso = repo.findByCpf(cpf).isPresent();
-		} else {
-			cpfEmUso = repo.existsByCpfAndIdFuncionarioNot(cpf, id);
-		}
-
-		if (cpfEmUso) {
-			throw new RuntimeException("Já existe um funcionário com esse CPF");
-		}
-	}
-
-	private void validarEmailUnico(String email, Integer id) {
-		boolean emailEmUso;
-		if (id == null) {
-			emailEmUso = repo.findByEmail(email).isPresent();
-		} else {
-			emailEmUso = repo.existsByEmailAndIdFuncionarioNot(email, id);
-		}
-
-		if (emailEmUso) {
-			throw new RuntimeException("Já existe um funcionário com esse email");
-		}
 	}
 
 }
