@@ -29,7 +29,7 @@ async function carregarFuncionario() {
         if (!response.ok) throw new Error("Funcionário não encontrado");
 
         const func = await response.json();
-        form.id.value = func.idFuncionario;
+        form.idFuncionario.value = func.idFuncionario;
         form.criadoPor.value = func.criadoPor.idFuncionario;
         form.nome.value = func.nome;
         form.cpf.value = func.cpf;
@@ -57,7 +57,7 @@ form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const funcionario = {
-        idFuncionario: parseInt(form.id.value),
+        idFuncionario: parseInt(form.idFuncionario.value),
         nome: form.nome.value,
         cpf: form.cpf.value,
         email: form.email.value,
