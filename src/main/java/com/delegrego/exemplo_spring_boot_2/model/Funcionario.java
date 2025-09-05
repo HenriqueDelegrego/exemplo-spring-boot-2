@@ -61,7 +61,7 @@ public class Funcionario {
 	private Departamento departamento;
 
 	@ManyToOne
-	@JoinColumn(name = "criado_por")
+	@JoinColumn(name = "criado_por", nullable = true)
 	private Funcionario criadoPor;
 
 	public Funcionario() {

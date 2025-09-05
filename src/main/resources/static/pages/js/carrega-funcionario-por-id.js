@@ -29,8 +29,8 @@ async function carregarFuncionario() {
         if (!response.ok) throw new Error("Funcionário não encontrado");
 
         const func = await response.json();
-        form.idFuncionario.value = func.idFuncionario;
-        form.criadoPor.value = func.criadoPor.idFuncionario;
+        form.id.value = func.idFuncionario;
+        form.criadoPor.value = func.criadoPor?.idFuncionario || "";
         form.nome.value = func.nome;
         form.cpf.value = func.cpf;
         form.email.value = func.email;
@@ -56,8 +56,9 @@ async function carregarFuncionario() {
 form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    const criadoPorId = parseInt(form.criadoPor.value);
     const funcionario = {
-        idFuncionario: parseInt(form.idFuncionario.value),
+        idFuncionario: parseInt(form.id.value),
         nome: form.nome.value,
         cpf: form.cpf.value,
         email: form.email.value,
@@ -76,9 +77,9 @@ form.addEventListener("submit", async function (e) {
         departamento: {
             idDepartamento: parseInt(form.departamento.value),
         },
-        criadoPor: {
-            idFuncionario: parseInt(form.criadoPor.value)
-        }
+        criadoPor: criadoPorId ? {
+            idFuncionario: criadoPorId
+        } : null // Envia null se o valor for inválido
     };
 
     try {
