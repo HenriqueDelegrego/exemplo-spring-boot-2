@@ -1,6 +1,5 @@
 # Imagem base para o Spring Boot 2 com Java 21
-FROM openjdk:21-jdk-slim
-
+FROM eclipse-temurin:21
 # Define o diretório de trabalho
 WORKDIR /app
 
