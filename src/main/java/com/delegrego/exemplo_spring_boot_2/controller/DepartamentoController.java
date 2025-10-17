@@ -1,7 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.delegrego.exemplo_spring_boot_2.dto.DepartamentoDto;
-import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
 import jakarta.validation.Valid;
@@ -57,7 +55,7 @@ public class DepartamentoController {
 	 * @return Lista de departamentos
 	 */
 	@GetMapping
-	public List<DepartamentoEntity> listarDepartamentos() {
+	public List<DepartamentoDto> listarDepartamentos() {
 		return servico.listarDepartamentos();
 	}
 
@@ -68,7 +66,7 @@ public class DepartamentoController {
 	 * @return Departamento encontrado ou vazio se não existir
 	 */
 	@GetMapping("/{id}")
-	public Optional<DepartamentoEntity> obterDepartamentoPorId(@PathVariable int id) {
+	public DepartamentoDto obterDepartamentoPorId(@PathVariable int id) {
 		return servico.obterDepartamentoPorId(id);
 	}
 
@@ -78,7 +76,7 @@ public class DepartamentoController {
 	 * @param d - Departamento com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarDepartamento(@RequestBody DepartamentoEntity d) {
+	public void atualizarDepartamento(@RequestBody DepartamentoDto d) {
 		servico.atualizarDepartamento(d);
 	}
 

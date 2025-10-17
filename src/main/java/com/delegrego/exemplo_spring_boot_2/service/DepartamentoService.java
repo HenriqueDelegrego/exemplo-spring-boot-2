@@ -1,7 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,16 +34,41 @@ public class DepartamentoService {
 		repo.save(departamentoEntity);
 	}
 
-	public List<DepartamentoEntity> listarDepartamentos() {
-		return repo.findAll();
+	public List<DepartamentoDto> listarDepartamentos() {
+		List<DepartamentoEntity> listaDepartamentoEntity = repo.findAll();
+
+		List<DepartamentoDto> listaDepartamentoDto = new ArrayList<DepartamentoDto>();
+
+		for (DepartamentoEntity d : listaDepartamentoEntity) {
+			DepartamentoDto departamentoDto = new DepartamentoDto();
+			departamentoDto.setIdDepartamento(d.getIdDepartamento());
+			departamentoDto.setNmDepartamento(d.getNmDepartamento());
+
+			listaDepartamentoDto.add(departamentoDto);
+		}
+
+		return listaDepartamentoDto;
 	}
 
-	public Optional<DepartamentoEntity> obterDepartamentoPorId(int id) {
-		return repo.findById(id);
+	public DepartamentoDto obterDepartamentoPorId(int id) {
+		DepartamentoEntity departamentoEntity = repo.findById(id)
+				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+
+		DepartamentoDto departamentoDto = new DepartamentoDto();
+		departamentoDto.setIdDepartamento(departamentoEntity.getIdDepartamento());
+		departamentoDto.setNmDepartamento(departamentoEntity.getNmDepartamento());
+
+		return departamentoDto;
 	}
 
-	public void atualizarDepartamento(DepartamentoEntity d) {
-		repo.save(d);
+	public void atualizarDepartamento(DepartamentoDto departamentoDTO) {
+
+		DepartamentoEntity departamentoEntity = new DepartamentoEntity();
+
+		departamentoEntity.setIdDepartamento(departamentoDTO.getIdDepartamento());
+		departamentoEntity.setNmDepartamento(departamentoDTO.getNmDepartamento());
+
+		repo.save(departamentoEntity);
 	}
 
 	public void deletarDepartamento(int id) {
