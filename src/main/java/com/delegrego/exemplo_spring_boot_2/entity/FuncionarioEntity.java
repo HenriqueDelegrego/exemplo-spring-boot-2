@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "funcionario")
-public class Funcionario {
+public class FuncionarioEntity {
 
 	@Id
 
@@ -50,7 +50,7 @@ public class Funcionario {
 
 	// Indica que o campo abaixo é um objeto incorporado
 	@Embedded
-	private Endereco endereco;
+	private EnderecoEntity endereco;
 
 	// Indica relacionamento muitos-para-um com Departamento
 	@ManyToOne
@@ -58,18 +58,18 @@ public class Funcionario {
 	// name é o nome da coluna na tabela funcionario
 	// referencedColumnName é o nome da coluna na tabela departamento
 	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
-	private Departamento departamento;
+	private DepartamentoEntity departamento;
 
 	@ManyToOne
 	@JoinColumn(name = "criado_por", nullable = true)
-	private Funcionario criadoPor;
+	private FuncionarioEntity criadoPor;
 
-	public Funcionario() {
+	public FuncionarioEntity() {
 
 	}
 
-	public Funcionario(int idFuncionario, String nome, String cpf, String email, String senha, LocalDate dataNascimento,
-			BigDecimal salario, boolean gerente, Endereco endereco, Departamento departamento, Funcionario criadoPor) {
+	public FuncionarioEntity(int idFuncionario, String nome, String cpf, String email, String senha, LocalDate dataNascimento,
+			BigDecimal salario, boolean gerente, EnderecoEntity endereco, DepartamentoEntity departamento, FuncionarioEntity criadoPor) {
 		this.idFuncionario = idFuncionario;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -147,27 +147,27 @@ public class Funcionario {
 		this.gerente = gerente;
 	}
 
-	public Endereco getEndereco() {
+	public EnderecoEntity getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(EnderecoEntity endereco) {
 		this.endereco = endereco;
 	}
 
-	public Departamento getDepartamento() {
+	public DepartamentoEntity getDepartamento() {
 		return departamento;
 	}
 
-	public void setDepartamento(Departamento departamento) {
+	public void setDepartamento(DepartamentoEntity departamento) {
 		this.departamento = departamento;
 	}
 
-	public Funcionario getCriadoPor() {
+	public FuncionarioEntity getCriadoPor() {
 		return criadoPor;
 	}
 
-	public void setCriadoPor(Funcionario criadoPor) {
+	public void setCriadoPor(FuncionarioEntity criadoPor) {
 		this.criadoPor = criadoPor;
 	}
 

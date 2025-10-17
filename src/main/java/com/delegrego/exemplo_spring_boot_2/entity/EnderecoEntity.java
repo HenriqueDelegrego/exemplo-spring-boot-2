@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable;
 
 // Indica que esta classe pode ser incorporada em outra entidade JPA
 @Embeddable
-public class Endereco {
+public class EnderecoEntity {
 
 	@Column(name = "estado", nullable = false, length = 2)
 	private String estado;
@@ -25,11 +25,11 @@ public class Endereco {
 	@Column(name = "cep", length = 9)
 	private String cep;
 
-	public Endereco() {
+	public EnderecoEntity() {
 
 	}
 
-	public Endereco(String estado, String cidade, String bairro, String logradouro, String numero, String cep) {
+	public EnderecoEntity(String estado, String cidade, String bairro, String logradouro, String numero, String cep) {
 		this.estado = estado;
 		this.cidade = cidade;
 		this.bairro = bairro;

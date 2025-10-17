@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.delegrego.exemplo_spring_boot_2.entity.Departamento;
+import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
 @RestController
@@ -44,7 +44,7 @@ public class DepartamentoController {
 	 * @param d - Objeto Departamento a ser cadastrado
 	 */
 	@PostMapping
-	public void cadastrarDepartamento(@RequestBody Departamento d) {
+	public void cadastrarDepartamento(@RequestBody DepartamentoEntity d) {
 		servico.cadastrarDepartamento(d);
 	}
 
@@ -54,7 +54,7 @@ public class DepartamentoController {
 	 * @return Lista de departamentos
 	 */
 	@GetMapping
-	public List<Departamento> listarDepartamentos() {
+	public List<DepartamentoEntity> listarDepartamentos() {
 		return servico.listarDepartamentos();
 	}
 
@@ -65,7 +65,7 @@ public class DepartamentoController {
 	 * @return Departamento encontrado ou vazio se não existir
 	 */
 	@GetMapping("/{id}")
-	public Optional<Departamento> obterDepartamentoPorId(@PathVariable int id) {
+	public Optional<DepartamentoEntity> obterDepartamentoPorId(@PathVariable int id) {
 		return servico.obterDepartamentoPorId(id);
 	}
 
@@ -75,7 +75,7 @@ public class DepartamentoController {
 	 * @param d - Departamento com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarDepartamento(@RequestBody Departamento d) {
+	public void atualizarDepartamento(@RequestBody DepartamentoEntity d) {
 		servico.atualizarDepartamento(d);
 	}
 

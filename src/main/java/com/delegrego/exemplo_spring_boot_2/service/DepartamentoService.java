@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.entity.Departamento;
+import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
 
 @Service
@@ -24,19 +24,19 @@ public class DepartamentoService {
 		this.repo = repo;
 	}
 
-	public void cadastrarDepartamento(Departamento d) {
+	public void cadastrarDepartamento(DepartamentoEntity d) {
 		repo.save(d);
 	}
 
-	public List<Departamento> listarDepartamentos() {
+	public List<DepartamentoEntity> listarDepartamentos() {
 		return repo.findAll();
 	}
 
-	public Optional<Departamento> obterDepartamentoPorId(int id) {
+	public Optional<DepartamentoEntity> obterDepartamentoPorId(int id) {
 		return repo.findById(id);
 	}
 
-	public void atualizarDepartamento(Departamento d) {
+	public void atualizarDepartamento(DepartamentoEntity d) {
 		repo.save(d);
 	}
 

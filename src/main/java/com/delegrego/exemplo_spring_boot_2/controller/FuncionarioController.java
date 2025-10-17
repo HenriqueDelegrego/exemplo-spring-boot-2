@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.delegrego.exemplo_spring_boot_2.entity.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
 
 @RestController
@@ -38,7 +38,7 @@ public class FuncionarioController {
 	}
 
 	@PostMapping
-	public void cadastrarFuncionario(@RequestBody Funcionario f) {
+	public void cadastrarFuncionario(@RequestBody FuncionarioEntity f) {
 		servico.cadastrarFuncionario(f);
 	}
 
@@ -48,7 +48,7 @@ public class FuncionarioController {
 	 * @return Lista de funcionários
 	 */
 	@GetMapping
-	public List<Funcionario> listarFuncionarios() {
+	public List<FuncionarioEntity> listarFuncionarios() {
 		return servico.listarFuncionarios();
 	}
 
@@ -59,7 +59,7 @@ public class FuncionarioController {
 	 * @return Funcionário encontrado ou vazio se não existir
 	 */
 	@GetMapping("/{id}")
-	public Optional<Funcionario> obterFuncionarioPorId(@PathVariable int id) {
+	public Optional<FuncionarioEntity> obterFuncionarioPorId(@PathVariable int id) {
 		return servico.obterFuncionarioPorId(id);
 	}
 
@@ -69,7 +69,7 @@ public class FuncionarioController {
 	 * @param f - Funcionário com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarFuncionario(@RequestBody Funcionario f) {
+	public void atualizarFuncionario(@RequestBody FuncionarioEntity f) {
 		servico.atualizarFuncionario(f);
 	}
 

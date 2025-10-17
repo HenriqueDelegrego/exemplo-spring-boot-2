@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.entity.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
 @Service
@@ -26,7 +26,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void cadastrarFuncionario(Funcionario f) {
+	public void cadastrarFuncionario(FuncionarioEntity f) {
 
 		if (repo.findByEmail(f.getEmail()).isPresent()) {
 			throw new RuntimeException("Usuário com esse email já existe");
@@ -40,17 +40,17 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public List<Funcionario> listarFuncionarios() {
+	public List<FuncionarioEntity> listarFuncionarios() {
 		return repo.findAll();
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public Optional<Funcionario> obterFuncionarioPorId(int id) {
+	public Optional<FuncionarioEntity> obterFuncionarioPorId(int id) {
 		return repo.findById(id);
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarFuncionario(Funcionario f) {
+	public void atualizarFuncionario(FuncionarioEntity f) {
 
 		if (repo.existsByEmailAndIdFuncionarioNot(f.getEmail(), f.getIdFuncionario())) {
 			throw new RuntimeException("Usuário com esse email já existe");

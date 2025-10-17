@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.delegrego.exemplo_spring_boot_2.entity.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,9 +21,9 @@ import java.util.List;
  */
 public class FuncionarioDetails implements UserDetails {
 
-	private final Funcionario f;
+	private final FuncionarioEntity f;
 
-	public FuncionarioDetails(Funcionario f) {
+	public FuncionarioDetails(FuncionarioEntity f) {
 		this.f = f;
 	}
 
