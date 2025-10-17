@@ -3,15 +3,43 @@ package com.delegrego.exemplo_spring_boot_2.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
+
 public class FuncionarioDto {
 
 	private int idFuncionario;
+
+	@NotBlank
+	@Size(max = 100)
 	private String nome;
+
+	@NotBlank
+	@Pattern(regexp = "\\d{8}")
 	private String cpf;
+
+	@NotBlank
+	@Email
+	@Size(max = 100)
 	private String email;
+
+	@NotNull
+	@PastOrPresent
 	private LocalDate dataNascimento;
+
+	@Digits(integer = 10, fraction = 2)
+	@PositiveOrZero
 	private BigDecimal salario;
+
 	private boolean gerente;
+
+	@NotNull
 	private EnderecoDto endereco;
 
 	public FuncionarioDto() {

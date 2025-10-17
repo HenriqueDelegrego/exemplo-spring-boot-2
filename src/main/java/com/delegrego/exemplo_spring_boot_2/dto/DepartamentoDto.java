@@ -1,8 +1,14 @@
 package com.delegrego.exemplo_spring_boot_2.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class DepartamentoDto {
 
 	private int idDepartamento;
+
+	@NotBlank
+	@Size(max = 50)
 	private String nome;
 
 	public DepartamentoDto() {
