@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.entity.Funcionario;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
 /**

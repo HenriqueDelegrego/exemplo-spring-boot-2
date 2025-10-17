@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.entity.Funcionario;
 
 import java.util.Collection;
 import java.util.List;

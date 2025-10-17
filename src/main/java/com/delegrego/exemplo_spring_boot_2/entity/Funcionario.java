@@ -1,4 +1,4 @@
-package com.delegrego.exemplo_spring_boot_2.model;
+package com.delegrego.exemplo_spring_boot_2.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

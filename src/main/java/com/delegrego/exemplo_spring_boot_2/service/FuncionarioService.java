@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.entity.Funcionario;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
 @Service

@@ -1,4 +1,4 @@
-package com.delegrego.exemplo_spring_boot_2.model;
+package com.delegrego.exemplo_spring_boot_2.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
