@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.delegrego.exemplo_spring_boot_2.dto.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
@@ -44,8 +45,8 @@ public class DepartamentoController {
 	 * @param d - Objeto Departamento a ser cadastrado
 	 */
 	@PostMapping
-	public void cadastrarDepartamento(@RequestBody DepartamentoEntity d) {
-		servico.cadastrarDepartamento(d);
+	public void cadastrarDepartamento(@RequestBody DepartamentoDto departamentoDTO) {
+		servico.cadastrarDepartamento(departamentoDTO);
 	}
 
 	/**

@@ -9,7 +9,7 @@ public class DepartamentoDto {
 
 	@NotBlank
 	@Size(max = 50)
-	private String nome;
+	private String nmDepartamento;
 
 	public DepartamentoDto() {
 
@@ -17,7 +17,7 @@ public class DepartamentoDto {
 
 	public DepartamentoDto(int idDepartamento, String nome) {
 		this.idDepartamento = idDepartamento;
-		this.nome = nome;
+		this.nmDepartamento = nome;
 	}
 
 	public int getIdDepartamento() {
@@ -28,12 +28,14 @@ public class DepartamentoDto {
 		this.idDepartamento = idDepartamento;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNmDepartamento() {
+		return nmDepartamento;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNmDepartamento(String nmDepartamento) {
+		this.nmDepartamento = nmDepartamento;
 	}
+
+	
 
 }
