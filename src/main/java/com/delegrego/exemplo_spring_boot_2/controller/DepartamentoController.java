@@ -19,6 +19,8 @@ import com.delegrego.exemplo_spring_boot_2.dto.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 
 // Define o endpoint base para todos os métodos deste controlador
@@ -45,7 +47,7 @@ public class DepartamentoController {
 	 * @param d - Objeto Departamento a ser cadastrado
 	 */
 	@PostMapping
-	public void cadastrarDepartamento(@RequestBody DepartamentoDto departamentoDTO) {
+	public void cadastrarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDTO) {
 		servico.cadastrarDepartamento(departamentoDTO);
 	}
 
