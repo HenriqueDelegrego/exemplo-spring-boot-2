@@ -1,14 +1,14 @@
-async function obterUsuarioAutenticado() {
-    try {
-        const response = await fetch('/funcionarios/me/id');
-        if (!response.ok) throw new Error('Erro ao obter usuário autenticado');
-        return await response.json();
-    } catch (error) {
-        console.error('Erro ao obter usuário autenticado:', error);
-        alert('Não foi possível obter o usuário autenticado. Tente novamente.');
-        throw error;
-    }
-}
+// async function obterUsuarioAutenticado() {
+//     try {
+//         const response = await fetch('/funcionarios/me/id');
+//         if (!response.ok) throw new Error('Erro ao obter usuário autenticado');
+//         return await response.json();
+//     } catch (error) {
+//         console.error('Erro ao obter usuário autenticado:', error);
+//         alert('Não foi possível obter o usuário autenticado. Tente novamente.');
+//         throw error;
+//     }
+// }
 
 async function cadastrarFuncionario() {
     document.getElementById('formFuncionario').addEventListener('submit', async function (e) {
@@ -18,7 +18,7 @@ async function cadastrarFuncionario() {
 
         try {
             // Obter o usuário autenticado
-            const usuarioAutenticado = await obterUsuarioAutenticado();
+           // const usuarioAutenticado = await obterUsuarioAutenticado();
 
             const funcionario = {
                 nome: form.nome.value,
@@ -36,12 +36,10 @@ async function cadastrarFuncionario() {
                     numero: form.numero.value,
                     cep: form.cep.value
                 },
-                departamento: {
-                    idDepartamento: parseInt(form.departamento.value)
-                },
-                criadoPor: {
-                    idFuncionario: usuarioAutenticado.id // Preenche com o ID do usuário autenticado
-                }
+                idDepartamento: parseInt(form.departamento.value)              //  ,
+                // criadoPor: {
+                //     idFuncionario: usuarioAutenticado.id // Preenche com o ID do usuário autenticado
+                // }
             };
 
             const response = await fetch('http://localhost:8080/funcionarios', {

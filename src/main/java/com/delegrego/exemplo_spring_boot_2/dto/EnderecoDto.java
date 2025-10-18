@@ -92,4 +92,13 @@ public class EnderecoDto {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+
+	@Override
+	public String toString() {
+		return "EnderecoDto [estado=" + estado + ", cidade=" + cidade + ", bairro=" + bairro + ", logradouro="
+				+ logradouro + ", numero=" + numero + ", cep=" + cep + "]";
+	}
+	
+	
+	
 }

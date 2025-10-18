@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.delegrego.exemplo_spring_boot_2.dto.FuncionarioDto;
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
 
@@ -38,8 +39,9 @@ public class FuncionarioController {
 	}
 
 	@PostMapping
-	public void cadastrarFuncionario(@RequestBody FuncionarioEntity f) {
-		servico.cadastrarFuncionario(f);
+	public void cadastrarFuncionario(@RequestBody FuncionarioDto funcionarioDto) {
+		System.out.println(funcionarioDto.getEndereco());
+		servico.cadastrarFuncionario(funcionarioDto);
 	}
 
 	/**

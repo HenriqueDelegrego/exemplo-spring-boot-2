@@ -29,6 +29,10 @@ public class FuncionarioDto {
 	@Size(max = 100)
 	private String email;
 
+	@NotBlank
+	@Size(max = 100)
+	private String senha;
+
 	@NotNull
 	@PastOrPresent
 	private LocalDate dataNascimento;
@@ -42,21 +46,15 @@ public class FuncionarioDto {
 	@NotNull
 	private EnderecoDto endereco;
 
+	private int idDepartamento;
+	
+	String criadoPor;
+
 	public FuncionarioDto() {
 
 	}
 
-	public FuncionarioDto(int idFuncionario, String nome, String cpf, String email, LocalDate dataNascimento,
-			BigDecimal salario, boolean gerente, EnderecoDto endereco) {
-		this.idFuncionario = idFuncionario;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.email = email;
-		this.dataNascimento = dataNascimento;
-		this.salario = salario;
-		this.gerente = gerente;
-		this.endereco = endereco;
-	}
+	
 
 	public int getIdFuncionario() {
 		return idFuncionario;
@@ -90,6 +88,14 @@ public class FuncionarioDto {
 		this.email = email;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
@@ -121,4 +127,13 @@ public class FuncionarioDto {
 	public void setEndereco(EnderecoDto endereco) {
 		this.endereco = endereco;
 	}
+
+	public int getIdDepartamento() {
+		return idDepartamento;
+	}
+
+	public void setIdDepartamento(int idDepartamento) {
+		this.idDepartamento = idDepartamento;
+	}
+
 }
