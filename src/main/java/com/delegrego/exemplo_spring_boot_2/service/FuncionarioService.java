@@ -2,7 +2,6 @@ package com.delegrego.exemplo_spring_boot_2.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -130,8 +129,39 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public Optional<FuncionarioEntity> obterFuncionarioPorId(int id) {
-		return repo.findById(id);
+	public FuncionarioDto obterFuncionarioPorId(int id) {
+
+		FuncionarioEntity funcionarioEntity = repo.findById(id)
+				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+
+		FuncionarioDto funcionarioDto = new FuncionarioDto();
+
+		funcionarioDto.setIdFuncionario(funcionarioEntity.getIdFuncionario());
+		funcionarioDto.setNome(funcionarioEntity.getNome());
+		funcionarioDto.setCpf(funcionarioEntity.getCpf());
+		funcionarioDto.setEmail(funcionarioEntity.getEmail());
+		funcionarioDto.setSenha(funcionarioEntity.getSenha());
+		funcionarioDto.setDataNascimento(funcionarioEntity.getDataNascimento());
+		funcionarioDto.setSalario(funcionarioEntity.getSalario());
+		funcionarioDto.setGerente(funcionarioEntity.isGerente());
+
+		funcionarioDto.setEndereco(new EnderecoDto());
+		funcionarioDto.getEndereco().setEstado(funcionarioEntity.getEndereco().getEstado());
+		funcionarioDto.getEndereco().setCidade(funcionarioEntity.getEndereco().getCidade());
+		funcionarioDto.getEndereco().setBairro(funcionarioEntity.getEndereco().getBairro());
+		funcionarioDto.getEndereco().setLogradouro(funcionarioEntity.getEndereco().getLogradouro());
+		funcionarioDto.getEndereco().setNumero(funcionarioEntity.getEndereco().getNumero());
+		funcionarioDto.getEndereco().setCep(funcionarioEntity.getEndereco().getCep());
+
+		funcionarioDto.setDepartamento(new DepartamentoFuncionarioDto());
+		funcionarioDto.getDepartamento().setIdDepartamento(funcionarioEntity.getDepartamento().getIdDepartamento());
+		funcionarioDto.getDepartamento().setNmDepartamento(funcionarioEntity.getDepartamento().getNmDepartamento());
+
+		if (funcionarioEntity.getCriadoPor() != null) {
+			funcionarioDto.setCriadoPor(funcionarioEntity.getCriadoPor().getNome());
+		}
+
+		return funcionarioDto;
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
