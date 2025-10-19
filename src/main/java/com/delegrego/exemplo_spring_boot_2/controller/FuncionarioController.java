@@ -50,7 +50,7 @@ public class FuncionarioController {
 	 * @return Lista de funcionários
 	 */
 	@GetMapping
-	public List<FuncionarioEntity> listarFuncionarios() {
+	public List<FuncionarioDto> listarFuncionarios() {
 		return servico.listarFuncionarios();
 	}
 

@@ -1,5 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.delegrego.exemplo_spring_boot_2.dto.DepartamentoFuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.EnderecoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.FuncionarioDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.EnderecoEntity;
@@ -47,7 +50,8 @@ public class FuncionarioService {
 
 		FuncionarioEntity funcionarioEntity = new FuncionarioEntity();
 
-		DepartamentoEntity departamentoEntity = departamentoRepo.findById(funcionarioDto.getIdDepartamento())
+		DepartamentoEntity departamentoEntity = departamentoRepo
+				.findById(funcionarioDto.getDepartamento().getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -68,9 +72,9 @@ public class FuncionarioService {
 		funcionarioEntity.setDataNascimento(funcionarioDto.getDataNascimento());
 		funcionarioEntity.setSalario(funcionarioDto.getSalario());
 		funcionarioEntity.setGerente(funcionarioDto.isGerente());
-		
+
 		funcionarioEntity.setEndereco(new EnderecoEntity());
-		
+
 		funcionarioEntity.getEndereco().setEstado(funcionarioDto.getEndereco().getEstado());
 		funcionarioEntity.getEndereco().setCidade(funcionarioDto.getEndereco().getCidade());
 		funcionarioEntity.getEndereco().setBairro(funcionarioDto.getEndereco().getBairro());
@@ -84,8 +88,45 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public List<FuncionarioEntity> listarFuncionarios() {
-		return repo.findAll();
+	public List<FuncionarioDto> listarFuncionarios() {
+
+		List<FuncionarioEntity> listaFuncionarioEntity = repo.findAll();
+
+		List<FuncionarioDto> listaFuncionarioDto = new ArrayList<FuncionarioDto>();
+
+		for (FuncionarioEntity f : listaFuncionarioEntity) {
+
+			FuncionarioDto funcionarioDto = new FuncionarioDto();
+
+			funcionarioDto.setIdFuncionario(f.getIdFuncionario());
+			funcionarioDto.setNome(f.getNome());
+			funcionarioDto.setCpf(f.getCpf());
+			funcionarioDto.setEmail(f.getEmail());
+			funcionarioDto.setSenha(f.getSenha());
+			funcionarioDto.setDataNascimento(f.getDataNascimento());
+			funcionarioDto.setSalario(f.getSalario());
+			funcionarioDto.setGerente(f.isGerente());
+
+			funcionarioDto.setEndereco(new EnderecoDto());
+			funcionarioDto.getEndereco().setEstado(f.getEndereco().getEstado());
+			funcionarioDto.getEndereco().setCidade(f.getEndereco().getCidade());
+			funcionarioDto.getEndereco().setBairro(f.getEndereco().getBairro());
+			funcionarioDto.getEndereco().setLogradouro(f.getEndereco().getLogradouro());
+			funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
+			funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
+
+			funcionarioDto.setDepartamento(new DepartamentoFuncionarioDto());
+			funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
+			funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
+
+			if (f.getCriadoPor() != null) {
+				funcionarioDto.setCriadoPor(f.getCriadoPor().getNome());
+			}
+
+			listaFuncionarioDto.add(funcionarioDto);
+		}
+
+		return listaFuncionarioDto;
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")

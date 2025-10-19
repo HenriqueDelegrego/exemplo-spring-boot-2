@@ -46,15 +46,13 @@ public class FuncionarioDto {
 	@NotNull
 	private EnderecoDto endereco;
 
-	private int idDepartamento;
-	
-	String criadoPor;
+	private DepartamentoFuncionarioDto departamento;
+
+	private String criadoPor;
 
 	public FuncionarioDto() {
 
 	}
-
-	
 
 	public int getIdFuncionario() {
 		return idFuncionario;
@@ -128,12 +126,20 @@ public class FuncionarioDto {
 		this.endereco = endereco;
 	}
 
-	public int getIdDepartamento() {
-		return idDepartamento;
+	public DepartamentoFuncionarioDto getDepartamento() {
+		return departamento;
 	}
 
-	public void setIdDepartamento(int idDepartamento) {
-		this.idDepartamento = idDepartamento;
+	public void setDepartamento(DepartamentoFuncionarioDto departamento) {
+		this.departamento = departamento;
+	}
+
+	public String getCriadoPor() {
+		return criadoPor;
+	}
+
+	public void setCriadoPor(String criadoPor) {
+		this.criadoPor = criadoPor;
 	}
 
 }
