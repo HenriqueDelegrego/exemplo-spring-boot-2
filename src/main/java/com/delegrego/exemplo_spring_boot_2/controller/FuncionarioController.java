@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.delegrego.exemplo_spring_boot_2.dto.FuncionarioDto;
-import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
 
 @RestController
@@ -70,7 +69,7 @@ public class FuncionarioController {
 	 * @param f - Funcionário com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarFuncionario(@RequestBody FuncionarioEntity f) {
+	public void atualizarFuncionario(@RequestBody FuncionarioDto f) {
 		servico.atualizarFuncionario(f);
 	}
 

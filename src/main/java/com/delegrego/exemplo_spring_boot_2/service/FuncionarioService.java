@@ -56,6 +56,8 @@ public class FuncionarioService {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		String email = authentication.getName();
+		
+		System.out.println("O tal do email: " + email);
 
 		FuncionarioEntity criadoPor = repo.findByEmail(email)
 				.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -165,17 +167,42 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarFuncionario(FuncionarioEntity f) {
+	public void atualizarFuncionario(FuncionarioDto funcionarioDto) {
 
-		if (repo.existsByEmailAndIdFuncionarioNot(f.getEmail(), f.getIdFuncionario())) {
+		FuncionarioEntity funcionarioEntity = repo.findById(funcionarioDto.getIdFuncionario())
+				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+
+		if (repo.existsByEmailAndIdFuncionarioNot(funcionarioDto.getEmail(), funcionarioDto.getIdFuncionario())) {
 			throw new RuntimeException("Usuário com esse email já existe");
 		}
 
-		if (repo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
+		if (repo.existsByCpfAndIdFuncionarioNot(funcionarioDto.getCpf(), funcionarioDto.getIdFuncionario())) {
 			throw new RuntimeException("Usuário com esse CPF já existe");
 		}
 
-		repo.save(f);
+		DepartamentoEntity departamentoEntity = departamentoRepo
+				.findById(funcionarioDto.getDepartamento().getIdDepartamento())
+				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+
+		funcionarioEntity.setNome(funcionarioDto.getNome());
+		funcionarioEntity.setCpf(funcionarioDto.getCpf());
+		funcionarioEntity.setEmail(funcionarioDto.getEmail());
+		funcionarioEntity.setSenha(funcionarioDto.getSenha());
+		funcionarioEntity.setDataNascimento(funcionarioDto.getDataNascimento());
+		funcionarioEntity.setSalario(funcionarioDto.getSalario());
+		funcionarioEntity.setGerente(funcionarioDto.isGerente());
+
+		funcionarioEntity.setEndereco(new EnderecoEntity());
+
+		funcionarioEntity.getEndereco().setEstado(funcionarioDto.getEndereco().getEstado());
+		funcionarioEntity.getEndereco().setCidade(funcionarioDto.getEndereco().getCidade());
+		funcionarioEntity.getEndereco().setBairro(funcionarioDto.getEndereco().getBairro());
+		funcionarioEntity.getEndereco().setLogradouro(funcionarioDto.getEndereco().getLogradouro());
+		funcionarioEntity.getEndereco().setNumero(funcionarioDto.getEndereco().getNumero());
+		funcionarioEntity.getEndereco().setCep(funcionarioDto.getEndereco().getCep());
+		funcionarioEntity.setDepartamento(departamentoEntity);
+
+		repo.save(funcionarioEntity);
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")

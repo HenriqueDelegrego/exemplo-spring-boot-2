@@ -18,7 +18,7 @@ async function cadastrarFuncionario() {
 
         try {
             // Obter o usuário autenticado
-           // const usuarioAutenticado = await obterUsuarioAutenticado();
+            // const usuarioAutenticado = await obterUsuarioAutenticado();
 
             const funcionario = {
                 nome: form.nome.value,
@@ -36,7 +36,9 @@ async function cadastrarFuncionario() {
                     numero: form.numero.value,
                     cep: form.cep.value
                 },
-                idDepartamento: parseInt(form.departamento.value)              //  ,
+                departamento: {
+                    idDepartamento: parseInt(form.departamento.value)
+                }           //  ,
                 // criadoPor: {
                 //     idFuncionario: usuarioAutenticado.id // Preenche com o ID do usuário autenticado
                 // }
