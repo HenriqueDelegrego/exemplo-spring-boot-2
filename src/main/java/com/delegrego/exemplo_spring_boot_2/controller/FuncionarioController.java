@@ -38,7 +38,6 @@ public class FuncionarioController {
 
 	@PostMapping
 	public void cadastrarFuncionario(@RequestBody FuncionarioDto funcionarioDto) {
-		System.out.println(funcionarioDto.getEndereco());
 		servico.cadastrarFuncionario(funcionarioDto);
 	}
 
@@ -66,11 +65,11 @@ public class FuncionarioController {
 	/**
 	 * Endpoint para atualizar um funcionário
 	 * 
-	 * @param f - Funcionário com os dados atualizados
+	 * @param funcionarioDto - Funcionário com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarFuncionario(@RequestBody FuncionarioDto f) {
-		servico.atualizarFuncionario(f);
+	public void atualizarFuncionario(@RequestBody FuncionarioDto funcionarioDto) {
+		servico.atualizarFuncionario(funcionarioDto);
 	}
 
 	/**

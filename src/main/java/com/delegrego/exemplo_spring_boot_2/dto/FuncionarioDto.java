@@ -46,6 +46,7 @@ public class FuncionarioDto {
 	@NotNull
 	private EnderecoDto endereco;
 
+	@NotNull
 	private DepartamentoFuncionarioDto departamento;
 
 	private String criadoPor;

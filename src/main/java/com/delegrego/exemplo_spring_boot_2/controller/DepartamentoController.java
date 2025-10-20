@@ -42,11 +42,11 @@ public class DepartamentoController {
 	/**
 	 * Cadastra um novo departamento
 	 * 
-	 * @param d - Objeto Departamento a ser cadastrado
+	 * @param departamentoDto - Objeto Departamento a ser cadastrado
 	 */
 	@PostMapping
-	public void cadastrarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDTO) {
-		servico.cadastrarDepartamento(departamentoDTO);
+	public void cadastrarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
+		servico.cadastrarDepartamento(departamentoDto);
 	}
 
 	/**
@@ -73,11 +73,11 @@ public class DepartamentoController {
 	/**
 	 * Atualiza um departamento existente
 	 * 
-	 * @param d - Departamento com os dados atualizados
+	 * @param departamentoDto - Departamento com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarDepartamento(@RequestBody DepartamentoDto d) {
-		servico.atualizarDepartamento(d);
+	public void atualizarDepartamento(@RequestBody DepartamentoDto departamentoDto) {
+		servico.atualizarDepartamento(departamentoDto);
 	}
 
 	/**
