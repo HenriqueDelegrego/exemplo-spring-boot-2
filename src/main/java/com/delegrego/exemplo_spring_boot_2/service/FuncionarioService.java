@@ -57,8 +57,6 @@ public class FuncionarioService {
 
 		String email = authentication.getName();
 
-		System.out.println("O tal do email: " + email);
-
 		FuncionarioEntity criadoPor = repo.findByEmail(email)
 				.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
