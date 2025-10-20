@@ -51,6 +51,7 @@ public class DepartamentoService {
 	}
 
 	public DepartamentoDto obterDepartamentoPorId(int id) {
+
 		DepartamentoEntity departamentoEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
