@@ -76,7 +76,7 @@ public class DepartamentoController {
 	 * @param departamentoDto - Departamento com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarDepartamento(@RequestBody DepartamentoDto departamentoDto) {
+	public void atualizarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
 		servico.atualizarDepartamento(departamentoDto);
 	}
 

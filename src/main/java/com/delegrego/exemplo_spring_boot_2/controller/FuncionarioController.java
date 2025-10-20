@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.delegrego.exemplo_spring_boot_2.dto.FuncionarioDto;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
 
+import jakarta.validation.Valid;
+
 @RestController
 
 // Define o endpoint base para todos os métodos deste controlador
@@ -42,7 +44,7 @@ public class FuncionarioController {
 	 * @param funcionarioDto - Dados do funcionário a ser cadastrado
 	 */
 	@PostMapping
-	public void cadastrarFuncionario(@RequestBody FuncionarioDto funcionarioDto) {
+	public void cadastrarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
 		servico.cadastrarFuncionario(funcionarioDto);
 	}
 
@@ -73,7 +75,7 @@ public class FuncionarioController {
 	 * @param funcionarioDto - Funcionário com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarFuncionario(@RequestBody FuncionarioDto funcionarioDto) {
+	public void atualizarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
 		servico.atualizarFuncionario(funcionarioDto);
 	}
 
