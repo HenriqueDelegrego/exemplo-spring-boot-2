@@ -21,7 +21,7 @@ public class FuncionarioDto {
 	private String nome;
 
 	@NotBlank
-	@Pattern(regexp = "\\d{8}")
+	@Pattern(regexp = "\\d{11}")
 	private String cpf;
 
 	@NotBlank
