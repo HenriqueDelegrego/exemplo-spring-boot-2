@@ -56,15 +56,11 @@ public class FuncionarioService {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		String email = authentication.getName();
-		
+
 		System.out.println("O tal do email: " + email);
 
 		FuncionarioEntity criadoPor = repo.findByEmail(email)
 				.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-		// Load creator entity
-		// FuncionarioEntity criadoPor = repo.findByUsername(username).orElseThrow(() ->
-		// new UsernameNotFoundException("User not found"));
 
 		funcionarioEntity.setNome(funcionarioDto.getNome());
 		funcionarioEntity.setCpf(funcionarioDto.getCpf());

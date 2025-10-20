@@ -36,6 +36,11 @@ public class FuncionarioController {
 		this.servico = servico;
 	}
 
+	/**
+	 * Endpoint para cadastrar um novo funcionário
+	 * 
+	 * @param funcionarioDto - Dados do funcionário a ser cadastrado
+	 */
 	@PostMapping
 	public void cadastrarFuncionario(@RequestBody FuncionarioDto funcionarioDto) {
 		servico.cadastrarFuncionario(funcionarioDto);

@@ -1,14 +1,3 @@
-// async function obterUsuarioAutenticado() {
-//     try {
-//         const response = await fetch('/funcionarios/me/id');
-//         if (!response.ok) throw new Error('Erro ao obter usuário autenticado');
-//         return await response.json();
-//     } catch (error) {
-//         console.error('Erro ao obter usuário autenticado:', error);
-//         alert('Não foi possível obter o usuário autenticado. Tente novamente.');
-//         throw error;
-//     }
-// }
 
 async function cadastrarFuncionario() {
     document.getElementById('formFuncionario').addEventListener('submit', async function (e) {
@@ -17,9 +6,6 @@ async function cadastrarFuncionario() {
         const form = e.target;
 
         try {
-            // Obter o usuário autenticado
-            // const usuarioAutenticado = await obterUsuarioAutenticado();
-
             const funcionario = {
                 nome: form.nome.value,
                 cpf: form.cpf.value,
@@ -38,10 +24,7 @@ async function cadastrarFuncionario() {
                 },
                 departamento: {
                     idDepartamento: parseInt(form.departamento.value)
-                }           //  ,
-                // criadoPor: {
-                //     idFuncionario: usuarioAutenticado.id // Preenche com o ID do usuário autenticado
-                // }
+                }
             };
 
             const response = await fetch('http://localhost:8080/funcionarios', {
