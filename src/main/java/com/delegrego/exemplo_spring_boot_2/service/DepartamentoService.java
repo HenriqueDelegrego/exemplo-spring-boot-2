@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.RuntimeBeanNameReference;
 import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_spring_boot_2.dto.DepartamentoDto;
@@ -64,7 +65,8 @@ public class DepartamentoService {
 
 	public void atualizarDepartamento(DepartamentoDto departamentoDTO) {
 
-		DepartamentoEntity departamentoEntity = new DepartamentoEntity();
+		DepartamentoEntity departamentoEntity = repo.findById(departamentoDTO.getIdDepartamento())
+				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		departamentoEntity.setIdDepartamento(departamentoDTO.getIdDepartamento());
 		departamentoEntity.setNmDepartamento(departamentoDTO.getNmDepartamento());
@@ -73,6 +75,9 @@ public class DepartamentoService {
 	}
 
 	public void deletarDepartamento(int id) {
+
+		repo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+
 		repo.deleteById(id);
 	}
 
