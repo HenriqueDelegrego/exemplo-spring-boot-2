@@ -87,9 +87,8 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity deletarDepartamento(@PathVariable int id) {
+	public void deletarDepartamento(@PathVariable int id) {
 		servico.deletarDepartamento(id);
-		return ResponseEntity.noContent().build();
 	}
 
 }
