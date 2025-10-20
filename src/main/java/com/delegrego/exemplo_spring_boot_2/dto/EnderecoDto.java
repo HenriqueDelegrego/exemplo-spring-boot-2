@@ -1,35 +1,42 @@
-package com.delegrego.exemplo_spring_boot_2.model;
+package com.delegrego.exemplo_spring_boot_2.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
-// Indica que esta classe pode ser incorporada em outra entidade JPA
-@Embeddable
-public class Endereco {
+public class EnderecoDto {
 
-	@Column(name = "estado", nullable = false, length = 2)
+	@NotBlank
+	@Size(min = 2, max = 2)
 	private String estado;
 
-	@Column(name = "cidade", nullable = false, length = 100)
+	@NotBlank
+	@Size(max = 100)
 	private String cidade;
 
-	@Column(name = "bairro", nullable = false, length = 100)
+	@NotBlank
+	@Size(max = 100)
 	private String bairro;
 
-	@Column(name = "logradouro", nullable = false, length = 100)
+	@NotBlank
+	@Size(max = 100)
 	private String logradouro;
 
-	@Column(name = "numero", length = 10)
+	@NotNull
+	@Size(max = 10)
+	@Pattern(regexp = "\\d+")
 	private String numero;
 
-	@Column(name = "cep", length = 9)
+	@NotBlank
+	@Pattern(regexp = "\\d{8}")
 	private String cep;
 
-	public Endereco() {
+	public EnderecoDto() {
 
 	}
 
-	public Endereco(String estado, String cidade, String bairro, String logradouro, String numero, String cep) {
+	public EnderecoDto(String estado, String cidade, String bairro, String logradouro, String numero, String cep) {
 		this.estado = estado;
 		this.cidade = cidade;
 		this.bairro = bairro;
@@ -86,4 +93,12 @@ public class Endereco {
 		this.cep = cep;
 	}
 
+	@Override
+	public String toString() {
+		return "EnderecoDto [estado=" + estado + ", cidade=" + cidade + ", bairro=" + bairro + ", logradouro="
+				+ logradouro + ", numero=" + numero + ", cep=" + cep + "]";
+	}
+	
+	
+	
 }

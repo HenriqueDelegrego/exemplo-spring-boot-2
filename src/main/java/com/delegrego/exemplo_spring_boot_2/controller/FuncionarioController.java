@@ -1,7 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.dto.FuncionarioDto;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
+
+import jakarta.validation.Valid;
 
 @RestController
 
@@ -37,9 +38,14 @@ public class FuncionarioController {
 		this.servico = servico;
 	}
 
+	/**
+	 * Endpoint para cadastrar um novo funcionário
+	 * 
+	 * @param funcionarioDto - Dados do funcionário a ser cadastrado
+	 */
 	@PostMapping
-	public void cadastrarFuncionario(@RequestBody Funcionario f) {
-		servico.cadastrarFuncionario(f);
+	public void cadastrarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
+		servico.cadastrarFuncionario(funcionarioDto);
 	}
 
 	/**
@@ -48,7 +54,7 @@ public class FuncionarioController {
 	 * @return Lista de funcionários
 	 */
 	@GetMapping
-	public List<Funcionario> listarFuncionarios() {
+	public List<FuncionarioDto> listarFuncionarios() {
 		return servico.listarFuncionarios();
 	}
 
@@ -59,18 +65,18 @@ public class FuncionarioController {
 	 * @return Funcionário encontrado ou vazio se não existir
 	 */
 	@GetMapping("/{id}")
-	public Optional<Funcionario> obterFuncionarioPorId(@PathVariable int id) {
+	public FuncionarioDto obterFuncionarioPorId(@PathVariable int id) {
 		return servico.obterFuncionarioPorId(id);
 	}
 
 	/**
 	 * Endpoint para atualizar um funcionário
 	 * 
-	 * @param f - Funcionário com os dados atualizados
+	 * @param funcionarioDto - Funcionário com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarFuncionario(@RequestBody Funcionario f) {
-		servico.atualizarFuncionario(f);
+	public void atualizarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
+		servico.atualizarFuncionario(funcionarioDto);
 	}
 
 	/**

@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 
-public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer> {
+public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Integer> {
 
 	// Derived query
 
@@ -15,14 +15,14 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 	 * @param email - O email do funcionário
 	 * @return O funcionário, ou vazio se não encontrado
 	 */
-	Optional<Funcionario> findByEmail(String email);
+	Optional<FuncionarioEntity> findByEmail(String email);
 
 	/**
 	 * Retorna um funcionário com o cpf fornecido
 	 * @param cpf - O cpf do funcionário
 	 * @return O funcionário, ou vazio se não encontrado
 	 */
-	Optional<Funcionario> findByCpf(String cpf);
+	Optional<FuncionarioEntity> findByCpf(String cpf);
 
 	/**
 	 * Retorna um boolean indicando se o cpf já existe para outro funcionário

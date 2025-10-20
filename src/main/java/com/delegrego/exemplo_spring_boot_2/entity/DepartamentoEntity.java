@@ -1,4 +1,4 @@
-package com.delegrego.exemplo_spring_boot_2.model;
+package com.delegrego.exemplo_spring_boot_2.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "departamento")
-public class Departamento {
+public class DepartamentoEntity {
 
 	@Id
 
@@ -24,12 +24,12 @@ public class Departamento {
 	@Column(name = "nm_departamento", nullable = false, length = 50)
 	private String nmDepartamento;
 
-	public Departamento(int idDepartamento, String nmDepartamento) {
+	public DepartamentoEntity(int idDepartamento, String nmDepartamento) {
 		this.idDepartamento = idDepartamento;
 		this.nmDepartamento = nmDepartamento;
 	}
 
-	public Departamento() {
+	public DepartamentoEntity() {
 
 	}
 

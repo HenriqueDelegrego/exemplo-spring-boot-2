@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.model.Funcionario;
+import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
 /**
@@ -24,7 +24,7 @@ public class FuncionarioDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Funcionario funcionario = repo.findByEmail(email)
+		FuncionarioEntity funcionario = repo.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 		return new FuncionarioDetails(funcionario); // Retorna os detalhes do funcionário para autenticação
 	}
