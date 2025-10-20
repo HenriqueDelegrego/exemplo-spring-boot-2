@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.RuntimeBeanNameReference;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.dto.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
 

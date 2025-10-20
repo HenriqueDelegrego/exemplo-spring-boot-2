@@ -1,23 +1,23 @@
-package com.delegrego.exemplo_spring_boot_2.dto;
+package com.delegrego.exemplo_spring_boot_2.dto.departamento;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class DepartamentoFuncionarioDto {
+public class DepartamentoDto {
 
 	private int idDepartamento;
-	
+
 	@NotBlank
 	@Size(max = 50)
 	private String nmDepartamento;
 
-	public DepartamentoFuncionarioDto() {
+	public DepartamentoDto() {
 
 	}
 
-	public DepartamentoFuncionarioDto(int idDepartamento, String nmDepartamento) {
+	public DepartamentoDto(int idDepartamento, String nome) {
 		this.idDepartamento = idDepartamento;
-		this.nmDepartamento = nmDepartamento;
+		this.nmDepartamento = nome;
 	}
 
 	public int getIdDepartamento() {
@@ -35,4 +35,7 @@ public class DepartamentoFuncionarioDto {
 	public void setNmDepartamento(String nmDepartamento) {
 		this.nmDepartamento = nmDepartamento;
 	}
+
+	
+
 }

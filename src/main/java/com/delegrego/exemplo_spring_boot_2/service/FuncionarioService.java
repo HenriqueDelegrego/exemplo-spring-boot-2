@@ -9,9 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.dto.DepartamentoFuncionarioDto;
-import com.delegrego.exemplo_spring_boot_2.dto.EnderecoDto;
-import com.delegrego.exemplo_spring_boot_2.dto.FuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoFuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.FuncionarioDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.EnderecoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;

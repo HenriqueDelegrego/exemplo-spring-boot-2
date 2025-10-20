@@ -1,4 +1,4 @@
-package com.delegrego.exemplo_spring_boot_2.dto;
+package com.delegrego.exemplo_spring_boot_2.dto.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

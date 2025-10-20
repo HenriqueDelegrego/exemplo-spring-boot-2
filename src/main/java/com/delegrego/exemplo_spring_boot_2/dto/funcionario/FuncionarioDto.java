@@ -1,7 +1,10 @@
-package com.delegrego.exemplo_spring_boot_2.dto;
+package com.delegrego.exemplo_spring_boot_2.dto.funcionario;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoFuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;

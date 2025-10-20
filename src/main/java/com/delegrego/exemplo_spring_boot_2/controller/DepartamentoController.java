@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.delegrego.exemplo_spring_boot_2.dto.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
 import jakarta.validation.Valid;
