@@ -201,6 +201,9 @@ public class FuncionarioService {
 
 	@PreAuthorize("hasRole('GERENTE')")
 	public void deletarFuncionario(int id) {
+
+		repo.findById(id).orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+
 		repo.deleteById(id);
 	}
 
