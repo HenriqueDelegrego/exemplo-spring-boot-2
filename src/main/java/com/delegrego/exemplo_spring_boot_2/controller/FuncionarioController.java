@@ -3,6 +3,8 @@ package com.delegrego.exemplo_spring_boot_2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +46,9 @@ public class FuncionarioController {
 	 * @param funcionarioDto - Dados do funcionário a ser cadastrado
 	 */
 	@PostMapping
-	public void cadastrarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
+	public ResponseEntity<Void> cadastrarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
 		servico.cadastrarFuncionario(funcionarioDto);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
 	/**
@@ -54,8 +57,8 @@ public class FuncionarioController {
 	 * @return Lista de funcionários
 	 */
 	@GetMapping
-	public List<FuncionarioDto> listarFuncionarios() {
-		return servico.listarFuncionarios();
+	public ResponseEntity<List<FuncionarioDto>> listarFuncionarios() {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.listarFuncionarios());
 	}
 
 	/**
@@ -65,8 +68,8 @@ public class FuncionarioController {
 	 * @return Funcionário encontrado ou vazio se não existir
 	 */
 	@GetMapping("/{id}")
-	public FuncionarioDto obterFuncionarioPorId(@PathVariable int id) {
-		return servico.obterFuncionarioPorId(id);
+	public ResponseEntity<FuncionarioDto> obterFuncionarioPorId(@PathVariable int id) {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
 	}
 
 	/**
@@ -75,8 +78,10 @@ public class FuncionarioController {
 	 * @param funcionarioDto - Funcionário com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
+	public ResponseEntity<Void> atualizarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
 		servico.atualizarFuncionario(funcionarioDto);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
 	}
 
 	/**
@@ -85,8 +90,9 @@ public class FuncionarioController {
 	 * @param id - ID do funcionário a ser deletado
 	 */
 	@DeleteMapping("/{id}")
-	public void deletarFuncionario(@PathVariable int id) {
+	public ResponseEntity<Void> deletarFuncionario(@PathVariable int id) {
 		servico.deletarFuncionario(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 }
