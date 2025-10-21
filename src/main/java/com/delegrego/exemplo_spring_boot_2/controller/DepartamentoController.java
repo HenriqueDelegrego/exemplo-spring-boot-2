@@ -3,6 +3,7 @@ package com.delegrego.exemplo_spring_boot_2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,8 +46,9 @@ public class DepartamentoController {
 	 * @param departamentoDto - Objeto Departamento a ser cadastrado
 	 */
 	@PostMapping
-	public void cadastrarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
+	public ResponseEntity<Void> cadastrarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
 		servico.cadastrarDepartamento(departamentoDto);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
 	/**
@@ -55,8 +57,8 @@ public class DepartamentoController {
 	 * @return Lista de departamentos
 	 */
 	@GetMapping
-	public List<DepartamentoDto> listarDepartamentos() {
-		return servico.listarDepartamentos();
+	public ResponseEntity<List<DepartamentoDto>> listarDepartamentos() {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.listarDepartamentos());
 	}
 
 	/**
@@ -66,8 +68,8 @@ public class DepartamentoController {
 	 * @return Departamento encontrado ou vazio se não existir
 	 */
 	@GetMapping("/{id}")
-	public DepartamentoDto obterDepartamentoPorId(@PathVariable int id) {
-		return servico.obterDepartamentoPorId(id);
+	public ResponseEntity<DepartamentoDto> obterDepartamentoPorId(@PathVariable int id) {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.obterDepartamentoPorId(id));
 	}
 
 	/**
@@ -76,8 +78,9 @@ public class DepartamentoController {
 	 * @param departamentoDto - Departamento com os dados atualizados
 	 */
 	@PutMapping
-	public void atualizarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
+	public ResponseEntity<Void> atualizarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
 		servico.atualizarDepartamento(departamentoDto);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	/**
@@ -87,8 +90,9 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@DeleteMapping("/{id}")
-	public void deletarDepartamento(@PathVariable int id) {
+	public ResponseEntity<Void> deletarDepartamento(@PathVariable int id) {
 		servico.deletarDepartamento(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 }
