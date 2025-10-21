@@ -39,11 +39,11 @@ public class FuncionarioService {
 	@PreAuthorize("hasRole('GERENTE')")
 	public void cadastrarFuncionario(FuncionarioDto funcionarioDto) {
 
-		if (repo.findByEmail(funcionarioDto.getEmail()).isPresent()) {
+		if (repo.existsByEmail(funcionarioDto.getEmail())) {
 			throw new RuntimeException("Usuário com esse email já existe");
 		}
 
-		if (repo.findByCpf(funcionarioDto.getCpf()).isPresent()) {
+		if (repo.existsByCpf(funcionarioDto.getCpf())) {
 			throw new RuntimeException("Usuário com esse CPF já existe");
 		}
 

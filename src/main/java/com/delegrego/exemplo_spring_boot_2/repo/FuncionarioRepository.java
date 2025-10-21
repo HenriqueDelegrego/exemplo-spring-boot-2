@@ -8,21 +8,33 @@ import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 
 public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Integer> {
 
-	// Derived query
+	// Derived queries
 
 	/**
 	 * Retorna um funcionário com o email fornecido
+	 * 
 	 * @param email - O email do funcionário
 	 * @return O funcionário, ou vazio se não encontrado
 	 */
 	Optional<FuncionarioEntity> findByEmail(String email);
 
 	/**
-	 * Retorna um funcionário com o cpf fornecido
-	 * @param cpf - O cpf do funcionário
-	 * @return O funcionário, ou vazio se não encontrado
+	 * Retorna um boolean indicando se o email já existe
+	 * 
+	 * @param email - O email do funcionário
+	 * @return Um boolean indicando se o email já existe
+	 *
 	 */
-	Optional<FuncionarioEntity> findByCpf(String cpf);
+	boolean existsByEmail(String email);
+
+	/**
+	 * Retorna um boolean indicando se o cpf já existe
+	 * 
+	 * @param cpf - O cpf do funcionário
+	 * @return Um boolean indicando se o cpf já existe
+	 *
+	 */
+	boolean existsByCpf(String cpf);
 
 	/**
 	 * Retorna um boolean indicando se o cpf já existe para outro funcionário
