@@ -43,7 +43,8 @@ public class FuncionarioController {
 	/**
 	 * Endpoint para cadastrar um novo funcionário
 	 * 
-	 * @param funcionarioDto - Dados do funcionário a ser cadastrado
+	 * @param funcionarioDto - Objeto Funcionario a ser cadastrado
+	 * @return ResponseEntity com status CREATED
 	 */
 	@PostMapping
 	public ResponseEntity<Void> cadastrarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
@@ -54,7 +55,7 @@ public class FuncionarioController {
 	/**
 	 * Endpoint para listar todos os funcionários
 	 * 
-	 * @return Lista de funcionários
+	 * @return ResponseEntity com a lista de funcionários
 	 */
 	@GetMapping
 	public ResponseEntity<List<FuncionarioDto>> listarFuncionarios() {
@@ -62,10 +63,10 @@ public class FuncionarioController {
 	}
 
 	/**
-	 * Endpoint para obter um funcionário por ID
+	 * Endpoint para obter um funcionário pelo ID
 	 * 
 	 * @param id - ID do funcionário a ser obtido
-	 * @return Funcionário encontrado ou vazio se não existir
+	 * @return ResponseEntity com o funcionário encontrado
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<FuncionarioDto> obterFuncionarioPorId(@PathVariable int id) {
@@ -73,9 +74,10 @@ public class FuncionarioController {
 	}
 
 	/**
-	 * Endpoint para atualizar um funcionário
+	 * Endpoint para atualizar um funcionário existente
 	 * 
-	 * @param funcionarioDto - Funcionário com os dados atualizados
+	 * @param funcionarioDto - Objeto Funcionario com os dados atualizados
+	 * @return ResponseEntity com status apropriado
 	 */
 	@PutMapping
 	public ResponseEntity<Void> atualizarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
@@ -85,9 +87,10 @@ public class FuncionarioController {
 	}
 
 	/**
-	 * Endpoint para deletar um funcionário por ID
+	 * Endpoint para deletar um funcionário pelo ID
 	 * 
 	 * @param id - ID do funcionário a ser deletado
+	 * @return ResponseEntity com status apropriado
 	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletarFuncionario(@PathVariable int id) {

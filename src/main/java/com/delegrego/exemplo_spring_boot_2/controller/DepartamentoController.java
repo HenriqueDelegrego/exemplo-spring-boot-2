@@ -44,6 +44,7 @@ public class DepartamentoController {
 	 * Cadastra um novo departamento
 	 * 
 	 * @param departamentoDto - Objeto Departamento a ser cadastrado
+	 * @return ResponseEntity com status CREATED
 	 */
 	@PostMapping
 	public ResponseEntity<Void> cadastrarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
@@ -54,7 +55,7 @@ public class DepartamentoController {
 	/**
 	 * Lista todos os departamentos
 	 * 
-	 * @return Lista de departamentos
+	 * @return ResponseEntity com a lista de departamentos
 	 */
 	@GetMapping
 	public ResponseEntity<List<DepartamentoDto>> listarDepartamentos() {
@@ -64,8 +65,8 @@ public class DepartamentoController {
 	/**
 	 * Obtém um departamento pelo ID
 	 * 
-	 * @param id - ID do departamento
-	 * @return Departamento encontrado ou vazio se não existir
+	 * @param id - ID do departamento a ser obtido
+	 * @return ResponseEntity com o departamento encontrado
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<DepartamentoDto> obterDepartamentoPorId(@PathVariable int id) {
@@ -75,7 +76,8 @@ public class DepartamentoController {
 	/**
 	 * Atualiza um departamento existente
 	 * 
-	 * @param departamentoDto - Departamento com os dados atualizados
+	 * @param departamentoDto - Objeto Departamento com os dados atualizados
+	 * @return ResponseEntity com status apropriado
 	 */
 	@PutMapping
 	public ResponseEntity<Void> atualizarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
