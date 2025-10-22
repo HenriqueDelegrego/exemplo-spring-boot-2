@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.delegrego.exemplo_spring_boot_2.security.FuncionarioDetails;
 
+/**
+ * Controller para gerenciar informações do funcionário autenticado
+ */
+
 @RequestMapping("/funcionarios/me")
 @CrossOrigin
 @RestController
