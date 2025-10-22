@@ -1,9 +1,9 @@
 form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const criadoPorId = parseInt(form.criadoPor.value);
+    const id = parseInt(form.id.value);
+
     const funcionario = {
-        idFuncionario: parseInt(form.id.value),
         nome: form.nome.value,
         cpf: form.cpf.value,
         email: form.email.value,
@@ -21,14 +21,11 @@ form.addEventListener("submit", async function (e) {
         },
         departamento: {
             idDepartamento: parseInt(form.departamento.value),
-        },
-        criadoPor: criadoPorId ? {
-            idFuncionario: criadoPorId
-        } : null // Envia null se o valor for inválido
+        }
     };
 
     try {
-        const res = await fetch("http://localhost:8080/funcionarios", {
+        const res = await fetch(`http://localhost:8080/funcionarios/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

@@ -1,11 +1,13 @@
-// Salva alterações
+
 document.getElementById('form-editar').onsubmit = function (e) {
     e.preventDefault();
-    fetch('/departamentos', {
+
+    const id = document.getElementById('idDepartamento').value;
+
+    fetch(`/departamentos/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            idDepartamento: document.getElementById('idDepartamento').value,
             nmDepartamento: document.getElementById('nome').value
         })
     }).then(resp => {
