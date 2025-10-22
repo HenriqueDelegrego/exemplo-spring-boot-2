@@ -15,6 +15,7 @@ import com.delegrego.exemplo_spring_boot_2.dto.funcionario.FuncionarioDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.EnderecoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
+import com.delegrego.exemplo_spring_boot_2.exceptions.EmailDuplicadoException;
 import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
@@ -40,7 +41,7 @@ public class FuncionarioService {
 	public void cadastrarFuncionario(FuncionarioDto funcionarioDto) {
 
 		if (repo.existsByEmail(funcionarioDto.getEmail())) {
-			throw new RuntimeException("Usuário com esse email já existe");
+			throw new EmailDuplicadoException("Usuário com esse email já existe");
 		}
 
 		if (repo.existsByCpf(funcionarioDto.getCpf())) {
@@ -167,7 +168,7 @@ public class FuncionarioService {
 				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 
 		if (repo.existsByEmailAndIdFuncionarioNot(funcionarioDto.getEmail(), funcionarioDto.getIdFuncionario())) {
-			throw new RuntimeException("Usuário com esse email já existe");
+			throw new EmailDuplicadoException("Usuário com esse email já existe");
 		}
 
 		if (repo.existsByCpfAndIdFuncionarioNot(funcionarioDto.getCpf(), funcionarioDto.getIdFuncionario())) {

@@ -12,4 +12,9 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> tratarRuntimeException(RuntimeException ex) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 	}
+
+	@ExceptionHandler(EmailDuplicadoException.class)
+	public ResponseEntity<String> tratarEmailDuplicadoException(EmailDuplicadoException ex) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+	}
 }
