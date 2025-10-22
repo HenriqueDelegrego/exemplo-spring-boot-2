@@ -57,4 +57,14 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
 	 *
 	 */
 	boolean existsByEmailAndIdFuncionarioNot(String email, int id);
+
+	/**
+	 * Retorna um boolean indicando se existe algum funcionário associado ao
+	 * departamento fornecido.
+	 * 
+	 * @param id - A id do departamento
+	 * @return Um boolean indicando se existe algum funcionário associado ao
+	 *         departamento fornecido
+	 */
+	boolean existsByDepartamentoIdDepartamento(int id);
 }

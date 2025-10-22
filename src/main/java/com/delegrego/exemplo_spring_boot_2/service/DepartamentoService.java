@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
+import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
 @Service
 public class DepartamentoService {
@@ -16,13 +17,16 @@ public class DepartamentoService {
 	// Maneira correta de acoplar camada de repositório
 	private final DepartamentoRepository repo;
 
+	private final FuncionarioRepository funcionarioRepo;
+
 	// A anotação de @Autowired é opcional
 	// O Spring já faz a injeção automaticamente se:
 	// A classe é um bean (@Service, por exemplo)
 	// E a classe tem somente 1 construtor
 	@Autowired
-	public DepartamentoService(DepartamentoRepository repo) {
+	public DepartamentoService(DepartamentoRepository repo, FuncionarioRepository funcionarioRepo) {
 		this.repo = repo;
+		this.funcionarioRepo = funcionarioRepo;
 	}
 
 	public void cadastrarDepartamento(DepartamentoDto departamentoDTO) {
@@ -75,6 +79,10 @@ public class DepartamentoService {
 	public void deletarDepartamento(int id) {
 
 		repo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+
+		if (funcionarioRepo.existsByDepartamentoIdDepartamento(id)) {
+			throw new RuntimeException("Não pode excluir departamentos com funcionários");
+		}
 
 		repo.deleteById(id);
 	}
