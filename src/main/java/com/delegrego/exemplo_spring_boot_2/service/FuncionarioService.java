@@ -54,11 +54,7 @@ public class FuncionarioService {
 				.findById(funcionarioDto.getDepartamento().getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		String email = authentication.getName();
-
-		FuncionarioEntity criadoPor = repo.findByEmail(email)
+		FuncionarioEntity criadoPor = repo.findByEmail(obterEmailUsuarioAutenticado())
 				.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
 		funcionarioEntity.setNome(funcionarioDto.getNome());
@@ -206,6 +202,14 @@ public class FuncionarioService {
 		repo.findById(id).orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 
 		repo.deleteById(id);
+	}
+
+	/**
+	 * Obtém o email do usuário autenticado no contexto de segurança do Spring Security.
+	 * @return O email do usuário autenticado.
+	 */
+	private String obterEmailUsuarioAutenticado() {
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 }
