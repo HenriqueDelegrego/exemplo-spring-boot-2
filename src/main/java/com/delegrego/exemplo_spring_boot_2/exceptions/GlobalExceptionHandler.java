@@ -35,4 +35,15 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 	}
 
+	/**
+	 * Tratamento para AuthorizationDeniedException.
+	 * 
+	 * @param ex - exceção lançada
+	 * @return ResponseEntity com status 403 e mensagem "Acesso negado"
+	 */
+	@ExceptionHandler(AuthorizationDeniedException.class)
+	public ResponseEntity<String> tratarAuthorizationDeniedException(AuthorizationDeniedException ex) {
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acesso negado");
+	}
+
 }
