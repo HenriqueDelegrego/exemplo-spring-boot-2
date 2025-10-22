@@ -73,6 +73,13 @@ public class FuncionarioController {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
 	}
 
+	/**
+	 * Endpoint para atualizar um funcionário pelo ID
+	 * 
+	 * @param id - ID do funcionário a ser atualizado
+	 * @param funcionarioDto - Objeto Funcionario com os dados atualizados
+	 * @return ResponseEntity com status apropriado
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> atualizarFuncionario(@PathVariable int id,
 			@Valid @RequestBody FuncionarioDto funcionarioDto) {

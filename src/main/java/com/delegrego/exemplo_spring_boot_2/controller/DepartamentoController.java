@@ -73,6 +73,12 @@ public class DepartamentoController {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterDepartamentoPorId(id));
 	}
 
+	/**
+	 * Atualiza um departamento pelo ID
+	 * @param id - ID do departamento a ser atualizado
+	 * @param departamentoDto - Objeto Departamento com os dados atualizados
+	 * @return ResponseEntity com status apropriado
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> atualizarDepartamento(@PathVariable int id,
 			@Valid @RequestBody DepartamentoDto departamentoDto) {
