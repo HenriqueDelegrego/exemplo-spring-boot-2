@@ -2,6 +2,7 @@ package com.delegrego.exemplo_spring_boot_2.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -14,6 +15,7 @@ public class GlobalExceptionHandler {
 
 	/**
 	 * Tratamento para RuntimeException.
+	 * 
 	 * @param ex - exceção lançada
 	 * @return ResponseEntity com status 400 e mensagem da exceção
 	 */
@@ -24,6 +26,7 @@ public class GlobalExceptionHandler {
 
 	/**
 	 * Tratamento para EmailDuplicadoException.
+	 * 
 	 * @param ex - exceção lançada
 	 * @return ResponseEntity com status 400 e mensagem da exceção
 	 */
@@ -31,4 +34,5 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> tratarEmailDuplicadoException(EmailDuplicadoException ex) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 	}
+
 }

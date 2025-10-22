@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoDto;
@@ -29,6 +30,7 @@ public class DepartamentoService {
 		this.funcionarioRepo = funcionarioRepo;
 	}
 
+	@PreAuthorize("hasRole('GERENTE')")
 	public void cadastrarDepartamento(DepartamentoDto departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = new DepartamentoEntity();
@@ -38,6 +40,7 @@ public class DepartamentoService {
 		repo.save(departamentoEntity);
 	}
 
+	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public List<DepartamentoDto> listarDepartamentos() {
 		List<DepartamentoEntity> listaDepartamentoEntity = repo.findAll();
 
@@ -54,6 +57,7 @@ public class DepartamentoService {
 		return listaDepartamentoDto;
 	}
 
+	@PreAuthorize("hasRole('GERENTE')")
 	public DepartamentoDto obterDepartamentoPorId(int id) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
@@ -66,6 +70,7 @@ public class DepartamentoService {
 		return departamentoDto;
 	}
 
+	@PreAuthorize("hasRole('GERENTE')")
 	public void atualizarDepartamento(int id, DepartamentoDto departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
@@ -76,6 +81,7 @@ public class DepartamentoService {
 		repo.save(departamentoEntity);
 	}
 
+	@PreAuthorize("hasRole('GERENTE')")
 	public void deletarDepartamento(int id) {
 
 		repo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
