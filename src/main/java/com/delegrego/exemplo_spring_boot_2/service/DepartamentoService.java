@@ -66,9 +66,9 @@ public class DepartamentoService {
 		return departamentoDto;
 	}
 
-	public void atualizarDepartamento(DepartamentoDto departamentoDTO) {
+	public void atualizarDepartamento(int id, DepartamentoDto departamentoDTO) {
 
-		DepartamentoEntity departamentoEntity = repo.findById(departamentoDTO.getIdDepartamento())
+		DepartamentoEntity departamentoEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		departamentoEntity.setNmDepartamento(departamentoDTO.getNmDepartamento());

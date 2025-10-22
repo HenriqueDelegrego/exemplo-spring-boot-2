@@ -162,16 +162,16 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarFuncionario(FuncionarioDto funcionarioDto) {
+	public void atualizarFuncionario(int id, FuncionarioDto funcionarioDto) {
 
-		FuncionarioEntity funcionarioEntity = repo.findById(funcionarioDto.getIdFuncionario())
+		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 
-		if (repo.existsByEmailAndIdFuncionarioNot(funcionarioDto.getEmail(), funcionarioDto.getIdFuncionario())) {
+		if (repo.existsByEmailAndIdFuncionarioNot(funcionarioDto.getEmail(), id)) {
 			throw new EmailDuplicadoException("Usuário com esse email já existe");
 		}
 
-		if (repo.existsByCpfAndIdFuncionarioNot(funcionarioDto.getCpf(), funcionarioDto.getIdFuncionario())) {
+		if (repo.existsByCpfAndIdFuncionarioNot(funcionarioDto.getCpf(), id)) {
 			throw new RuntimeException("Usuário com esse CPF já existe");
 		}
 
