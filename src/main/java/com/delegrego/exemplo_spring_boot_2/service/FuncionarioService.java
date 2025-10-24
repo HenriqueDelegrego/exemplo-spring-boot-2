@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioRequestDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
@@ -38,7 +39,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void cadastrarFuncionario(FuncionarioRequestDto funcionarioDto) {
+	public void cadastrarFuncionario(FuncionarioCriarDto funcionarioDto) {
 
 		if (repo.existsByEmail(funcionarioDto.getEmail())) {
 			throw new EmailDuplicadoException("Usuário com esse email já existe");
@@ -51,7 +52,7 @@ public class FuncionarioService {
 		FuncionarioEntity funcionarioEntity = new FuncionarioEntity();
 
 		DepartamentoEntity departamentoEntity = departamentoRepo
-				.findById(funcionarioDto.getDepartamento().getIdDepartamento())
+				.findById(funcionarioDto.getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		FuncionarioEntity criadoPor = repo.findByEmail(obterEmailUsuarioAutenticado())

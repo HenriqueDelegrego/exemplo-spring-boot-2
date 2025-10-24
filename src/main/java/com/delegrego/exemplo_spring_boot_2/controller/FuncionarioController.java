@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioRequestDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
@@ -49,7 +50,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com status CREATED
 	 */
 	@PostMapping
-	public ResponseEntity<Void> cadastrarFuncionario(@Valid @RequestBody FuncionarioRequestDto funcionarioDto) {
+	public ResponseEntity<Void> cadastrarFuncionario(@Valid @RequestBody FuncionarioCriarDto funcionarioDto) {
 		servico.cadastrarFuncionario(funcionarioDto);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
