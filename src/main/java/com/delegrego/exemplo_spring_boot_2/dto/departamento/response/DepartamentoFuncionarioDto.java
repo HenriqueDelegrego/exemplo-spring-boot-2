@@ -1,4 +1,4 @@
-package com.delegrego.exemplo_spring_boot_2.dto.departamento;
+package com.delegrego.exemplo_spring_boot_2.dto.departamento.response;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
