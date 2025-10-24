@@ -1,0 +1,42 @@
+package com.delegrego.exemplo_spring_boot_2.dto.funcionario.response;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class FuncionarioResponseDto {
+
+	private int idFuncionario;
+
+	private String nome;
+
+	private String cpf;
+
+	private String email;
+
+	private LocalDate dataNascimento;
+
+	private BigDecimal salario;
+
+	private boolean gerente;
+
+	private EnderecoDto endereco;
+
+	private DepartamentoDto departamento;
+
+	private String criadoPor;
+
+}

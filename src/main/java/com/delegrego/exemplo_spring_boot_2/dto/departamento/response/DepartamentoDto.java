@@ -1,7 +1,5 @@
-package com.delegrego.exemplo_spring_boot_2.dto.departamento;
+package com.delegrego.exemplo_spring_boot_2.dto.departamento.response;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +11,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class DepartamentoFuncionarioDto {
+public class DepartamentoDto {
 
 	private int idDepartamento;
 
-	@NotBlank
-	@Size(max = 50)
 	private String nmDepartamento;
 
 }

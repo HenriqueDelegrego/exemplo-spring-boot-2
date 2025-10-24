@@ -22,9 +22,7 @@ async function cadastrarFuncionario() {
                     numero: form.numero.value,
                     cep: form.cep.value
                 },
-                departamento: {
-                    idDepartamento: parseInt(form.departamento.value)
-                }
+                idDepartamento: parseInt(form.departamento.value)
             };
 
             const response = await fetch('http://localhost:8080/funcionarios', {

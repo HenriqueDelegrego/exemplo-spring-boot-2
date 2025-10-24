@@ -39,7 +39,6 @@ async function carregarFuncionarios() {
     <strong>Nome:</strong> <span>${func.nome}</span>
     <strong>CPF:</strong> <span>${func.cpf}</span>
     <strong>Email:</strong> <span>${func.email}</span>
-    <strong>Senha:</strong> <span>${func.senha}</span>
     <strong>Data de Nascimento:</strong> <span>${new Date(func.dataNascimento).toLocaleDateString('pt-BR')}</span>
     <strong>Salário:</strong> <span>R$ ${func.salario?.toFixed(2) || "0.00"}</span>
     <strong>Função:</strong> <span>${func.gerente ? "Gerente" : "Funcionário"}</span>

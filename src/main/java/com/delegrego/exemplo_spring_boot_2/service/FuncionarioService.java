@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoFuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
-import com.delegrego.exemplo_spring_boot_2.dto.funcionario.FuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.EnderecoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
@@ -38,7 +39,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void cadastrarFuncionario(FuncionarioDto funcionarioDto) {
+	public void cadastrarFuncionario(FuncionarioCriarDto funcionarioDto) {
 
 		if (repo.existsByEmail(funcionarioDto.getEmail())) {
 			throw new EmailDuplicadoException("Usuário com esse email já existe");
@@ -51,7 +52,7 @@ public class FuncionarioService {
 		FuncionarioEntity funcionarioEntity = new FuncionarioEntity();
 
 		DepartamentoEntity departamentoEntity = departamentoRepo
-				.findById(funcionarioDto.getDepartamento().getIdDepartamento())
+				.findById(funcionarioDto.getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		FuncionarioEntity criadoPor = repo.findByEmail(obterEmailUsuarioAutenticado())
@@ -80,21 +81,20 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public List<FuncionarioDto> listarFuncionarios() {
+	public List<FuncionarioResponseDto> listarFuncionarios() {
 
 		List<FuncionarioEntity> listaFuncionarioEntity = repo.findAll();
 
-		List<FuncionarioDto> listaFuncionarioDto = new ArrayList<FuncionarioDto>();
+		List<FuncionarioResponseDto> listaFuncionarioDto = new ArrayList<>();
 
 		for (FuncionarioEntity f : listaFuncionarioEntity) {
 
-			FuncionarioDto funcionarioDto = new FuncionarioDto();
+			FuncionarioResponseDto funcionarioDto = new FuncionarioResponseDto();
 
 			funcionarioDto.setIdFuncionario(f.getIdFuncionario());
 			funcionarioDto.setNome(f.getNome());
 			funcionarioDto.setCpf(f.getCpf());
 			funcionarioDto.setEmail(f.getEmail());
-			funcionarioDto.setSenha(f.getSenha());
 			funcionarioDto.setDataNascimento(f.getDataNascimento());
 			funcionarioDto.setSalario(f.getSalario());
 			funcionarioDto.setGerente(f.isGerente());
@@ -107,7 +107,7 @@ public class FuncionarioService {
 			funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
 			funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
 
-			funcionarioDto.setDepartamento(new DepartamentoFuncionarioDto());
+			funcionarioDto.setDepartamento(new DepartamentoDto());
 			funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
 			funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
 
@@ -122,18 +122,17 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public FuncionarioDto obterFuncionarioPorId(int id) {
+	public FuncionarioResponseDto obterFuncionarioPorId(int id) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 
-		FuncionarioDto funcionarioDto = new FuncionarioDto();
+		FuncionarioResponseDto funcionarioDto = new FuncionarioResponseDto();
 
 		funcionarioDto.setIdFuncionario(funcionarioEntity.getIdFuncionario());
 		funcionarioDto.setNome(funcionarioEntity.getNome());
 		funcionarioDto.setCpf(funcionarioEntity.getCpf());
 		funcionarioDto.setEmail(funcionarioEntity.getEmail());
-		funcionarioDto.setSenha(funcionarioEntity.getSenha());
 		funcionarioDto.setDataNascimento(funcionarioEntity.getDataNascimento());
 		funcionarioDto.setSalario(funcionarioEntity.getSalario());
 		funcionarioDto.setGerente(funcionarioEntity.isGerente());
@@ -146,7 +145,7 @@ public class FuncionarioService {
 		funcionarioDto.getEndereco().setNumero(funcionarioEntity.getEndereco().getNumero());
 		funcionarioDto.getEndereco().setCep(funcionarioEntity.getEndereco().getCep());
 
-		funcionarioDto.setDepartamento(new DepartamentoFuncionarioDto());
+		funcionarioDto.setDepartamento(new DepartamentoDto());
 		funcionarioDto.getDepartamento().setIdDepartamento(funcionarioEntity.getDepartamento().getIdDepartamento());
 		funcionarioDto.getDepartamento().setNmDepartamento(funcionarioEntity.getDepartamento().getNmDepartamento());
 
@@ -158,7 +157,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarFuncionario(int id, FuncionarioDto funcionarioDto) {
+	public void atualizarFuncionario(int id, FuncionarioAtualizarDto funcionarioDto) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
@@ -172,13 +171,12 @@ public class FuncionarioService {
 		}
 
 		DepartamentoEntity departamentoEntity = departamentoRepo
-				.findById(funcionarioDto.getDepartamento().getIdDepartamento())
+				.findById(funcionarioDto.getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		funcionarioEntity.setNome(funcionarioDto.getNome());
 		funcionarioEntity.setCpf(funcionarioDto.getCpf());
 		funcionarioEntity.setEmail(funcionarioDto.getEmail());
-		funcionarioEntity.setSenha(funcionarioDto.getSenha());
 		funcionarioEntity.setDataNascimento(funcionarioDto.getDataNascimento());
 		funcionarioEntity.setSalario(funcionarioDto.getSalario());
 		funcionarioEntity.setGerente(funcionarioDto.isGerente());
@@ -205,7 +203,9 @@ public class FuncionarioService {
 	}
 
 	/**
-	 * Obtém o email do usuário autenticado no contexto de segurança do Spring Security.
+	 * Obtém o email do usuário autenticado no contexto de segurança do Spring
+	 * Security.
+	 * 
 	 * @return O email do usuário autenticado.
 	 */
 	private String obterEmailUsuarioAutenticado() {

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.delegrego.exemplo_spring_boot_2.dto.funcionario.FuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
 
 import jakarta.validation.Valid;
@@ -48,7 +50,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com status CREATED
 	 */
 	@PostMapping
-	public ResponseEntity<Void> cadastrarFuncionario(@Valid @RequestBody FuncionarioDto funcionarioDto) {
+	public ResponseEntity<Void> cadastrarFuncionario(@Valid @RequestBody FuncionarioCriarDto funcionarioDto) {
 		servico.cadastrarFuncionario(funcionarioDto);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
@@ -59,7 +61,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com a lista de funcionários
 	 */
 	@GetMapping
-	public ResponseEntity<List<FuncionarioDto>> listarFuncionarios() {
+	public ResponseEntity<List<FuncionarioResponseDto>> listarFuncionarios() {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.listarFuncionarios());
 	}
 
@@ -70,7 +72,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com o funcionário encontrado
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<FuncionarioDto> obterFuncionarioPorId(@PathVariable int id) {
+	public ResponseEntity<FuncionarioResponseDto> obterFuncionarioPorId(@PathVariable int id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
 	}
 
@@ -83,10 +85,11 @@ public class FuncionarioController {
 	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> atualizarFuncionario(@PathVariable int id,
-			@Valid @RequestBody FuncionarioDto funcionarioDto) {
-		servico.atualizarFuncionario(id, funcionarioDto);
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			@Valid @RequestBody FuncionarioAtualizarDto funcionarioDto) {
 
+		servico.atualizarFuncionario(id, funcionarioDto);
+
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	/**
