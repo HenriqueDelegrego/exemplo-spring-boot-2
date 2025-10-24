@@ -26,6 +26,7 @@ import jakarta.validation.Valid;
 // Todas as rotas deste controller começam com /departamentos 
 @RequestMapping("/departamentos")
 @CrossOrigin
+// @RequiredArgsConstructor -> Pode ser utilizado em vez do construtor
 public class DepartamentoController {
 
 	// Maneira correta de acoplar camada de serviço
@@ -75,7 +76,8 @@ public class DepartamentoController {
 
 	/**
 	 * Atualiza um departamento pelo ID
-	 * @param id - ID do departamento a ser atualizado
+	 * 
+	 * @param id              - ID do departamento a ser atualizado
 	 * @param departamentoDto - Objeto Departamento com os dados atualizados
 	 * @return ResponseEntity com status apropriado
 	 */

@@ -2,7 +2,17 @@ package com.delegrego.exemplo_spring_boot_2.dto.departamento;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class DepartamentoDto {
 
 	private int idDepartamento;
@@ -10,32 +20,5 @@ public class DepartamentoDto {
 	@NotBlank
 	@Size(max = 50)
 	private String nmDepartamento;
-
-	public DepartamentoDto() {
-
-	}
-
-	public DepartamentoDto(int idDepartamento, String nome) {
-		this.idDepartamento = idDepartamento;
-		this.nmDepartamento = nome;
-	}
-
-	public int getIdDepartamento() {
-		return idDepartamento;
-	}
-
-	public void setIdDepartamento(int idDepartamento) {
-		this.idDepartamento = idDepartamento;
-	}
-
-	public String getNmDepartamento() {
-		return nmDepartamento;
-	}
-
-	public void setNmDepartamento(String nmDepartamento) {
-		this.nmDepartamento = nmDepartamento;
-	}
-
-	
 
 }

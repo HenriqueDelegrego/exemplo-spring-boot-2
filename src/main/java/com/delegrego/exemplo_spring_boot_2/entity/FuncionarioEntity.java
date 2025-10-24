@@ -12,9 +12,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "funcionario")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class FuncionarioEntity {
 
 	@Id
@@ -63,112 +73,5 @@ public class FuncionarioEntity {
 	@ManyToOne
 	@JoinColumn(name = "criado_por", nullable = true)
 	private FuncionarioEntity criadoPor;
-
-	public FuncionarioEntity() {
-
-	}
-
-	public FuncionarioEntity(int idFuncionario, String nome, String cpf, String email, String senha, LocalDate dataNascimento,
-			BigDecimal salario, boolean gerente, EnderecoEntity endereco, DepartamentoEntity departamento, FuncionarioEntity criadoPor) {
-		this.idFuncionario = idFuncionario;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.email = email;
-		this.senha = senha;
-		this.dataNascimento = dataNascimento;
-		this.salario = salario;
-		this.gerente = gerente;
-		this.endereco = endereco;
-		this.departamento = departamento;
-		this.criadoPor = criadoPor;
-	}
-
-	public int getIdFuncionario() {
-		return idFuncionario;
-	}
-
-	public void setIdFuncionario(int idFuncionario) {
-		this.idFuncionario = idFuncionario;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public BigDecimal getSalario() {
-		return salario;
-	}
-
-	public void setSalario(BigDecimal salario) {
-		this.salario = salario;
-	}
-
-	public boolean isGerente() {
-		return gerente;
-	}
-
-	public void setGerente(boolean gerente) {
-		this.gerente = gerente;
-	}
-
-	public EnderecoEntity getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(EnderecoEntity endereco) {
-		this.endereco = endereco;
-	}
-
-	public DepartamentoEntity getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(DepartamentoEntity departamento) {
-		this.departamento = departamento;
-	}
-
-	public FuncionarioEntity getCriadoPor() {
-		return criadoPor;
-	}
-
-	public void setCriadoPor(FuncionarioEntity criadoPor) {
-		this.criadoPor = criadoPor;
-	}
 
 }

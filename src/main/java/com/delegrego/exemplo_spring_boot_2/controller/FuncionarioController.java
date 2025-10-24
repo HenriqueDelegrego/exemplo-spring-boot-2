@@ -26,6 +26,7 @@ import jakarta.validation.Valid;
 // Todas as rotas deste controller começam com /funcionarios
 @RequestMapping("/funcionarios")
 @CrossOrigin
+// @RequiredArgsConstructor -> Pode ser utilizado em vez do construtor
 public class FuncionarioController {
 
 	// Maneira correta de acoplar camada de serviço
@@ -76,7 +77,7 @@ public class FuncionarioController {
 	/**
 	 * Endpoint para atualizar um funcionário pelo ID
 	 * 
-	 * @param id - ID do funcionário a ser atualizado
+	 * @param id             - ID do funcionário a ser atualizado
 	 * @param funcionarioDto - Objeto Funcionario com os dados atualizados
 	 * @return ResponseEntity com status apropriado
 	 */

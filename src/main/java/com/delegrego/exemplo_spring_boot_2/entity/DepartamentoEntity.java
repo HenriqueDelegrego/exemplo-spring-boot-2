@@ -6,9 +6,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "departamento")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class DepartamentoEntity {
 
 	@Id
@@ -23,30 +33,5 @@ public class DepartamentoEntity {
 	// Restringe o atributo para não ser nulo e ter limite de 50 caracteres
 	@Column(name = "nm_departamento", nullable = false, length = 50)
 	private String nmDepartamento;
-
-	public DepartamentoEntity(int idDepartamento, String nmDepartamento) {
-		this.idDepartamento = idDepartamento;
-		this.nmDepartamento = nmDepartamento;
-	}
-
-	public DepartamentoEntity() {
-
-	}
-
-	public int getIdDepartamento() {
-		return idDepartamento;
-	}
-
-	public void setIdDepartamento(int idDepartamento) {
-		this.idDepartamento = idDepartamento;
-	}
-
-	public String getNmDepartamento() {
-		return nmDepartamento;
-	}
-
-	public void setNmDepartamento(String nmDepartamento) {
-		this.nmDepartamento = nmDepartamento;
-	}
 
 }

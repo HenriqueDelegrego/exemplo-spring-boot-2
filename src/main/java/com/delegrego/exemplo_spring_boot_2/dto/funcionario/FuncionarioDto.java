@@ -14,7 +14,17 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class FuncionarioDto {
 
 	private int idFuncionario;
@@ -53,97 +63,5 @@ public class FuncionarioDto {
 	private DepartamentoFuncionarioDto departamento;
 
 	private String criadoPor;
-
-	public FuncionarioDto() {
-
-	}
-
-	public int getIdFuncionario() {
-		return idFuncionario;
-	}
-
-	public void setIdFuncionario(int idFuncionario) {
-		this.idFuncionario = idFuncionario;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public BigDecimal getSalario() {
-		return salario;
-	}
-
-	public void setSalario(BigDecimal salario) {
-		this.salario = salario;
-	}
-
-	public boolean isGerente() {
-		return gerente;
-	}
-
-	public void setGerente(boolean gerente) {
-		this.gerente = gerente;
-	}
-
-	public EnderecoDto getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(EnderecoDto endereco) {
-		this.endereco = endereco;
-	}
-
-	public DepartamentoFuncionarioDto getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(DepartamentoFuncionarioDto departamento) {
-		this.departamento = departamento;
-	}
-
-	public String getCriadoPor() {
-		return criadoPor;
-	}
-
-	public void setCriadoPor(String criadoPor) {
-		this.criadoPor = criadoPor;
-	}
 
 }
