@@ -84,8 +84,7 @@ public class DepartamentoController {
 	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> atualizarDepartamento(@PathVariable int id,
-			@Valid @RequestBody DepartamentoDto departamentoDto) {
-		System.out.println(id);
+			@Valid @RequestBody DepartamentoDtoRequest departamentoDto) {
 		servico.atualizarDepartamento(id, departamentoDto);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

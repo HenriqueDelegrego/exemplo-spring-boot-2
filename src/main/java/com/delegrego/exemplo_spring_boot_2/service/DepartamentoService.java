@@ -72,7 +72,7 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarDepartamento(int id, DepartamentoDto departamentoDTO) {
+	public void atualizarDepartamento(int id, DepartamentoDtoRequest departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));

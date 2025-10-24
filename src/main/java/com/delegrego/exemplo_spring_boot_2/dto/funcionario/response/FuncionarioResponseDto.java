@@ -3,7 +3,7 @@ package com.delegrego.exemplo_spring_boot_2.dto.funcionario.response;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoFuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
 
 import jakarta.validation.constraints.Digits;
@@ -56,7 +56,7 @@ public class FuncionarioResponseDto {
 	private EnderecoDto endereco;
 
 	@NotNull
-	private DepartamentoFuncionarioDto departamento;
+	private DepartamentoDto departamento;
 
 	private String criadoPor;
 

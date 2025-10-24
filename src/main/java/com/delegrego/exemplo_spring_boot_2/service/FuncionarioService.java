@@ -5,11 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoFuncionarioDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioRequestDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
@@ -107,7 +106,7 @@ public class FuncionarioService {
 			funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
 			funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
 
-			funcionarioDto.setDepartamento(new DepartamentoFuncionarioDto());
+			funcionarioDto.setDepartamento(new DepartamentoDto());
 			funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
 			funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
 
@@ -146,7 +145,7 @@ public class FuncionarioService {
 		funcionarioDto.getEndereco().setNumero(funcionarioEntity.getEndereco().getNumero());
 		funcionarioDto.getEndereco().setCep(funcionarioEntity.getEndereco().getCep());
 
-		funcionarioDto.setDepartamento(new DepartamentoFuncionarioDto());
+		funcionarioDto.setDepartamento(new DepartamentoDto());
 		funcionarioDto.getDepartamento().setIdDepartamento(funcionarioEntity.getDepartamento().getIdDepartamento());
 		funcionarioDto.getDepartamento().setNmDepartamento(funcionarioEntity.getDepartamento().getNmDepartamento());
 
