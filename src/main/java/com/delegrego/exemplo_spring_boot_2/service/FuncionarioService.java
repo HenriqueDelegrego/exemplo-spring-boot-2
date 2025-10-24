@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
-import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioRequestDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.EnderecoEntity;
@@ -122,18 +122,17 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public FuncionarioRequestDto obterFuncionarioPorId(int id) {
+	public FuncionarioResponseDto obterFuncionarioPorId(int id) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 
-		FuncionarioRequestDto funcionarioDto = new FuncionarioRequestDto();
+		FuncionarioResponseDto funcionarioDto = new FuncionarioResponseDto();
 
 		funcionarioDto.setIdFuncionario(funcionarioEntity.getIdFuncionario());
 		funcionarioDto.setNome(funcionarioEntity.getNome());
 		funcionarioDto.setCpf(funcionarioEntity.getCpf());
 		funcionarioDto.setEmail(funcionarioEntity.getEmail());
-		funcionarioDto.setSenha(funcionarioEntity.getSenha());
 		funcionarioDto.setDataNascimento(funcionarioEntity.getDataNascimento());
 		funcionarioDto.setSalario(funcionarioEntity.getSalario());
 		funcionarioDto.setGerente(funcionarioEntity.isGerente());
@@ -158,7 +157,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarFuncionario(int id, FuncionarioRequestDto funcionarioDto) {
+	public void atualizarFuncionario(int id, FuncionarioAtualizarDto funcionarioDto) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
@@ -172,13 +171,12 @@ public class FuncionarioService {
 		}
 
 		DepartamentoEntity departamentoEntity = departamentoRepo
-				.findById(funcionarioDto.getDepartamento().getIdDepartamento())
+				.findById(funcionarioDto.getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		funcionarioEntity.setNome(funcionarioDto.getNome());
 		funcionarioEntity.setCpf(funcionarioDto.getCpf());
 		funcionarioEntity.setEmail(funcionarioDto.getEmail());
-		funcionarioEntity.setSenha(funcionarioDto.getSenha());
 		funcionarioEntity.setDataNascimento(funcionarioDto.getDataNascimento());
 		funcionarioEntity.setSalario(funcionarioDto.getSalario());
 		funcionarioEntity.setGerente(funcionarioDto.isGerente());

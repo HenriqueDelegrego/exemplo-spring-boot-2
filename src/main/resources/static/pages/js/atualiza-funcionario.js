@@ -7,7 +7,6 @@ form.addEventListener("submit", async function (e) {
         nome: form.nome.value,
         cpf: form.cpf.value,
         email: form.email.value,
-        senha: form.senha.value,
         dataNascimento: form.dataNascimento.value,
         salario: parseFloat(form.salario.value) || 0,
         gerente: form.gerente.checked,
@@ -19,9 +18,7 @@ form.addEventListener("submit", async function (e) {
             numero: form.numero.value,
             cep: form.cep.value,
         },
-        departamento: {
-            idDepartamento: parseInt(form.departamento.value),
-        }
+        idDepartamento: parseInt(form.departamento.value),
     };
 
     try {

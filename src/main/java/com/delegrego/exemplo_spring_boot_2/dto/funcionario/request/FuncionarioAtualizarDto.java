@@ -3,7 +3,6 @@ package com.delegrego.exemplo_spring_boot_2.dto.funcionario.request;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
 
 import jakarta.validation.constraints.Digits;
@@ -25,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class FuncionarioRequestDto {
+public class FuncionarioAtualizarDto {
 
 	private int idFuncionario;
 
@@ -42,10 +41,6 @@ public class FuncionarioRequestDto {
 	@Size(max = 100)
 	private String email;
 
-	@NotBlank
-	@Size(max = 100)
-	private String senha;
-
 	@NotNull
 	@PastOrPresent
 	private LocalDate dataNascimento;
@@ -59,9 +54,6 @@ public class FuncionarioRequestDto {
 	@NotNull
 	private EnderecoDto endereco;
 
-	@NotNull
-	private DepartamentoDto departamento;
-
-	private String criadoPor;
+	private int idDepartamento;
 
 }

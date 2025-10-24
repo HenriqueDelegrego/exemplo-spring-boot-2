@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
-import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioRequestDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
 
@@ -72,7 +72,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com o funcionário encontrado
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<FuncionarioRequestDto> obterFuncionarioPorId(@PathVariable int id) {
+	public ResponseEntity<FuncionarioResponseDto> obterFuncionarioPorId(@PathVariable int id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
 	}
 
@@ -85,10 +85,11 @@ public class FuncionarioController {
 	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> atualizarFuncionario(@PathVariable int id,
-			@Valid @RequestBody FuncionarioRequestDto funcionarioDto) {
-		servico.atualizarFuncionario(id, funcionarioDto);
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			@Valid @RequestBody FuncionarioAtualizarDto funcionarioDto) {
 
+		servico.atualizarFuncionario(id, funcionarioDto);
+
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	/**
