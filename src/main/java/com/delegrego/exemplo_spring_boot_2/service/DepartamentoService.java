@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.request.DepartamentoDtoRequest;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
@@ -31,7 +32,7 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void cadastrarDepartamento(DepartamentoDto departamentoDTO) {
+	public void cadastrarDepartamento(DepartamentoDtoRequest departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = new DepartamentoEntity();
 

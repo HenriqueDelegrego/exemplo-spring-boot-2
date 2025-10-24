@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.request.DepartamentoDtoRequest;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
 import jakarta.validation.Valid;
@@ -48,7 +49,7 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status CREATED
 	 */
 	@PostMapping
-	public ResponseEntity<Void> cadastrarDepartamento(@Valid @RequestBody DepartamentoDto departamentoDto) {
+	public ResponseEntity<Void> cadastrarDepartamento(@Valid @RequestBody DepartamentoDtoRequest departamentoDto) {
 		servico.cadastrarDepartamento(departamentoDto);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
