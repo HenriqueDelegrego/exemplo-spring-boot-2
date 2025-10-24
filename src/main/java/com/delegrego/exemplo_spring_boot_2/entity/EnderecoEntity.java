@@ -10,6 +10,7 @@ import lombok.ToString;
 
 // Indica que esta classe pode ser incorporada em outra entidade JPA
 @Embeddable
+
 @Getter
 @Setter
 @NoArgsConstructor

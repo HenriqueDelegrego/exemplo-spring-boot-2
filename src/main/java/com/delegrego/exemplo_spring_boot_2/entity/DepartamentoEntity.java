@@ -14,6 +14,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "departamento")
+
 @Getter
 @Setter
 @NoArgsConstructor

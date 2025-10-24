@@ -20,6 +20,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "funcionario")
+
 @Getter
 @Setter
 @NoArgsConstructor
