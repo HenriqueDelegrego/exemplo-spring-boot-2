@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.request.EnderecoRequestDto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -54,6 +55,7 @@ public class FuncionarioCriarDto {
 	private boolean gerente;
 
 	@NotNull
+	@Valid
 	private EnderecoRequestDto endereco;
 
 	private int idDepartamento;

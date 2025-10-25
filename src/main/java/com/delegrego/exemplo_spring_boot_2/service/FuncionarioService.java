@@ -9,10 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
-import com.delegrego.exemplo_spring_boot_2.dto.endereco.request.EnderecoRequestDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.response.EnderecoResponseDto;
-import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.EnderecoEntity;
