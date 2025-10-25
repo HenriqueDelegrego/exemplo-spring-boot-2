@@ -9,7 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
-import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.endereco.request.EnderecoRequestDto;
+import com.delegrego.exemplo_spring_boot_2.dto.endereco.response.EnderecoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
@@ -99,7 +100,7 @@ public class FuncionarioService {
 			funcionarioDto.setSalario(f.getSalario());
 			funcionarioDto.setGerente(f.isGerente());
 
-			funcionarioDto.setEndereco(new EnderecoDto());
+			funcionarioDto.setEndereco(new EnderecoResponseDto());
 			funcionarioDto.getEndereco().setEstado(f.getEndereco().getEstado());
 			funcionarioDto.getEndereco().setCidade(f.getEndereco().getCidade());
 			funcionarioDto.getEndereco().setBairro(f.getEndereco().getBairro());
@@ -137,7 +138,7 @@ public class FuncionarioService {
 		funcionarioDto.setSalario(funcionarioEntity.getSalario());
 		funcionarioDto.setGerente(funcionarioEntity.isGerente());
 
-		funcionarioDto.setEndereco(new EnderecoDto());
+		funcionarioDto.setEndereco(new EnderecoResponseDto());
 		funcionarioDto.getEndereco().setEstado(funcionarioEntity.getEndereco().getEstado());
 		funcionarioDto.getEndereco().setCidade(funcionarioEntity.getEndereco().getCidade());
 		funcionarioDto.getEndereco().setBairro(funcionarioEntity.getEndereco().getBairro());

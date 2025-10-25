@@ -3,7 +3,7 @@ package com.delegrego.exemplo_spring_boot_2.dto.funcionario.request;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.endereco.request.EnderecoRequestDto;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
@@ -52,7 +52,7 @@ public class FuncionarioAtualizarDto {
 	private boolean gerente;
 
 	@NotNull
-	private EnderecoDto endereco;
+	private EnderecoRequestDto endereco;
 
 	private int idDepartamento;
 

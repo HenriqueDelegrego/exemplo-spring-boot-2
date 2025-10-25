@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
-import com.delegrego.exemplo_spring_boot_2.dto.endereco.EnderecoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.endereco.response.EnderecoResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class FuncionarioResponseDto {
 
 	private boolean gerente;
 
-	private EnderecoDto endereco;
+	private EnderecoResponseDto endereco;
 
 	private DepartamentoDto departamento;
 

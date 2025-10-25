@@ -1,4 +1,4 @@
-package com.delegrego.exemplo_spring_boot_2.dto.endereco;
+package com.delegrego.exemplo_spring_boot_2.dto.endereco.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class EnderecoDto {
+public class EnderecoRequestDto {
 
 	@NotBlank
 	@Size(min = 2, max = 2)
