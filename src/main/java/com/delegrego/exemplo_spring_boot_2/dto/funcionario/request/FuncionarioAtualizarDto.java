@@ -27,8 +27,6 @@ import lombok.ToString;
 @ToString
 public class FuncionarioAtualizarDto {
 
-	private int idFuncionario;
-
 	@NotBlank
 	@Size(max = 100)
 	private String nome;
