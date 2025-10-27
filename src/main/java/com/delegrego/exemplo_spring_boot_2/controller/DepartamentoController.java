@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.request.DepartamentoDtoRequest;
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.request.DepartamentoRequestDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
 import jakarta.validation.Valid;
@@ -49,7 +50,7 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status CREATED
 	 */
 	@PostMapping
-	public ResponseEntity<Void> cadastrarDepartamento(@Valid @RequestBody DepartamentoDtoRequest departamentoDto) {
+	public ResponseEntity<Void> cadastrarDepartamento(@Valid @RequestBody DepartamentoRequestDto departamentoDto) {
 		servico.cadastrarDepartamento(departamentoDto);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
@@ -60,7 +61,7 @@ public class DepartamentoController {
 	 * @return ResponseEntity com a lista de departamentos
 	 */
 	@GetMapping
-	public ResponseEntity<List<DepartamentoDto>> listarDepartamentos() {
+	public ResponseEntity<List<DepartamentoResponseDto>> listarDepartamentos() {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.listarDepartamentos());
 	}
 
@@ -71,8 +72,20 @@ public class DepartamentoController {
 	 * @return ResponseEntity com o departamento encontrado
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<DepartamentoDto> obterDepartamentoPorId(@PathVariable int id) {
+	public ResponseEntity<DepartamentoResponseDto> obterDepartamentoPorId(@PathVariable int id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterDepartamentoPorId(id));
+	}
+	
+	
+	/**
+	 * Endpoint para pesquisar departamentos por nome
+	 * 
+	 * @param pesquisa - Termo de pesquisa
+	 * @return ResponseEntity com a lista de departamentos encontrados
+	 */
+	@GetMapping("/search")
+	public ResponseEntity<List<DepartamentoResponseDto>> pesquisarDepartamentos(@RequestParam String pesquisa) {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.pesquisarDepartamentos(pesquisa));
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class DepartamentoController {
 	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> atualizarDepartamento(@PathVariable int id,
-			@Valid @RequestBody DepartamentoDtoRequest departamentoDto) {
+			@Valid @RequestBody DepartamentoRequestDto departamentoDto) {
 		servico.atualizarDepartamento(id, departamentoDto);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

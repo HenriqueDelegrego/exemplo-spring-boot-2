@@ -15,41 +15,43 @@ fetch('../../components/header/header.html')
 
             let pesquisa = document.getElementById('input-pesquisa').value;
 
-            const container = document.getElementById('funcionarios');
-            container.innerHTML = ''; // Limpa o container antes de adicionar novos resultados
+            const containerFuncionarios = document.getElementById('funcionarios');
+            const containerDepartamentos = document.getElementById('departamentos');
 
-            if (pesquisa === '') {
-                // Se o campo de pesquisa estiver vazio, carrega todos os funcionários
-                carregarFuncionarios();
-                return;
-            }
+            if (containerFuncionarios) {
+                // Pesquisa para funcionários
+                containerFuncionarios.innerHTML = ''; // Limpa o container antes de adicionar novos resultados
 
-            pesquisa = pesquisa.trim();
+                if (pesquisa === '') {
+                    carregarFuncionarios();
+                    return;
+                }
 
-            // Realiza a pesquisa no backend
-            fetch(`/funcionarios/search?pesquisa=${pesquisa}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao buscar funcionários.');
-                    }
-                    return response.json();
+                pesquisa = pesquisa.trim();
+
+                fetch(`/funcionarios/search?pesquisa=${pesquisa}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 })
-                .then(funcionarios => {
-                    if (funcionarios.length === 0) {
-                        container.innerHTML = '<p>Nenhum funcionário encontrado.</p>';
-                        return;
-                    }
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao buscar funcionários.');
+                        }
+                        return response.json();
+                    })
+                    .then(funcionarios => {
+                        if (funcionarios.length === 0) {
+                            containerFuncionarios.innerHTML = '<p>Nenhum funcionário encontrado.</p>';
+                            return;
+                        }
 
-                    funcionarios.forEach(func => {
-                        const div = document.createElement('div');
-                        div.className = 'funcionario';
+                        funcionarios.forEach(func => {
+                            const div = document.createElement('div');
+                            div.className = 'funcionario';
 
-                        div.innerHTML = `
+                            div.innerHTML = `
                                 <div class="acoes">
                                     <button class="btn-editar" title="Editar" onclick="editarFuncionario(${func.idFuncionario})">✏️</button>
                                     <button class="btn-excluir" title="Excluir" onclick="confirmarExclusao(${func.idFuncionario})">❌</button>
@@ -68,14 +70,63 @@ fetch('../../components/header/header.html')
                                 <span>CEP: ${func.endereco?.cep || ''}</span>
                             `;
 
-                        container.appendChild(div);
+                            containerFuncionarios.appendChild(div);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        containerFuncionarios.innerHTML =
+                            `<p style="color: red;">Erro ao carregar funcionários: ${error.message}</p>`;
                     });
+            } else if (containerDepartamentos) {
+                // Pesquisa para departamentos
+                containerDepartamentos.innerHTML = ''; // Limpa o container antes de adicionar novos resultados
+
+                if (pesquisa === '') {
+                    carregarDepartamentos();
+                    return;
+                }
+
+                pesquisa = pesquisa.trim();
+
+                fetch(`/departamentos/search?pesquisa=${pesquisa}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 })
-                .catch(error => {
-                    console.error('Erro:', error);
-                    container.innerHTML =
-                        `<p style="color: red;">Erro ao carregar funcionários: ${error.message}</p>`;
-                });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao buscar departamentos.');
+                        }
+                        return response.json();
+                    })
+                    .then(departamentos => {
+                        if (departamentos.length === 0) {
+                            containerDepartamentos.innerHTML = '<p>Nenhum departamento encontrado.</p>';
+                            return;
+                        }
+
+                        departamentos.forEach(departamento => {
+                            const div = document.createElement('div');
+                            div.className = 'departamento';
+                            div.innerHTML = `
+                                <span><strong>Nome:</strong> ${departamento.nmDepartamento}</span>
+                                <span><strong>ID:</strong> ${departamento.idDepartamento}</span>
+                                <div class="acoes">
+                                    <button class="btn-editar" title="Editar" onclick="editarDepartamento(${departamento.idDepartamento})">✏️</button>
+                                    <button class="btn-excluir" title="Excluir" onclick="confirmarExclusao(${departamento.idDepartamento})">❌</button>
+                                </div>
+                            `;
+                            containerDepartamentos.appendChild(div);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        containerDepartamentos.innerHTML =
+                            `<p style="color: red;">Erro ao carregar departamentos: ${error.message}</p>`;
+                    });
+            }
         });
 
     })

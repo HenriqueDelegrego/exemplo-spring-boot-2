@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class DepartamentoDtoRequest {
+public class DepartamentoRequestDto {
 
 	@NotBlank
 	@Size(max = 50)

@@ -8,7 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.response.EnderecoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
@@ -106,7 +106,7 @@ public class FuncionarioService {
 			funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
 			funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
 
-			funcionarioDto.setDepartamento(new DepartamentoDto());
+			funcionarioDto.setDepartamento(new DepartamentoResponseDto());
 			funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
 			funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
 
@@ -144,7 +144,7 @@ public class FuncionarioService {
 		funcionarioDto.getEndereco().setNumero(funcionarioEntity.getEndereco().getNumero());
 		funcionarioDto.getEndereco().setCep(funcionarioEntity.getEndereco().getCep());
 
-		funcionarioDto.setDepartamento(new DepartamentoDto());
+		funcionarioDto.setDepartamento(new DepartamentoResponseDto());
 		funcionarioDto.getDepartamento().setIdDepartamento(funcionarioEntity.getDepartamento().getIdDepartamento());
 		funcionarioDto.getDepartamento().setNmDepartamento(funcionarioEntity.getDepartamento().getNmDepartamento());
 
@@ -182,7 +182,7 @@ public class FuncionarioService {
 			funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
 			funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
 
-			funcionarioDto.setDepartamento(new DepartamentoDto());
+			funcionarioDto.setDepartamento(new DepartamentoResponseDto());
 			funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
 			funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
 
