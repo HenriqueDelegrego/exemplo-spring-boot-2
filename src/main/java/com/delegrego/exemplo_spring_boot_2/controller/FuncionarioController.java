@@ -77,6 +77,12 @@ public class FuncionarioController {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
 	}
 
+	/**
+	 * Endpoint para pesquisar funcionários por nome, cargo ou departamento
+	 * 
+	 * @param pesquisa - Termo de pesquisa
+	 * @return ResponseEntity com a lista de funcionários encontrados
+	 */
 	@GetMapping("/search")
 	public ResponseEntity<List<FuncionarioResponseDto>> pesquisarFuncionarios(@RequestParam String pesquisa) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.pesquisarFuncionarios(pesquisa, pesquisa, pesquisa));
