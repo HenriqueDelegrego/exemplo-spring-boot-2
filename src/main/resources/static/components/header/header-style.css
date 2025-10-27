@@ -35,11 +35,9 @@ header nav ul li a:hover {
 }
 
 #boas-vindas {
-    margin-left: auto;
-    margin-right: 40px;
+   
     font-size: 1.1em;
-    display: flex;
-    align-items: center;
+   
     gap: 4px;
     padding: 10px;
 }
