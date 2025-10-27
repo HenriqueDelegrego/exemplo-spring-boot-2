@@ -9,45 +9,45 @@ fetch('../../components/header/header.html')
 
         // Adiciona o evento ao input de pesquisa após o header ser carregado
         const formPesquisa = document.getElementById('formulario-pesquisa');
-            formPesquisa.addEventListener('submit', function (e) {
+        formPesquisa.addEventListener('submit', function (e) {
 
-                e.preventDefault();
+            e.preventDefault();
 
-                const pesquisa = document.getElementById('input-pesquisa').value.trim();
+            const pesquisa = document.getElementById('input-pesquisa').value.trim();
 
-                const container = document.getElementById('funcionarios');
-                container.innerHTML = ''; // Limpa o container antes de adicionar novos resultados
+            const container = document.getElementById('funcionarios');
+            container.innerHTML = ''; // Limpa o container antes de adicionar novos resultados
 
-                if (pesquisa === '') {
-                    // Se o campo de pesquisa estiver vazio, carrega todos os funcionários
-                    carregarFuncionarios();
-                    return;
-                }
+            if (pesquisa === '') {
+                // Se o campo de pesquisa estiver vazio, carrega todos os funcionários
+                carregarFuncionarios();
+                return;
+            }
 
-                // Realiza a pesquisa no backend
-                fetch(`/funcionarios/search?pesquisa=${pesquisa}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+            // Realiza a pesquisa no backend
+            fetch(`/funcionarios/search?pesquisa=${pesquisa}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao buscar funcionários.');
+                    }
+                    return response.json();
                 })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erro ao buscar funcionários.');
-                        }
-                        return response.json();
-                    })
-                    .then(funcionarios => {
-                        if (funcionarios.length === 0) {
-                            container.innerHTML = '<p>Nenhum funcionário encontrado.</p>';
-                            return;
-                        }
+                .then(funcionarios => {
+                    if (funcionarios.length === 0) {
+                        container.innerHTML = '<p>Nenhum funcionário encontrado.</p>';
+                        return;
+                    }
 
-                        funcionarios.forEach(func => {
-                            const div = document.createElement('div');
-                            div.className = 'funcionario';
+                    funcionarios.forEach(func => {
+                        const div = document.createElement('div');
+                        div.className = 'funcionario';
 
-                            div.innerHTML = `
+                        div.innerHTML = `
                                 <div class="acoes">
                                     <button class="btn-editar" title="Editar" onclick="editarFuncionario(${func.idFuncionario})">✏️</button>
                                     <button class="btn-excluir" title="Excluir" onclick="confirmarExclusao(${func.idFuncionario})">❌</button>
@@ -66,16 +66,16 @@ fetch('../../components/header/header.html')
                                 <span>CEP: ${func.endereco?.cep || ''}</span>
                             `;
 
-                            container.appendChild(div);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Erro:', error);
-                        container.innerHTML =
-                            `<p style="color: red;">Erro ao carregar funcionários: ${error.message}</p>`;
+                        container.appendChild(div);
                     });
-            });
-        
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    container.innerHTML =
+                        `<p style="color: red;">Erro ao carregar funcionários: ${error.message}</p>`;
+                });
+        });
+
     })
     .catch(error => {
         document.getElementById('header').innerHTML = `<p>Erro ao carregar o header</p>`;
