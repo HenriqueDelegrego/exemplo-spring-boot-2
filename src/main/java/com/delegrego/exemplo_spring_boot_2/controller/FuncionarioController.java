@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.service.FuncionarioService;
 
@@ -74,6 +75,17 @@ public class FuncionarioController {
 	@GetMapping("/{id}")
 	public ResponseEntity<FuncionarioResponseDto> obterFuncionarioPorId(@PathVariable int id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
+	}
+
+	/**
+	 * Endpoint para pesquisar funcionários por nome, cargo ou departamento
+	 * 
+	 * @param pesquisa - Termo de pesquisa
+	 * @return ResponseEntity com a lista de funcionários encontrados
+	 */
+	@GetMapping("/search")
+	public ResponseEntity<List<FuncionarioResponseDto>> pesquisarFuncionarios(@RequestParam String pesquisa) {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.pesquisarFuncionarios(pesquisa, pesquisa, pesquisa));
 	}
 
 	/**

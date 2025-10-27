@@ -8,7 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.response.EnderecoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
@@ -51,8 +51,7 @@ public class FuncionarioService {
 
 		FuncionarioEntity funcionarioEntity = new FuncionarioEntity();
 
-		DepartamentoEntity departamentoEntity = departamentoRepo
-				.findById(funcionarioDto.getIdDepartamento())
+		DepartamentoEntity departamentoEntity = departamentoRepo.findById(funcionarioDto.getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		FuncionarioEntity criadoPor = repo.findByEmail(obterEmailUsuarioAutenticado())
@@ -107,7 +106,7 @@ public class FuncionarioService {
 			funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
 			funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
 
-			funcionarioDto.setDepartamento(new DepartamentoDto());
+			funcionarioDto.setDepartamento(new DepartamentoResponseDto());
 			funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
 			funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
 
@@ -145,7 +144,7 @@ public class FuncionarioService {
 		funcionarioDto.getEndereco().setNumero(funcionarioEntity.getEndereco().getNumero());
 		funcionarioDto.getEndereco().setCep(funcionarioEntity.getEndereco().getCep());
 
-		funcionarioDto.setDepartamento(new DepartamentoDto());
+		funcionarioDto.setDepartamento(new DepartamentoResponseDto());
 		funcionarioDto.getDepartamento().setIdDepartamento(funcionarioEntity.getDepartamento().getIdDepartamento());
 		funcionarioDto.getDepartamento().setNmDepartamento(funcionarioEntity.getDepartamento().getNmDepartamento());
 
@@ -154,6 +153,48 @@ public class FuncionarioService {
 		}
 
 		return funcionarioDto;
+	}
+
+	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
+	public List<FuncionarioResponseDto> pesquisarFuncionarios(String nome, String email, String cpf) {
+		List<FuncionarioEntity> listaFuncionarioEntity = repo.findByNomeContainingIgnoreCaseOrEmailContainingIgnoreCaseOrCpfContainingIgnoreCase(nome,
+				email, cpf);
+
+		List<FuncionarioResponseDto> listaFuncionarioDto = new ArrayList<>();
+
+		for (FuncionarioEntity f : listaFuncionarioEntity) {
+
+			FuncionarioResponseDto funcionarioDto = new FuncionarioResponseDto();
+
+			funcionarioDto.setIdFuncionario(f.getIdFuncionario());
+			funcionarioDto.setNome(f.getNome());
+			funcionarioDto.setCpf(f.getCpf());
+			funcionarioDto.setEmail(f.getEmail());
+			funcionarioDto.setDataNascimento(f.getDataNascimento());
+			funcionarioDto.setSalario(f.getSalario());
+			funcionarioDto.setGerente(f.isGerente());
+
+			funcionarioDto.setEndereco(new EnderecoResponseDto());
+			funcionarioDto.getEndereco().setEstado(f.getEndereco().getEstado());
+			funcionarioDto.getEndereco().setCidade(f.getEndereco().getCidade());
+			funcionarioDto.getEndereco().setBairro(f.getEndereco().getBairro());
+			funcionarioDto.getEndereco().setLogradouro(f.getEndereco().getLogradouro());
+			funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
+			funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
+
+			funcionarioDto.setDepartamento(new DepartamentoResponseDto());
+			funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
+			funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
+
+			if (f.getCriadoPor() != null) {
+				funcionarioDto.setCriadoPor(f.getCriadoPor().getNome());
+			}
+
+			listaFuncionarioDto.add(funcionarioDto);
+
+		}
+
+		return listaFuncionarioDto;
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
@@ -170,8 +211,7 @@ public class FuncionarioService {
 			throw new RuntimeException("Usuário com esse CPF já existe");
 		}
 
-		DepartamentoEntity departamentoEntity = departamentoRepo
-				.findById(funcionarioDto.getIdDepartamento())
+		DepartamentoEntity departamentoEntity = departamentoRepo.findById(funcionarioDto.getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
 		funcionarioEntity.setNome(funcionarioDto.getNome());

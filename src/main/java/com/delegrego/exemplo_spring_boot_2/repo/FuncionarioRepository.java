@@ -1,5 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,18 @@ import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Integer> {
 
 	// Derived queries
+
+	/**
+	 * Retorna uma lista de funcionários cujo nome, email ou cpf contenha o valor
+	 * fornecido
+	 * 
+	 * @param nome  - O nome do funcionário
+	 * @param email - O email do funcionário
+	 * @param cpf   - O cpf do funcionário
+	 * @return A lista de funcionários encontrados
+	 */
+	List<FuncionarioEntity> findByNomeContainingIgnoreCaseOrEmailContainingIgnoreCaseOrCpfContainingIgnoreCase(
+			String nome, String email, String cpf);
 
 	/**
 	 * Retorna um funcionário com o email fornecido

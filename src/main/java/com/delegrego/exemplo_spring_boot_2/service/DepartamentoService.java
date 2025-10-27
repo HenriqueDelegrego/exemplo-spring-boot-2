@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.request.DepartamentoDtoRequest;
-import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.request.DepartamentoRequestDto;
+import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
@@ -32,7 +32,7 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void cadastrarDepartamento(DepartamentoDtoRequest departamentoDTO) {
+	public void cadastrarDepartamento(DepartamentoRequestDto departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = new DepartamentoEntity();
 
@@ -42,13 +42,13 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public List<DepartamentoDto> listarDepartamentos() {
+	public List<DepartamentoResponseDto> listarDepartamentos() {
 		List<DepartamentoEntity> listaDepartamentoEntity = repo.findAll();
 
-		List<DepartamentoDto> listaDepartamentoDto = new ArrayList<DepartamentoDto>();
+		List<DepartamentoResponseDto> listaDepartamentoDto = new ArrayList<DepartamentoResponseDto>();
 
 		for (DepartamentoEntity d : listaDepartamentoEntity) {
-			DepartamentoDto departamentoDto = new DepartamentoDto();
+			DepartamentoResponseDto departamentoDto = new DepartamentoResponseDto();
 			departamentoDto.setIdDepartamento(d.getIdDepartamento());
 			departamentoDto.setNmDepartamento(d.getNmDepartamento());
 
@@ -59,20 +59,37 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public DepartamentoDto obterDepartamentoPorId(int id) {
+	public DepartamentoResponseDto obterDepartamentoPorId(int id) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
 
-		DepartamentoDto departamentoDto = new DepartamentoDto();
+		DepartamentoResponseDto departamentoDto = new DepartamentoResponseDto();
 		departamentoDto.setIdDepartamento(departamentoEntity.getIdDepartamento());
 		departamentoDto.setNmDepartamento(departamentoEntity.getNmDepartamento());
 
 		return departamentoDto;
 	}
 
+	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
+	public List<DepartamentoResponseDto> pesquisarDepartamentos(String pesquisa) {
+		List<DepartamentoEntity> listaDepartamentoEntity = repo.findByNmDepartamentoContainingIgnoreCase(pesquisa);
+		List<DepartamentoResponseDto> listaDepartamentoDto = new ArrayList<DepartamentoResponseDto>();
+
+		for (DepartamentoEntity d : listaDepartamentoEntity) {
+			DepartamentoResponseDto departamentoDto = new DepartamentoResponseDto();
+			departamentoDto.setIdDepartamento(d.getIdDepartamento());
+			departamentoDto.setNmDepartamento(d.getNmDepartamento());
+
+			listaDepartamentoDto.add(departamentoDto);
+		}
+
+		return listaDepartamentoDto;
+
+	}
+
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarDepartamento(int id, DepartamentoDtoRequest departamentoDTO) {
+	public void atualizarDepartamento(int id, DepartamentoRequestDto departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
