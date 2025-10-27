@@ -78,8 +78,8 @@ public class FuncionarioController {
 	}
 
 	@GetMapping("/search")
-	public ResponseEntity<List<FuncionarioResponseDto>> pesquisarFuncionarios(@RequestParam String pesquisa) {		
-		return ResponseEntity.status(HttpStatus.OK).body(servico.pesquisarFuncionarios(pesquisa, pesquisa));
+	public ResponseEntity<List<FuncionarioResponseDto>> pesquisarFuncionarios(@RequestParam String pesquisa) {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.pesquisarFuncionarios(pesquisa, pesquisa, pesquisa));
 	}
 
 	/**
