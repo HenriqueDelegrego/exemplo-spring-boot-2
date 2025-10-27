@@ -21,6 +21,7 @@ import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
 @Service
+//@RequiredArgsConstructor -> Pode ser utilizado em vez do construtor
 public class FuncionarioService {
 
 	// Maneira correta de acoplar camada de repositório
