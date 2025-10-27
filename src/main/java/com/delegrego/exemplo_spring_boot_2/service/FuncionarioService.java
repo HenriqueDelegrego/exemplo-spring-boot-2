@@ -157,8 +157,8 @@ public class FuncionarioService {
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public List<FuncionarioResponseDto> pesquisarFuncionarios(String nome, String email, String cpf) {
-		List<FuncionarioEntity> listaFuncionarioEntity = repo
-				.findByNomeContainingOrEmailContainingOrCpfContaining(nome, email, cpf);
+		List<FuncionarioEntity> listaFuncionarioEntity = repo.findByNomeContainingOrEmailContainingOrCpfContaining(nome,
+				email, cpf);
 
 		List<FuncionarioResponseDto> listaFuncionarioDto = new ArrayList<>();
 
@@ -193,8 +193,6 @@ public class FuncionarioService {
 			listaFuncionarioDto.add(funcionarioDto);
 
 		}
-
-		System.out.println(listaFuncionarioDto);
 
 		return listaFuncionarioDto;
 	}

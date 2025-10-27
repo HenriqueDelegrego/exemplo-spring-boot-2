@@ -8,16 +8,23 @@ fetch('../../components/header/header.html')
         document.head.appendChild(link);
 
         // Adiciona o evento ao input de pesquisa após o header ser carregado
-        const inputPesquisa = document.getElementById('input-pesquisa');
-        if (inputPesquisa) {
-            inputPesquisa.addEventListener('input', function () {
-                const pesquisa = inputPesquisa.value;
+        const formPesquisa = document.getElementById('formulario-pesquisa');
+            formPesquisa.addEventListener('submit', function (e) {
+
+                e.preventDefault();
+
+                const pesquisa = document.getElementById('input-pesquisa').value.trim();
+
+                const container = document.getElementById('funcionarios');
+                container.innerHTML = ''; // Limpa o container antes de adicionar novos resultados
 
                 if (pesquisa === '') {
-                    document.getElementById('funcionarios').innerHTML = '';
+                    // Se o campo de pesquisa estiver vazio, carrega todos os funcionários
+                    carregarFuncionarios();
                     return;
                 }
 
+                // Realiza a pesquisa no backend
                 fetch(`/funcionarios/search?pesquisa=${pesquisa}`, {
                     method: 'GET',
                     headers: {
@@ -31,9 +38,6 @@ fetch('../../components/header/header.html')
                         return response.json();
                     })
                     .then(funcionarios => {
-                        const container = document.getElementById('funcionarios');
-                        container.innerHTML = '';
-
                         if (funcionarios.length === 0) {
                             container.innerHTML = '<p>Nenhum funcionário encontrado.</p>';
                             return;
@@ -67,11 +71,11 @@ fetch('../../components/header/header.html')
                     })
                     .catch(error => {
                         console.error('Erro:', error);
-                        document.getElementById('funcionarios').innerHTML =
+                        container.innerHTML =
                             `<p style="color: red;">Erro ao carregar funcionários: ${error.message}</p>`;
                     });
             });
-        }
+        
     })
     .catch(error => {
         document.getElementById('header').innerHTML = `<p>Erro ao carregar o header</p>`;
