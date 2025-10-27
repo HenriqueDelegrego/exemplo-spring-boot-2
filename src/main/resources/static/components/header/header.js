@@ -13,7 +13,7 @@ fetch('../../components/header/header.html')
 
             e.preventDefault();
 
-            const pesquisa = document.getElementById('input-pesquisa').value.trim();
+            let pesquisa = document.getElementById('input-pesquisa').value;
 
             const container = document.getElementById('funcionarios');
             container.innerHTML = ''; // Limpa o container antes de adicionar novos resultados
@@ -23,6 +23,8 @@ fetch('../../components/header/header.html')
                 carregarFuncionarios();
                 return;
             }
+
+            pesquisa = pesquisa.trim();
 
             // Realiza a pesquisa no backend
             fetch(`/funcionarios/search?pesquisa=${pesquisa}`, {
