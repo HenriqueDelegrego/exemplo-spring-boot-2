@@ -11,7 +11,7 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
 
 	// Derived queries
 
-	List<FuncionarioEntity> findByNomeContainingOrEmailContaining(String nome, String email);
+	List<FuncionarioEntity> findByNomeContainingIgnoreCaseOrEmailContainingIgnoreCase(String nome, String email);
 
 	/**
 	 * Retorna um funcionário com o email fornecido
