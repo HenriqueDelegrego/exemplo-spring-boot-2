@@ -157,7 +157,7 @@ public class FuncionarioService {
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public List<FuncionarioResponseDto> pesquisarFuncionarios(String nome, String email, String cpf) {
-		List<FuncionarioEntity> listaFuncionarioEntity = repo.findByNomeContainingOrEmailContainingOrCpfContaining(nome,
+		List<FuncionarioEntity> listaFuncionarioEntity = repo.findByNomeContainingIgnoreCaseOrEmailContainingIgnoreCaseOrCpfContainingIgnoreCase(nome,
 				email, cpf);
 
 		List<FuncionarioResponseDto> listaFuncionarioDto = new ArrayList<>();

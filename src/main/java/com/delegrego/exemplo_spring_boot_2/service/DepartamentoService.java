@@ -73,7 +73,7 @@ public class DepartamentoService {
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public List<DepartamentoResponseDto> pesquisarDepartamentos(String pesquisa) {
-		List<DepartamentoEntity> listaDepartamentoEntity = repo.findByNmDepartamentoContaining(pesquisa);
+		List<DepartamentoEntity> listaDepartamentoEntity = repo.findByNmDepartamentoContainingIgnoreCase(pesquisa);
 		List<DepartamentoResponseDto> listaDepartamentoDto = new ArrayList<DepartamentoResponseDto>();
 
 		for (DepartamentoEntity d : listaDepartamentoEntity) {
