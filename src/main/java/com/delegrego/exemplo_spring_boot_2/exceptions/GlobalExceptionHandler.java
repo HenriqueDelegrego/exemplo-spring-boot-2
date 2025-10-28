@@ -36,6 +36,63 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
+	 * Tratamento para CpfDuplicadoException.
+	 * 
+	 * @param ex - exceção lançada
+	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 */
+	@ExceptionHandler(CpfDuplicadoException.class)
+	public ResponseEntity<String> tratarCpfDuplicadoException(CpfDuplicadoException ex) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+	}
+
+	/**
+	 * Tratamento para DepartamentoNaoEncontradoException.
+	 * 
+	 * @param ex - exceção lançada
+	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 */
+	@ExceptionHandler(DepartamentoNaoEncontradoException.class)
+	public ResponseEntity<String> tratarDepartamentoNaoEncontradoException(DepartamentoNaoEncontradoException ex) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+	}
+
+	/**
+	 * Tratamento para FuncionarioNaoEncontradoException.
+	 * 
+	 * @param ex - exceção lançada
+	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 */
+	@ExceptionHandler(FuncionarioNaoEncontradoException.class)
+	public ResponseEntity<String> tratarFuncionarioNaoEncontradoException(FuncionarioNaoEncontradoException ex) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+	}
+	
+	
+	/**
+	 * Tratamento para UsuarioAutenticadoNaoEncontradoException.
+	 * 
+	 * @param ex - exceção lançada
+	 * @return ResponseEntity com status 404 e mensagem da exceção
+	 */
+	@ExceptionHandler(UsuarioAutenticadoNaoEncontradoException.class)
+	public ResponseEntity<String> tratarUsuarioAutenticadoNaoEncontradoException(UsuarioAutenticadoNaoEncontradoException ex) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+	}
+
+	/**
+	 * Tratamento para ExclusaoDeDepartamentoNaoPermitidaException.
+	 * 
+	 * @param ex - exceção lançada
+	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 */
+	@ExceptionHandler(ExclusaoDeDepartamentoNaoPermitidaException.class)
+	public ResponseEntity<String> tratarExclusaoDeDepartamentoNaoPermitidaException(
+			ExclusaoDeDepartamentoNaoPermitidaException ex) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+	}
+
+	/**
 	 * Tratamento para AuthorizationDeniedException.
 	 * 
 	 * @param ex - exceção lançada
