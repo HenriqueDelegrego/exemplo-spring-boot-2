@@ -28,11 +28,11 @@ public class GlobalExceptionHandler {
 	 * Tratamento para EmailDuplicadoException.
 	 * 
 	 * @param ex - exceção lançada
-	 * @return ResponseEntity com status 400 e mensagem da exceção
+	 * @return ResponseEntity com status 409 e mensagem da exceção
 	 */
 	@ExceptionHandler(EmailDuplicadoException.class)
 	public ResponseEntity<String> tratarEmailDuplicadoException(EmailDuplicadoException ex) {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
 	}
 
 	/**
