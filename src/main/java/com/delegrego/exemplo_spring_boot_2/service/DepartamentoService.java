@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.request.DepartamentoRequestDto;
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
+import com.delegrego.exemplo_spring_boot_2.exceptions.DepartamentoNaoEncontradoException;
+import com.delegrego.exemplo_spring_boot_2.exceptions.ExclusaoDeDepartamentoNaoPermitidaException;
 import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
@@ -63,7 +65,7 @@ public class DepartamentoService {
 	public DepartamentoResponseDto obterDepartamentoPorId(int id) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
-				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
 
 		DepartamentoResponseDto departamentoDto = new DepartamentoResponseDto();
 		departamentoDto.setIdDepartamento(departamentoEntity.getIdDepartamento());
@@ -93,7 +95,7 @@ public class DepartamentoService {
 	public void atualizarDepartamento(int id, DepartamentoRequestDto departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
-				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
 
 		departamentoEntity.setNmDepartamento(departamentoDTO.getNmDepartamento());
 
@@ -103,10 +105,10 @@ public class DepartamentoService {
 	@PreAuthorize("hasRole('GERENTE')")
 	public void deletarDepartamento(int id) {
 
-		repo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+		repo.findById(id).orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
 
 		if (funcionarioRepo.existsByDepartamentoIdDepartamento(id)) {
-			throw new RuntimeException("Não pode excluir departamentos com funcionários");
+			throw new ExclusaoDeDepartamentoNaoPermitidaException("Não pode excluir departamentos com funcionários");
 		}
 
 		repo.deleteById(id);

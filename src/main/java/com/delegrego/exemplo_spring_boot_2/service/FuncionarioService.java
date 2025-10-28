@@ -16,7 +16,11 @@ import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioR
 import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.EnderecoEntity;
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
+import com.delegrego.exemplo_spring_boot_2.exceptions.CpfDuplicadoException;
+import com.delegrego.exemplo_spring_boot_2.exceptions.DepartamentoNaoEncontradoException;
 import com.delegrego.exemplo_spring_boot_2.exceptions.EmailDuplicadoException;
+import com.delegrego.exemplo_spring_boot_2.exceptions.FuncionarioNaoEncontradoException;
+import com.delegrego.exemplo_spring_boot_2.exceptions.UsuarioAutenticadoNaoEncontradoException;
 import com.delegrego.exemplo_spring_boot_2.repo.DepartamentoRepository;
 import com.delegrego.exemplo_spring_boot_2.repo.FuncionarioRepository;
 
@@ -47,16 +51,16 @@ public class FuncionarioService {
 		}
 
 		if (repo.existsByCpf(funcionarioDto.getCpf())) {
-			throw new RuntimeException("Usuário com esse CPF já existe");
+			throw new CpfDuplicadoException("Usuário com esse CPF já existe");
 		}
 
 		FuncionarioEntity funcionarioEntity = new FuncionarioEntity();
 
 		DepartamentoEntity departamentoEntity = departamentoRepo.findById(funcionarioDto.getIdDepartamento())
-				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
 
 		FuncionarioEntity criadoPor = repo.findByEmail(obterEmailUsuarioAutenticado())
-				.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+				.orElseThrow(() -> new UsuarioAutenticadoNaoEncontradoException("Usuário não encontrado"));
 
 		funcionarioEntity.setNome(funcionarioDto.getNome());
 		funcionarioEntity.setCpf(funcionarioDto.getCpf());
@@ -125,7 +129,7 @@ public class FuncionarioService {
 	public FuncionarioResponseDto obterFuncionarioPorId(int id) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
-				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+				.orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
 
 		FuncionarioResponseDto funcionarioDto = new FuncionarioResponseDto();
 
@@ -158,8 +162,8 @@ public class FuncionarioService {
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
 	public List<FuncionarioResponseDto> pesquisarFuncionarios(String nome, String email, String cpf) {
-		List<FuncionarioEntity> listaFuncionarioEntity = repo.findByNomeContainingIgnoreCaseOrEmailContainingIgnoreCaseOrCpfContainingIgnoreCase(nome,
-				email, cpf);
+		List<FuncionarioEntity> listaFuncionarioEntity = repo
+				.findByNomeContainingIgnoreCaseOrEmailContainingIgnoreCaseOrCpfContainingIgnoreCase(nome, email, cpf);
 
 		List<FuncionarioResponseDto> listaFuncionarioDto = new ArrayList<>();
 
@@ -202,18 +206,18 @@ public class FuncionarioService {
 	public void atualizarFuncionario(int id, FuncionarioAtualizarDto funcionarioDto) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
-				.orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+				.orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
 
 		if (repo.existsByEmailAndIdFuncionarioNot(funcionarioDto.getEmail(), id)) {
 			throw new EmailDuplicadoException("Usuário com esse email já existe");
 		}
 
 		if (repo.existsByCpfAndIdFuncionarioNot(funcionarioDto.getCpf(), id)) {
-			throw new RuntimeException("Usuário com esse CPF já existe");
+			throw new CpfDuplicadoException("Usuário com esse CPF já existe");
 		}
 
 		DepartamentoEntity departamentoEntity = departamentoRepo.findById(funcionarioDto.getIdDepartamento())
-				.orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
 
 		funcionarioEntity.setNome(funcionarioDto.getNome());
 		funcionarioEntity.setCpf(funcionarioDto.getCpf());
@@ -238,7 +242,7 @@ public class FuncionarioService {
 	@PreAuthorize("hasRole('GERENTE')")
 	public void deletarFuncionario(int id) {
 
-		repo.findById(id).orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+		repo.findById(id).orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
 
 		repo.deleteById(id);
 	}
