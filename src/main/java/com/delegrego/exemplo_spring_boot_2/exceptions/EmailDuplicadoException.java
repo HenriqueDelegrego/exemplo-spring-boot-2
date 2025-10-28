@@ -1,10 +1,10 @@
 package com.delegrego.exemplo_spring_boot_2.exceptions;
 
 /**
- * Exceção customizada lançada quando um email duplicado é detectado
+ * Exceção lançada quando um email duplicado é detectado
  */
 public class EmailDuplicadoException extends RuntimeException {
-	
+
 	public EmailDuplicadoException() {
 		super();
 	}
