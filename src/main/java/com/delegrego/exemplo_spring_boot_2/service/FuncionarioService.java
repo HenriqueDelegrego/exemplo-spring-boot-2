@@ -59,8 +59,7 @@ public class FuncionarioService {
 		DepartamentoEntity departamentoEntity = departamentoRepo.findById(funcionarioDto.getIdDepartamento())
 				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
 
-		FuncionarioEntity criadoPor = repo.findByEmail(obterEmailUsuarioAutenticado())
-				.orElseThrow(() -> new UsuarioAutenticadoNaoEncontradoException("Usuário não encontrado"));
+		FuncionarioEntity criadoPor = obterUsuarioAutenticado();
 
 		funcionarioEntity.setNome(funcionarioDto.getNome());
 		funcionarioEntity.setCpf(funcionarioDto.getCpf());
@@ -245,6 +244,16 @@ public class FuncionarioService {
 		repo.findById(id).orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
 
 		repo.deleteById(id);
+	}
+
+	/**
+	 * Obtém o usuário autenticado no contexto de segurança do Spring Security.
+	 * 
+	 * @return A entidade do usuário autenticado.
+	 */
+	private FuncionarioEntity obterUsuarioAutenticado() {
+		return repo.findByEmail(obterEmailUsuarioAutenticado())
+				.orElseThrow(() -> new UsuarioAutenticadoNaoEncontradoException("Usuário não encontrado"));
 	}
 
 	/**
