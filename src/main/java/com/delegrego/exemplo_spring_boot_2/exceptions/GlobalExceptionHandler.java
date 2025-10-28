@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
 	 * Tratamento para RuntimeException.
 	 * 
 	 * @param ex - exceção lançada
-	 * @return ResponseEntity com status 400 e mensagem da exceção
+	 * @return ResponseEntity com status 400 (Bad Request) e mensagem da exceção
 	 */
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<String> tratarRuntimeException(RuntimeException ex) {
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 	 * Tratamento para EmailDuplicadoException.
 	 * 
 	 * @param ex - exceção lançada
-	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 * @return ResponseEntity com status 409 (Conflict) e mensagem da exceção
 	 */
 	@ExceptionHandler(EmailDuplicadoException.class)
 	public ResponseEntity<String> tratarEmailDuplicadoException(EmailDuplicadoException ex) {
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
 	 * Tratamento para CpfDuplicadoException.
 	 * 
 	 * @param ex - exceção lançada
-	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 * @return ResponseEntity com status 409 (Conflict) e mensagem da exceção
 	 */
 	@ExceptionHandler(CpfDuplicadoException.class)
 	public ResponseEntity<String> tratarCpfDuplicadoException(CpfDuplicadoException ex) {
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
 	 * Tratamento para DepartamentoNaoEncontradoException.
 	 * 
 	 * @param ex - exceção lançada
-	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 * @return ResponseEntity com status 409 (Conflict) e mensagem da exceção
 	 */
 	@ExceptionHandler(DepartamentoNaoEncontradoException.class)
 	public ResponseEntity<String> tratarDepartamentoNaoEncontradoException(DepartamentoNaoEncontradoException ex) {
@@ -61,35 +61,35 @@ public class GlobalExceptionHandler {
 	 * Tratamento para FuncionarioNaoEncontradoException.
 	 * 
 	 * @param ex - exceção lançada
-	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 * @return ResponseEntity com status 409 (Conflict) e mensagem da exceção
 	 */
 	@ExceptionHandler(FuncionarioNaoEncontradoException.class)
 	public ResponseEntity<String> tratarFuncionarioNaoEncontradoException(FuncionarioNaoEncontradoException ex) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-	}
-	
-	
-	/**
-	 * Tratamento para UsuarioAutenticadoNaoEncontradoException.
-	 * 
-	 * @param ex - exceção lançada
-	 * @return ResponseEntity com status 404 e mensagem da exceção
-	 */
-	@ExceptionHandler(UsuarioAutenticadoNaoEncontradoException.class)
-	public ResponseEntity<String> tratarUsuarioAutenticadoNaoEncontradoException(UsuarioAutenticadoNaoEncontradoException ex) {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 	}
 
 	/**
 	 * Tratamento para ExclusaoDeDepartamentoNaoPermitidaException.
 	 * 
 	 * @param ex - exceção lançada
-	 * @return ResponseEntity com status 409 e mensagem da exceção
+	 * @return ResponseEntity com status 409 (Conflict) e mensagem da exceção
 	 */
 	@ExceptionHandler(ExclusaoDeDepartamentoNaoPermitidaException.class)
 	public ResponseEntity<String> tratarExclusaoDeDepartamentoNaoPermitidaException(
 			ExclusaoDeDepartamentoNaoPermitidaException ex) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+	}
+
+	/**
+	 * Tratamento para UsuarioAutenticadoNaoEncontradoException.
+	 * 
+	 * @param ex - exceção lançada
+	 * @return ResponseEntity com status 404 (Not Found) e mensagem da exceção
+	 */
+	@ExceptionHandler(UsuarioAutenticadoNaoEncontradoException.class)
+	public ResponseEntity<String> tratarUsuarioAutenticadoNaoEncontradoException(
+			UsuarioAutenticadoNaoEncontradoException ex) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 	}
 
 	/**
