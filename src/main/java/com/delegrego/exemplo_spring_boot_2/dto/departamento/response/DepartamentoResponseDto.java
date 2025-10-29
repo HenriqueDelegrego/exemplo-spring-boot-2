@@ -1,5 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.dto.departamento.response;
 
+import java.math.BigInteger;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class DepartamentoResponseDto {
 
-	private int idDepartamento;
+	private BigInteger idDepartamento;
 
 	private String nmDepartamento;
 

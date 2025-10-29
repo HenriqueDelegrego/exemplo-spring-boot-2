@@ -1,6 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.dto.funcionario.request;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.request.EnderecoRequestDto;
@@ -54,6 +55,7 @@ public class FuncionarioAtualizarDto {
 	@Valid
 	private EnderecoRequestDto endereco;
 
-	private int idDepartamento;
+	@NotNull
+	private BigInteger idDepartamento;
 
 }

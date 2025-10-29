@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class FuncionarioDetails implements UserDetails {
 		return f.isGerente();
 	}
 
-	public int obterId() {
+	public BigInteger obterId() {
 		return f.getIdFuncionario();
 	}
 

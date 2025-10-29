@@ -1,6 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.dto.funcionario.response;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoResponseDto;
@@ -19,7 +20,7 @@ import lombok.ToString;
 @ToString
 public class FuncionarioResponseDto {
 
-	private int idFuncionario;
+	private BigInteger idFuncionario;
 
 	private String nome;
 

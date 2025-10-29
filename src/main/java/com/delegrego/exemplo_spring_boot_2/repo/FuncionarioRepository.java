@@ -1,5 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.repo;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 
-public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Integer> {
+public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, BigInteger> {
 
 	// Derived queries
 
@@ -57,7 +58,7 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
 	 * @return Um boolean indicando se o cpf já existe para outro funcionário
 	 *
 	 */
-	boolean existsByCpfAndIdFuncionarioNot(String cpf, int id);
+	boolean existsByCpfAndIdFuncionarioNot(String cpf, BigInteger id);
 
 	/**
 	 * Retorna um boolean indicando se o email já existe para outro funcionário
@@ -69,7 +70,7 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
 	 *         diferente do fornecido
 	 *
 	 */
-	boolean existsByEmailAndIdFuncionarioNot(String email, int id);
+	boolean existsByEmailAndIdFuncionarioNot(String email, BigInteger id);
 
 	/**
 	 * Retorna um boolean indicando se existe algum funcionário associado ao
@@ -79,5 +80,5 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
 	 * @return Um boolean indicando se existe algum funcionário associado ao
 	 *         departamento fornecido
 	 */
-	boolean existsByDepartamentoIdDepartamento(int id);
+	boolean existsByDepartamentoIdDepartamento(BigInteger id);
 }

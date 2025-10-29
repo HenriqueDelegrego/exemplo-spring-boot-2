@@ -1,5 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +126,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public FuncionarioResponseDto obterFuncionarioPorId(int id) {
+	public FuncionarioResponseDto obterFuncionarioPorId(BigInteger id) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
@@ -202,7 +203,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarFuncionario(int id, FuncionarioAtualizarDto funcionarioDto) {
+	public void atualizarFuncionario(BigInteger id, FuncionarioAtualizarDto funcionarioDto) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
@@ -239,7 +240,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void deletarFuncionario(int id) {
+	public void deletarFuncionario(BigInteger id) {
 
 		repo.findById(id).orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
 

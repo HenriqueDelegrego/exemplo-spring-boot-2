@@ -1,5 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class DepartamentoController {
 	 * @return ResponseEntity com o departamento encontrado
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<DepartamentoResponseDto> obterDepartamentoPorId(@PathVariable int id) {
+	public ResponseEntity<DepartamentoResponseDto> obterDepartamentoPorId(@PathVariable BigInteger id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterDepartamentoPorId(id));
 	}
 	
@@ -96,7 +97,7 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizarDepartamento(@PathVariable int id,
+	public ResponseEntity<Void> atualizarDepartamento(@PathVariable BigInteger id,
 			@Valid @RequestBody DepartamentoRequestDto departamentoDto) {
 		servico.atualizarDepartamento(id, departamentoDto);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -109,7 +110,7 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletarDepartamento(@PathVariable int id) {
+	public ResponseEntity<Void> deletarDepartamento(@PathVariable BigInteger id) {
 		servico.deletarDepartamento(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

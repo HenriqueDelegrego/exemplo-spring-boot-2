@@ -1,6 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.entity;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -34,7 +35,7 @@ public class FuncionarioEntity {
 	// (AUTO_INCREMENT)
 	// IDENTITY é o tipo utilizado pelo MySQL
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idFuncionario;
+	private BigInteger idFuncionario;
 
 	@Column(name = "nome", length = 100, nullable = false)
 	private String nome;
@@ -68,7 +69,7 @@ public class FuncionarioEntity {
 	// Mapeia a chave estrangeira para departamento
 	// name é o nome da coluna na tabela funcionario
 	// referencedColumnName é o nome da coluna na tabela departamento
-	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
+	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento", nullable = false)
 	private DepartamentoEntity departamento;
 
 	@ManyToOne
