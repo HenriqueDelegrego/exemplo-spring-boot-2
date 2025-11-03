@@ -73,7 +73,7 @@ public class FuncionarioEntity {
 	private DepartamentoEntity departamento;
 
 	@ManyToOne
-	@JoinColumn(name = "criado_por", nullable = true)
+	@JoinColumn(name = "criado_por")
 	private FuncionarioEntity criadoPor;
 
 }
