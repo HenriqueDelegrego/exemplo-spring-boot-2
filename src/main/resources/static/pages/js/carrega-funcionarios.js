@@ -16,7 +16,7 @@ async function ocultarAcoes() {
 
 async function carregarFuncionarios() {
     try {
-        const response = await fetch('http://localhost:8080/funcionarios');
+        const response = await fetch('/funcionarios');
         if (!response.ok) throw new Error('Erro ao buscar funcionários');
 
         const funcionarios = await response.json();
@@ -73,7 +73,7 @@ async function confirmarExclusao(id) {
     if (!confirmacao) return;
 
     try {
-        const resposta = await fetch(`http://localhost:8080/funcionarios/${id}`, {
+        const resposta = await fetch(`/funcionarios/${id}`, {
             method: 'DELETE'
         });
 

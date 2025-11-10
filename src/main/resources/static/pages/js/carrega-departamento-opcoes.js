@@ -1,6 +1,6 @@
 async function carregarDepartamentos() {
     try {
-        const response = await fetch('http://localhost:8080/departamentos');
+        const response = await fetch('/departamentos');
         if (!response.ok) throw new Error('Erro ao buscar departamentos');
 
         const departamentos = await response.json();

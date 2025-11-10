@@ -6,7 +6,7 @@ async function carregarDepartamentosSelecionaveis(departamentoAtualId) {
     const select = document.getElementById("departamentosSelect");
 
     try {
-        const res = await fetch("http://localhost:8080/departamentos");
+        const res = await fetch("/departamentos");
         const departamentos = await res.json();
 
         departamentos.forEach(dep => {
@@ -25,7 +25,7 @@ async function carregarDepartamentosSelecionaveis(departamentoAtualId) {
 
 async function carregarFuncionario() {
     try {
-        const response = await fetch(`http://localhost:8080/funcionarios/${funcionarioId}`);
+        const response = await fetch(`/funcionarios/${funcionarioId}`);
         if (!response.ok) throw new Error("Funcionário não encontrado");
 
         const func = await response.json();

@@ -22,7 +22,7 @@ form.addEventListener("submit", async function (e) {
     };
 
     try {
-        const res = await fetch(`http://localhost:8080/funcionarios/${id}`, {
+        const res = await fetch(`/funcionarios/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
