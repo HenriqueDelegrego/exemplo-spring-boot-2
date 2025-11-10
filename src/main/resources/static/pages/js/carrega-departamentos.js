@@ -51,7 +51,7 @@ async function confirmarExclusao(idDepartamento) {
     if (!confirmacao) return;
 
     try {
-        const resposta = await fetch(`http://localhost:8080/departamentos/${idDepartamento}`, {
+        const resposta = await fetch(`/departamentos/${idDepartamento}`, {
             method: 'DELETE'
         });
 

@@ -7,7 +7,7 @@ document.getElementById('formDepartamento').addEventListener('submit', async fun
     };
 
     try {
-        const response = await fetch('http://localhost:8080/departamentos', {
+        const response = await fetch('/departamentos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
