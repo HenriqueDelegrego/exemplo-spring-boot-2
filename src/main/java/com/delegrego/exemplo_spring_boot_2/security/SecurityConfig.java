@@ -9,15 +9,15 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-	private FuncionarioDetailsService userDetailsService;
+	private final FuncionarioDetailsService userDetailsService;
 
-	public SecurityConfig(FuncionarioDetailsService userDetailsService) {
-		this.userDetailsService = userDetailsService;
-	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
