@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 
+import lombok.RequiredArgsConstructor;
+
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
@@ -20,13 +22,11 @@ import java.util.List;
  * 
  * @see UserDetails
  */
+
+@RequiredArgsConstructor
 public class FuncionarioDetails implements UserDetails {
 
-	private final FuncionarioEntity f;
-
-	public FuncionarioDetails(FuncionarioEntity f) {
-		this.f = f;
-	}
+	private final FuncionarioEntity funcionario;
 
 	/**
 	 * Obtém o nome do funcionario validado
@@ -34,7 +34,7 @@ public class FuncionarioDetails implements UserDetails {
 	 * @return nome do funcionário
 	 */
 	public String obterNome() {
-		return f.getNome();
+		return funcionario.getNome();
 	}
 
 	/**
@@ -43,16 +43,16 @@ public class FuncionarioDetails implements UserDetails {
 	 * @return true se for gerente, false caso contrário
 	 */
 	public boolean isGerente() {
-		return f.isGerente();
+		return funcionario.isGerente();
 	}
 
 	public BigInteger obterId() {
-		return f.getIdFuncionario();
+		return funcionario.getIdFuncionario();
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (f.isGerente()) {
+		if (funcionario.isGerente()) {
 			return List.of(new SimpleGrantedAuthority("ROLE_GERENTE"));
 		}
 		return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
@@ -80,11 +80,11 @@ public class FuncionarioDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return f.getSenha();
+		return funcionario.getSenha();
 	}
 
 	@Override
 	public String getUsername() {
-		return f.getEmail();
+		return funcionario.getEmail();
 	}
 }
