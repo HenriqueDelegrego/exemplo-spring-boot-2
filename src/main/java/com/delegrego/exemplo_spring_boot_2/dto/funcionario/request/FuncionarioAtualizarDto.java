@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.request.EnderecoRequestDto;
 
 import jakarta.validation.Valid;
@@ -12,7 +14,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,7 @@ public class FuncionarioAtualizarDto {
 	private String nome;
 
 	@NotBlank
-	@Pattern(regexp = "\\d{11}")
+	// @CPF
 	private String cpf;
 
 	@NotBlank
