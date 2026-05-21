@@ -45,7 +45,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void cadastrarFuncionario(FuncionarioCriarDto funcionarioDto) {
+	public FuncionarioEntity cadastrarFuncionario(FuncionarioCriarDto funcionarioDto) {
 
 		if (repo.existsByEmail(funcionarioDto.getEmail())) {
 			throw new EmailDuplicadoException("Usuário com esse email já existe");
@@ -81,7 +81,7 @@ public class FuncionarioService {
 		funcionarioEntity.setDepartamento(departamentoEntity);
 		funcionarioEntity.setCriadoPor(criadoPor);
 
-		repo.save(funcionarioEntity);
+		return repo.save(funcionarioEntity);
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
