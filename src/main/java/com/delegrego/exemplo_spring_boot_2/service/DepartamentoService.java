@@ -36,13 +36,13 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void cadastrarDepartamento(DepartamentoRequestDto departamentoDTO) {
+	public DepartamentoEntity cadastrarDepartamento(DepartamentoRequestDto departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = new DepartamentoEntity();
 
 		departamentoEntity.setNmDepartamento(departamentoDTO.getNmDepartamento());
 
-		repo.save(departamentoEntity);
+		return repo.save(departamentoEntity);
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")

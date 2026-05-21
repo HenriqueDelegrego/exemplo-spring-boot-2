@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.request.DepartamentoRequestDto;
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoResponseDto;
+import com.delegrego.exemplo_spring_boot_2.entity.DepartamentoEntity;
 import com.delegrego.exemplo_spring_boot_2.service.DepartamentoService;
 
 import jakarta.validation.Valid;
@@ -51,9 +52,9 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status CREATED
 	 */
 	@PostMapping
-	public ResponseEntity<Void> cadastrarDepartamento(@Valid @RequestBody DepartamentoRequestDto departamentoDto) {
-		servico.cadastrarDepartamento(departamentoDto);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+	public ResponseEntity<DepartamentoEntity> cadastrarDepartamento(
+			@Valid @RequestBody DepartamentoRequestDto departamentoDto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(servico.cadastrarDepartamento(departamentoDto));
 	}
 
 	/**
@@ -76,8 +77,7 @@ public class DepartamentoController {
 	public ResponseEntity<DepartamentoResponseDto> obterDepartamentoPorId(@PathVariable BigInteger id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterDepartamentoPorId(id));
 	}
-	
-	
+
 	/**
 	 * Endpoint para pesquisar departamentos por nome
 	 * 
