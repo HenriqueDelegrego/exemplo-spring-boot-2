@@ -203,7 +203,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarFuncionario(BigInteger id, FuncionarioAtualizarDto funcionarioDto) {
+	public FuncionarioEntity atualizarFuncionario(BigInteger id, FuncionarioAtualizarDto funcionarioDto) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
@@ -236,7 +236,7 @@ public class FuncionarioService {
 		funcionarioEntity.getEndereco().setCep(funcionarioDto.getEndereco().getCep());
 		funcionarioEntity.setDepartamento(departamentoEntity);
 
-		repo.save(funcionarioEntity);
+		return repo.save(funcionarioEntity);
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")

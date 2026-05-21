@@ -98,12 +98,9 @@ public class FuncionarioController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizarFuncionario(@PathVariable BigInteger id,
+	public ResponseEntity<FuncionarioEntity> atualizarFuncionario(@PathVariable BigInteger id,
 			@Valid @RequestBody FuncionarioAtualizarDto funcionarioDto) {
-
-		servico.atualizarFuncionario(id, funcionarioDto);
-
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return ResponseEntity.status(HttpStatus.OK).body(servico.atualizarFuncionario(id, funcionarioDto));
 	}
 
 	/**
