@@ -97,10 +97,9 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizarDepartamento(@PathVariable BigInteger id,
+	public ResponseEntity<DepartamentoEntity> atualizarDepartamento(@PathVariable BigInteger id,
 			@Valid @RequestBody DepartamentoRequestDto departamentoDto) {
-		servico.atualizarDepartamento(id, departamentoDto);
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return ResponseEntity.status(HttpStatus.OK).body(servico.atualizarDepartamento(id, departamentoDto));
 	}
 
 	/**

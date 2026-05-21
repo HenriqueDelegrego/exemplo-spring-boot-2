@@ -93,14 +93,14 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void atualizarDepartamento(BigInteger id, DepartamentoRequestDto departamentoDTO) {
+	public DepartamentoEntity atualizarDepartamento(BigInteger id, DepartamentoRequestDto departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
 				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
 
 		departamentoEntity.setNmDepartamento(departamentoDTO.getNmDepartamento());
 
-		repo.save(departamentoEntity);
+		return repo.save(departamentoEntity);
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
