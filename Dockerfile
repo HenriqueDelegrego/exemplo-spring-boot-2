@@ -1,13 +1,28 @@
-# Imagem base para o Spring Boot 2 com Java 21
-FROM eclipse-temurin:21
+# Imagem base com Maven para compilar o projeto Java
+FROM maven AS builder
 
-# Define o diretório de trabalho
+# Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia o arquivo jar para o container
-COPY target/exemplo-spring-boot-2-0.0.1-SNAPSHOT.jar app.jar
+# Copia o arquivo de dependências do Maven
+COPY pom.xml .
 
-# Expõe a porta 8080 (padrão do Spring Boot)
+# Copia o código-fonte da aplicação
+COPY src ./src
+
+# Executa o build da aplicação e gera o arquivo .jar
+RUN mvn clean package -DskipTests
+
+# Segunda etapa: imagem mais leve apenas para execução
+FROM eclipse-temurin
+
+# Define o diretório de trabalho da aplicação
+WORKDIR /app
+
+# Copia o .jar gerado na etapa anterior para a imagem final
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expõe a porta utilizada pela aplicação
 EXPOSE 8080
 
 # Configurações do banco de dados
@@ -16,5 +31,6 @@ EXPOSE 8080
 # ENV SPRING_DATASOURCE_USERNAME=root
 # ENV SPRING_DATASOURCE_PASSWORD=aluno
 
-# Comando para executar a aplicação
+# Comando executado ao iniciar o container
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
