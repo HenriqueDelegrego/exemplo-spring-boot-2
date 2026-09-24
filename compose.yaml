@@ -1,20 +1,26 @@
 services:
-  app:
-    build:
-      context: .
+  api:
+    build: .
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/exemplo_spring_boot_2
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/exemplo_spring_boot_2?allowMultiQueries=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: senha
+      SPRING_DATASOURCE_PASSWORD:
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    restart: unless-stopped
 
   db:
     image: mysql
-    ports:
-      - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: senha
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: exemplo_spring_boot_2
+    healthcheck:
+      test: [ "CMD", "mysql", "-u", "root", "-e", "USE exemplo_spring_boot_2;" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
