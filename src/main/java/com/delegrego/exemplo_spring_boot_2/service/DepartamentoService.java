@@ -1,6 +1,5 @@
 package com.delegrego.exemplo_spring_boot_2.service;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public DepartamentoResponseDto obterDepartamentoPorId(BigInteger id) {
+	public DepartamentoResponseDto obterDepartamentoPorId(Long id) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
 				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
@@ -93,7 +92,7 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public DepartamentoEntity atualizarDepartamento(BigInteger id, DepartamentoRequestDto departamentoDTO) {
+	public DepartamentoEntity atualizarDepartamento(Long id, DepartamentoRequestDto departamentoDTO) {
 
 		DepartamentoEntity departamentoEntity = repo.findById(id)
 				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
@@ -104,7 +103,7 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void deletarDepartamento(BigInteger id) {
+	public void deletarDepartamento(Long id) {
 
 		repo.findById(id).orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
 

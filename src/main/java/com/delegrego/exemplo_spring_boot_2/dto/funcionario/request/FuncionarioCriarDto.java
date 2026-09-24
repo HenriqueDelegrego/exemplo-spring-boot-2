@@ -1,7 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.dto.funcionario.request;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -61,6 +60,6 @@ public class FuncionarioCriarDto {
 	private EnderecoRequestDto endereco;
 
 	@NotNull
-	private BigInteger idDepartamento;
+	private Long idDepartamento;
 
 }

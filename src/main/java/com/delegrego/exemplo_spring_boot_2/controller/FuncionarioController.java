@@ -1,6 +1,5 @@
 package com.delegrego.exemplo_spring_boot_2.controller;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com o funcionário encontrado
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<FuncionarioResponseDto> obterFuncionarioPorId(@PathVariable BigInteger id) {
+	public ResponseEntity<FuncionarioResponseDto> obterFuncionarioPorId(@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
 	}
 
@@ -98,7 +97,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<FuncionarioEntity> atualizarFuncionario(@PathVariable BigInteger id,
+	public ResponseEntity<FuncionarioEntity> atualizarFuncionario(@PathVariable Long id,
 			@Valid @RequestBody FuncionarioAtualizarDto funcionarioDto) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.atualizarFuncionario(id, funcionarioDto));
 	}
@@ -110,7 +109,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletarFuncionario(@PathVariable BigInteger id) {
+	public ResponseEntity<Void> deletarFuncionario(@PathVariable Long id) {
 		servico.deletarFuncionario(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

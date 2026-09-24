@@ -1,11 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.entity;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -38,8 +34,7 @@ public class FuncionarioEntity {
 	// (AUTO_INCREMENT)
 	// IDENTITY é o tipo utilizado pelo MySQL
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JdbcTypeCode(SqlTypes.BIGINT)
-	private BigInteger idFuncionario;
+	private Long idFuncionario;
 
 	@Column(name = "nome", length = 100, nullable = false)
 	private String nome;

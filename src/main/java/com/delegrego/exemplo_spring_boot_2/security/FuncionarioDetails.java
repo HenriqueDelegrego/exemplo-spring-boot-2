@@ -1,5 +1,8 @@
 package com.delegrego.exemplo_spring_boot_2.security;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,10 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 
 import lombok.RequiredArgsConstructor;
-
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Implementação de UserDetails para representar os detalhes do funcionário
@@ -46,7 +45,7 @@ public class FuncionarioDetails implements UserDetails {
 		return funcionario.isGerente();
 	}
 
-	public BigInteger obterId() {
+	public Long obterId() {
 		return funcionario.getIdFuncionario();
 	}
 

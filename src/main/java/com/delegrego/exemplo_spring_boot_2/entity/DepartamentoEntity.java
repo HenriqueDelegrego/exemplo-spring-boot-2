@@ -1,9 +1,5 @@
 package com.delegrego.exemplo_spring_boot_2.entity;
 
-import java.math.BigInteger;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,9 +29,8 @@ public class DepartamentoEntity {
 	// (AUTO_INCREMENT)
 	// IDENTITY é o tipo utilizado pelo MySQL
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JdbcTypeCode(SqlTypes.BIGINT)
 	@Column(name = "id_departamento")
-	private BigInteger idDepartamento;
+	private Long idDepartamento;
 
 	// Restringe o atributo para não ser nulo e ter limite de 50 caracteres
 	@Column(name = "nm_departamento", nullable = false, length = 50)
