@@ -1,6 +1,5 @@
 package com.delegrego.exemplo_spring_boot_2.controller;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,13 +57,17 @@ public class DepartamentoController {
 	}
 
 	/**
-	 * Lista todos os departamentos
-	 * 
-	 * @return ResponseEntity com a lista de departamentos
+	 * Lista os departamentos cadastrados, permitindo filtrar os resultados por meio
+	 * de um termo de pesquisa.
+	 *
+	 * @param pesquisa termo utilizado para filtrar os departamentos; opcional
+	 * @return resposta HTTP com a lista de {@link DepartamentoResponseDto} e status
+	 *         {@link HttpStatus#OK}
 	 */
 	@GetMapping
-	public ResponseEntity<List<DepartamentoResponseDto>> listarDepartamentos() {
-		return ResponseEntity.status(HttpStatus.OK).body(servico.listarDepartamentos());
+	public ResponseEntity<List<DepartamentoResponseDto>> listarDepartamentos(
+			@RequestParam(required = false) String pesquisa) {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.listarDepartamentos(pesquisa));
 	}
 
 	/**
@@ -74,19 +77,8 @@ public class DepartamentoController {
 	 * @return ResponseEntity com o departamento encontrado
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<DepartamentoResponseDto> obterDepartamentoPorId(@PathVariable BigInteger id) {
+	public ResponseEntity<DepartamentoResponseDto> obterDepartamentoPorId(@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterDepartamentoPorId(id));
-	}
-
-	/**
-	 * Endpoint para pesquisar departamentos por nome
-	 * 
-	 * @param pesquisa - Termo de pesquisa
-	 * @return ResponseEntity com a lista de departamentos encontrados
-	 */
-	@GetMapping("/search")
-	public ResponseEntity<List<DepartamentoResponseDto>> pesquisarDepartamentos(@RequestParam String pesquisa) {
-		return ResponseEntity.status(HttpStatus.OK).body(servico.pesquisarDepartamentos(pesquisa));
 	}
 
 	/**
@@ -97,7 +89,7 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<DepartamentoEntity> atualizarDepartamento(@PathVariable BigInteger id,
+	public ResponseEntity<DepartamentoEntity> atualizarDepartamento(@PathVariable Long id,
 			@Valid @RequestBody DepartamentoRequestDto departamentoDto) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.atualizarDepartamento(id, departamentoDto));
 	}
@@ -109,7 +101,7 @@ public class DepartamentoController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletarDepartamento(@PathVariable BigInteger id) {
+	public ResponseEntity<Void> deletarDepartamento(@PathVariable Long id) {
 		servico.deletarDepartamento(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

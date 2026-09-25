@@ -29,7 +29,7 @@ fetch('../../components/header/header.html')
 
                 pesquisa = pesquisa.trim();
 
-                fetch(`/funcionarios/search?pesquisa=${pesquisa}`, {
+                fetch(`/funcionarios?pesquisa=${pesquisa}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ fetch('../../components/header/header.html')
 
                 pesquisa = pesquisa.trim();
 
-                fetch(`/departamentos/search?pesquisa=${pesquisa}`, {
+                fetch(`/departamentos?pesquisa=${pesquisa}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

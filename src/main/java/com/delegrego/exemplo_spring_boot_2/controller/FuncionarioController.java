@@ -1,6 +1,5 @@
 package com.delegrego.exemplo_spring_boot_2.controller;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,13 +58,17 @@ public class FuncionarioController {
 	}
 
 	/**
-	 * Endpoint para listar todos os funcionários
-	 * 
-	 * @return ResponseEntity com a lista de funcionários
+	 * Lista os funcionários cadastrados, permitindo filtrar os resultados por meio
+	 * de um termo de pesquisa.
+	 *
+	 * @param pesquisa termo utilizado para filtrar os funcionários; opcional
+	 * @return resposta HTTP com a lista de {@link FuncionarioResponseDto} e status
+	 *         {@link HttpStatus#OK}
 	 */
 	@GetMapping
-	public ResponseEntity<List<FuncionarioResponseDto>> listarFuncionarios() {
-		return ResponseEntity.status(HttpStatus.OK).body(servico.listarFuncionarios());
+	public ResponseEntity<List<FuncionarioResponseDto>> listarFuncionarios(
+			@RequestParam(required = false) String pesquisa) {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.listarFuncionarios(pesquisa));
 	}
 
 	/**
@@ -75,19 +78,8 @@ public class FuncionarioController {
 	 * @return ResponseEntity com o funcionário encontrado
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<FuncionarioResponseDto> obterFuncionarioPorId(@PathVariable BigInteger id) {
+	public ResponseEntity<FuncionarioResponseDto> obterFuncionarioPorId(@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
-	}
-
-	/**
-	 * Endpoint para pesquisar funcionários por nome, cargo ou departamento
-	 * 
-	 * @param pesquisa - Termo de pesquisa
-	 * @return ResponseEntity com a lista de funcionários encontrados
-	 */
-	@GetMapping("/search")
-	public ResponseEntity<List<FuncionarioResponseDto>> pesquisarFuncionarios(@RequestParam String pesquisa) {
-		return ResponseEntity.status(HttpStatus.OK).body(servico.pesquisarFuncionarios(pesquisa, pesquisa, pesquisa));
 	}
 
 	/**
@@ -98,7 +90,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<FuncionarioEntity> atualizarFuncionario(@PathVariable BigInteger id,
+	public ResponseEntity<FuncionarioEntity> atualizarFuncionario(@PathVariable Long id,
 			@Valid @RequestBody FuncionarioAtualizarDto funcionarioDto) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.atualizarFuncionario(id, funcionarioDto));
 	}
@@ -110,7 +102,7 @@ public class FuncionarioController {
 	 * @return ResponseEntity com status apropriado
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletarFuncionario(@PathVariable BigInteger id) {
+	public ResponseEntity<Void> deletarFuncionario(@PathVariable Long id) {
 		servico.deletarFuncionario(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

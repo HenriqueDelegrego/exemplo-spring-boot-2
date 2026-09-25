@@ -1,6 +1,5 @@
 package com.delegrego.exemplo_spring_boot_2.service;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,9 +84,49 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public List<FuncionarioResponseDto> listarFuncionarios() {
+	public List<FuncionarioResponseDto> listarFuncionarios(String pesquisa) {
 
-		List<FuncionarioEntity> listaFuncionarioEntity = repo.findAll();
+		if (pesquisa == null) {
+			List<FuncionarioEntity> listaFuncionarioEntity = repo.findAll();
+
+			List<FuncionarioResponseDto> listaFuncionarioDto = new ArrayList<>();
+
+			for (FuncionarioEntity f : listaFuncionarioEntity) {
+
+				FuncionarioResponseDto funcionarioDto = new FuncionarioResponseDto();
+
+				funcionarioDto.setIdFuncionario(f.getIdFuncionario());
+				funcionarioDto.setNome(f.getNome());
+				funcionarioDto.setCpf(f.getCpf());
+				funcionarioDto.setEmail(f.getEmail());
+				funcionarioDto.setDataNascimento(f.getDataNascimento());
+				funcionarioDto.setSalario(f.getSalario());
+				funcionarioDto.setGerente(f.isGerente());
+
+				funcionarioDto.setEndereco(new EnderecoResponseDto());
+				funcionarioDto.getEndereco().setEstado(f.getEndereco().getEstado());
+				funcionarioDto.getEndereco().setCidade(f.getEndereco().getCidade());
+				funcionarioDto.getEndereco().setBairro(f.getEndereco().getBairro());
+				funcionarioDto.getEndereco().setLogradouro(f.getEndereco().getLogradouro());
+				funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
+				funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
+
+				funcionarioDto.setDepartamento(new DepartamentoResponseDto());
+				funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
+				funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
+
+				if (f.getCriadoPor() != null) {
+					funcionarioDto.setCriadoPor(f.getCriadoPor().getNome());
+				}
+
+				listaFuncionarioDto.add(funcionarioDto);
+			}
+
+			return listaFuncionarioDto;
+		}
+
+		List<FuncionarioEntity> listaFuncionarioEntity = repo
+				.findByNomeContainingIgnoreCaseOrEmailContainingIgnoreCaseOrCpfContaining(pesquisa, pesquisa, pesquisa);
 
 		List<FuncionarioResponseDto> listaFuncionarioDto = new ArrayList<>();
 
@@ -120,13 +159,14 @@ public class FuncionarioService {
 			}
 
 			listaFuncionarioDto.add(funcionarioDto);
+
 		}
 
 		return listaFuncionarioDto;
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public FuncionarioResponseDto obterFuncionarioPorId(BigInteger id) {
+	public FuncionarioResponseDto obterFuncionarioPorId(Long id) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
@@ -160,50 +200,8 @@ public class FuncionarioService {
 		return funcionarioDto;
 	}
 
-	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public List<FuncionarioResponseDto> pesquisarFuncionarios(String nome, String email, String cpf) {
-		List<FuncionarioEntity> listaFuncionarioEntity = repo
-				.findByNomeContainingIgnoreCaseOrEmailContainingIgnoreCaseOrCpfContaining(nome, email, cpf);
-
-		List<FuncionarioResponseDto> listaFuncionarioDto = new ArrayList<>();
-
-		for (FuncionarioEntity f : listaFuncionarioEntity) {
-
-			FuncionarioResponseDto funcionarioDto = new FuncionarioResponseDto();
-
-			funcionarioDto.setIdFuncionario(f.getIdFuncionario());
-			funcionarioDto.setNome(f.getNome());
-			funcionarioDto.setCpf(f.getCpf());
-			funcionarioDto.setEmail(f.getEmail());
-			funcionarioDto.setDataNascimento(f.getDataNascimento());
-			funcionarioDto.setSalario(f.getSalario());
-			funcionarioDto.setGerente(f.isGerente());
-
-			funcionarioDto.setEndereco(new EnderecoResponseDto());
-			funcionarioDto.getEndereco().setEstado(f.getEndereco().getEstado());
-			funcionarioDto.getEndereco().setCidade(f.getEndereco().getCidade());
-			funcionarioDto.getEndereco().setBairro(f.getEndereco().getBairro());
-			funcionarioDto.getEndereco().setLogradouro(f.getEndereco().getLogradouro());
-			funcionarioDto.getEndereco().setNumero(f.getEndereco().getNumero());
-			funcionarioDto.getEndereco().setCep(f.getEndereco().getCep());
-
-			funcionarioDto.setDepartamento(new DepartamentoResponseDto());
-			funcionarioDto.getDepartamento().setIdDepartamento(f.getDepartamento().getIdDepartamento());
-			funcionarioDto.getDepartamento().setNmDepartamento(f.getDepartamento().getNmDepartamento());
-
-			if (f.getCriadoPor() != null) {
-				funcionarioDto.setCriadoPor(f.getCriadoPor().getNome());
-			}
-
-			listaFuncionarioDto.add(funcionarioDto);
-
-		}
-
-		return listaFuncionarioDto;
-	}
-
 	@PreAuthorize("hasRole('GERENTE')")
-	public FuncionarioEntity atualizarFuncionario(BigInteger id, FuncionarioAtualizarDto funcionarioDto) {
+	public FuncionarioEntity atualizarFuncionario(Long id, FuncionarioAtualizarDto funcionarioDto) {
 
 		FuncionarioEntity funcionarioEntity = repo.findById(id)
 				.orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
@@ -240,7 +238,7 @@ public class FuncionarioService {
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
-	public void deletarFuncionario(BigInteger id) {
+	public void deletarFuncionario(Long id) {
 
 		repo.findById(id).orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado"));
 

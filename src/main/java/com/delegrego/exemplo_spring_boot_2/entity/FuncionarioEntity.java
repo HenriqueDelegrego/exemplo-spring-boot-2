@@ -1,7 +1,6 @@
 package com.delegrego.exemplo_spring_boot_2.entity;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -35,7 +34,7 @@ public class FuncionarioEntity {
 	// (AUTO_INCREMENT)
 	// IDENTITY é o tipo utilizado pelo MySQL
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger idFuncionario;
+	private Long idFuncionario;
 
 	@Column(name = "nome", length = 100, nullable = false)
 	private String nome;

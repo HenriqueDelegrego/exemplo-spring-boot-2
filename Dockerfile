@@ -1,5 +1,5 @@
 # Imagem base com Maven para compilar o projeto Java
-FROM maven AS builder
+FROM maven:3.9.11-eclipse-temurin-25-alpine AS builder
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
@@ -14,7 +14,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Segunda etapa: imagem mais leve apenas para execução
-FROM eclipse-temurin
+FROM eclipse-temurin:25-jre-alpine
 
 # Define o diretório de trabalho da aplicação
 WORKDIR /app
@@ -29,8 +29,7 @@ EXPOSE 8080
 # Comentadas pois já estão definidas no compose.yaml
 # ENV SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/exemplo_spring_boot_2
 # ENV SPRING_DATASOURCE_USERNAME=root
-# ENV SPRING_DATASOURCE_PASSWORD=aluno
+# ENV SPRING_DATASOURCE_PASSWORD=
 
 # Comando executado ao iniciar o container
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
