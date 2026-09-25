@@ -58,13 +58,17 @@ public class FuncionarioController {
 	}
 
 	/**
-	 * Endpoint para listar todos os funcionários
-	 * 
-	 * @return ResponseEntity com a lista de funcionários
+	 * Lista os funcionários cadastrados, permitindo filtrar os resultados por meio
+	 * de um termo de pesquisa.
+	 *
+	 * @param pesquisa termo utilizado para filtrar os funcionários; opcional
+	 * @return resposta HTTP com a lista de {@link FuncionarioResponseDto} e status
+	 *         {@link HttpStatus#OK}
 	 */
 	@GetMapping
-	public ResponseEntity<List<FuncionarioResponseDto>> listarFuncionarios() {
-		return ResponseEntity.status(HttpStatus.OK).body(servico.listarFuncionarios());
+	public ResponseEntity<List<FuncionarioResponseDto>> listarFuncionarios(
+			@RequestParam(required = false) String pesquisa) {
+		return ResponseEntity.status(HttpStatus.OK).body(servico.listarFuncionarios(pesquisa));
 	}
 
 	/**
@@ -76,17 +80,6 @@ public class FuncionarioController {
 	@GetMapping("/{id}")
 	public ResponseEntity<FuncionarioResponseDto> obterFuncionarioPorId(@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.obterFuncionarioPorId(id));
-	}
-
-	/**
-	 * Endpoint para pesquisar funcionários por nome, cargo ou departamento
-	 * 
-	 * @param pesquisa - Termo de pesquisa
-	 * @return ResponseEntity com a lista de funcionários encontrados
-	 */
-	@GetMapping("/search")
-	public ResponseEntity<List<FuncionarioResponseDto>> pesquisarFuncionarios(@RequestParam String pesquisa) {
-		return ResponseEntity.status(HttpStatus.OK).body(servico.pesquisarFuncionarios(pesquisa, pesquisa, pesquisa));
 	}
 
 	/**

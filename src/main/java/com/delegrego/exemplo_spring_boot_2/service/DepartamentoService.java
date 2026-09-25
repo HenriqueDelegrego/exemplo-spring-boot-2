@@ -45,37 +45,24 @@ public class DepartamentoService {
 	}
 
 	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public List<DepartamentoResponseDto> listarDepartamentos() {
-		List<DepartamentoEntity> listaDepartamentoEntity = repo.findAll();
+	public List<DepartamentoResponseDto> listarDepartamentos(String pesquisa) {
 
-		List<DepartamentoResponseDto> listaDepartamentoDto = new ArrayList<DepartamentoResponseDto>();
+		if (pesquisa == null) {
+			List<DepartamentoEntity> listaDepartamentoEntity = repo.findAll();
 
-		for (DepartamentoEntity d : listaDepartamentoEntity) {
-			DepartamentoResponseDto departamentoDto = new DepartamentoResponseDto();
-			departamentoDto.setIdDepartamento(d.getIdDepartamento());
-			departamentoDto.setNmDepartamento(d.getNmDepartamento());
+			List<DepartamentoResponseDto> listaDepartamentoDto = new ArrayList<DepartamentoResponseDto>();
 
-			listaDepartamentoDto.add(departamentoDto);
+			for (DepartamentoEntity d : listaDepartamentoEntity) {
+				DepartamentoResponseDto departamentoDto = new DepartamentoResponseDto();
+				departamentoDto.setIdDepartamento(d.getIdDepartamento());
+				departamentoDto.setNmDepartamento(d.getNmDepartamento());
+
+				listaDepartamentoDto.add(departamentoDto);
+			}
+
+			return listaDepartamentoDto;
 		}
 
-		return listaDepartamentoDto;
-	}
-
-	@PreAuthorize("hasRole('GERENTE')")
-	public DepartamentoResponseDto obterDepartamentoPorId(Long id) {
-
-		DepartamentoEntity departamentoEntity = repo.findById(id)
-				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
-
-		DepartamentoResponseDto departamentoDto = new DepartamentoResponseDto();
-		departamentoDto.setIdDepartamento(departamentoEntity.getIdDepartamento());
-		departamentoDto.setNmDepartamento(departamentoEntity.getNmDepartamento());
-
-		return departamentoDto;
-	}
-
-	@PreAuthorize("hasAnyRole('FUNCIONARIO', 'GERENTE')")
-	public List<DepartamentoResponseDto> pesquisarDepartamentos(String pesquisa) {
 		List<DepartamentoEntity> listaDepartamentoEntity = repo.findByNmDepartamentoContainingIgnoreCase(pesquisa);
 		List<DepartamentoResponseDto> listaDepartamentoDto = new ArrayList<DepartamentoResponseDto>();
 
@@ -89,6 +76,19 @@ public class DepartamentoService {
 
 		return listaDepartamentoDto;
 
+	}
+
+	@PreAuthorize("hasRole('GERENTE')")
+	public DepartamentoResponseDto obterDepartamentoPorId(Long id) {
+
+		DepartamentoEntity departamentoEntity = repo.findById(id)
+				.orElseThrow(() -> new DepartamentoNaoEncontradoException("Departamento não encontrado"));
+
+		DepartamentoResponseDto departamentoDto = new DepartamentoResponseDto();
+		departamentoDto.setIdDepartamento(departamentoEntity.getIdDepartamento());
+		departamentoDto.setNmDepartamento(departamentoEntity.getNmDepartamento());
+
+		return departamentoDto;
 	}
 
 	@PreAuthorize("hasRole('GERENTE')")
