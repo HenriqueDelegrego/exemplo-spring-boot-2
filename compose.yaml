@@ -7,6 +7,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/exemplo_spring_boot_2?allowMultiQueries=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD:
+      JWT_SECRET: "mK9vR2xP7qL4nT8wY5zA3bC6dE1fG0hJ9kM2pQ5sV8xN"
+      JWT_ISSUER: "exemplo-spring-boot-2"
     depends_on:
       db:
         condition: service_healthy
