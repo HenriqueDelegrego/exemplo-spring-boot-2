@@ -67,7 +67,7 @@ public class FuncionarioService {
 		funcionarioEntity.setSenha(funcionarioDto.getSenha());
 		funcionarioEntity.setDataNascimento(funcionarioDto.getDataNascimento());
 		funcionarioEntity.setSalario(funcionarioDto.getSalario());
-		funcionarioEntity.setGerente(funcionarioDto.isGerente());
+		funcionarioEntity.setRole(funcionarioDto.getRole());
 
 		funcionarioEntity.setEndereco(new EnderecoEntity());
 
@@ -101,7 +101,7 @@ public class FuncionarioService {
 				funcionarioDto.setEmail(f.getEmail());
 				funcionarioDto.setDataNascimento(f.getDataNascimento());
 				funcionarioDto.setSalario(f.getSalario());
-				funcionarioDto.setGerente(f.isGerente());
+				funcionarioDto.setRole(f.getRole());
 
 				funcionarioDto.setEndereco(new EnderecoResponseDto());
 				funcionarioDto.getEndereco().setEstado(f.getEndereco().getEstado());
@@ -140,7 +140,7 @@ public class FuncionarioService {
 			funcionarioDto.setEmail(f.getEmail());
 			funcionarioDto.setDataNascimento(f.getDataNascimento());
 			funcionarioDto.setSalario(f.getSalario());
-			funcionarioDto.setGerente(f.isGerente());
+			funcionarioDto.setRole(f.getRole());
 
 			funcionarioDto.setEndereco(new EnderecoResponseDto());
 			funcionarioDto.getEndereco().setEstado(f.getEndereco().getEstado());
@@ -179,7 +179,7 @@ public class FuncionarioService {
 		funcionarioDto.setEmail(funcionarioEntity.getEmail());
 		funcionarioDto.setDataNascimento(funcionarioEntity.getDataNascimento());
 		funcionarioDto.setSalario(funcionarioEntity.getSalario());
-		funcionarioDto.setGerente(funcionarioEntity.isGerente());
+		funcionarioDto.setRole(funcionarioEntity.getRole());
 
 		funcionarioDto.setEndereco(new EnderecoResponseDto());
 		funcionarioDto.getEndereco().setEstado(funcionarioEntity.getEndereco().getEstado());
@@ -222,7 +222,7 @@ public class FuncionarioService {
 		funcionarioEntity.setEmail(funcionarioDto.getEmail());
 		funcionarioEntity.setDataNascimento(funcionarioDto.getDataNascimento());
 		funcionarioEntity.setSalario(funcionarioDto.getSalario());
-		funcionarioEntity.setGerente(funcionarioDto.isGerente());
+		funcionarioEntity.setRole(funcionarioDto.getRole());
 
 		funcionarioEntity.setEndereco(new EnderecoEntity());
 

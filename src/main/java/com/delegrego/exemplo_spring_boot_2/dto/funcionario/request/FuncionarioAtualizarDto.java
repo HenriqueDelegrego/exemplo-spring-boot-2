@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.request.EnderecoRequestDto;
+import com.delegrego.exemplo_spring_boot_2.security.FuncionarioRole;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Digits;
@@ -49,7 +50,7 @@ public class FuncionarioAtualizarDto {
 	@PositiveOrZero
 	private BigDecimal salario;
 
-	private boolean gerente;
+    private FuncionarioRole role;
 
 	@NotNull
 	@Valid
