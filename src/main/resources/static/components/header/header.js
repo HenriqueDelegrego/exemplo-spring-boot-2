@@ -134,6 +134,13 @@ fetch('../../components/header/header.html')
         document.getElementById('header').innerHTML = `<p>Erro ao carregar o header</p>`;
     });
 
+
+function logout() {
+    sessionStorage.removeItem('accessToken');
+    window.location.replace('/pages/html/login.html');
+}
+
+
 // Funções reutilizadas do carrega-funcionarios.js
 function editarFuncionario(id) {
     window.location.href = `edicao-funcionario.html?id=${id}`;
