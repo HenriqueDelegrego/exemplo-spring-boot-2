@@ -54,6 +54,7 @@ public class FuncionarioCriarDto {
 	@PositiveOrZero
 	private BigDecimal salario;
 
+	@NotNull
 	private FuncionarioRole role;
 
 	@NotNull

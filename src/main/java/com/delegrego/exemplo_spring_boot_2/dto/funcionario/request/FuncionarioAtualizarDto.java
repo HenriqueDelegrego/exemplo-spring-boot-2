@@ -50,7 +50,8 @@ public class FuncionarioAtualizarDto {
 	@PositiveOrZero
 	private BigDecimal salario;
 
-    private FuncionarioRole role;
+	@NotNull
+	private FuncionarioRole role;
 
 	@NotNull
 	@Valid
