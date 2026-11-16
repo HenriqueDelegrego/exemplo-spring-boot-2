@@ -15,9 +15,31 @@ async function ocultarAcoes() {
 }
 
 async function carregarFuncionarios() {
+
     try {
-        const response = await fetch('/funcionarios');
-        if (!response.ok) throw new Error('Erro ao buscar funcionários');
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        const response = await fetch('/funcionarios', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        if (response.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Erro ao buscar funcionários');
+        }
 
         const funcionarios = await response.json();
         const container = document.getElementById('funcionarios');

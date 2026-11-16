@@ -2,10 +2,17 @@ package com.delegrego.exemplo_spring_boot_2.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -14,17 +21,43 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/pages/css/**", "/components/**", "/pages/js/**")
-						.permitAll().anyRequest().authenticated()) // Exige autenticação para outras páginas
-				.formLogin(form -> form.loginPage("/pages/html/login.html") // Define a página de login personalizada
-						.loginProcessingUrl("/perform_login") // Action do formulário de login
-						.usernameParameter("email") // Campo de email no formulário
-						.passwordParameter("password") // Campo de senha no formulário
-						.defaultSuccessUrl("/pages/html/lista-funcionarios.html", true).permitAll()) // Redirecionamento após login
 
-				.logout(logout -> logout.permitAll()); // Permite logout sem autenticação
-		return http.build();
+	    http
+	        .csrf(csrf -> csrf.disable())
+
+	        .sessionManagement(session ->
+	            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers(
+	            		"/",
+	            	    "/api/auth/**",
+	            	    "/pages/html/**",
+	            	    "/pages/css/**",
+	            	    "/pages/js/**",
+	            	    "/components/**"
+	            ).permitAll()
+	            .anyRequest().authenticated()
+	        )
+	        .oauth2ResourceServer(oauth2 ->
+	            oauth2.jwt(jwt ->
+	                jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
+	            )
+	        );
+
+	    return http.build();
+	}
+
+	// Maps the "roles" claim from the JWT into ROLE_MANAGER / ROLE_EMPLOYEE
+	@Bean
+	public JwtAuthenticationConverter jwtAuthenticationConverter() {
+		JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+		grantedAuthoritiesConverter.setAuthoritiesClaimName("roles"); // claim name we put in the token
+		grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+
+		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+		return jwtAuthenticationConverter;
 	}
 
 	@Bean
@@ -32,4 +65,14 @@ public class SecurityConfig {
 		return NoOpPasswordEncoder.getInstance();
 	}
 
+	@Bean
+	public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
+			PasswordEncoder passwordEncoder) {
+
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
+
+		authProvider.setPasswordEncoder(passwordEncoder);
+
+		return new ProviderManager(authProvider);
+	}
 }
