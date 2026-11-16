@@ -1,5 +1,7 @@
 package com.delegrego.exemplo_spring_boot_2.security;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableMethodSecurity
@@ -21,31 +26,33 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(csrf -> csrf.disable())
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/", "/api/auth/**", "/pages/html/**",
+						"/pages/css/**", "/pages/js/**", "/components/**").permitAll().anyRequest().authenticated())
+				.oauth2ResourceServer(
+						oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+		return http.build();
+	}
 
-	    http
-	        .csrf(csrf -> csrf.disable())
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
 
-	        .sessionManagement(session ->
-	            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+		CorsConfiguration configuration = new CorsConfiguration();
 
-	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers(
-	            		"/",
-	            	    "/api/auth/**",
-	            	    "/pages/html/**",
-	            	    "/pages/css/**",
-	            	    "/pages/js/**",
-	            	    "/components/**"
-	            ).permitAll()
-	            .anyRequest().authenticated()
-	        )
-	        .oauth2ResourceServer(oauth2 ->
-	            oauth2.jwt(jwt ->
-	                jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
-	            )
-	        );
+		configuration.setAllowedOrigins(List.of("http://localhost:4200"));
 
-	    return http.build();
+		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+		configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+
+		configuration.setAllowCredentials(false);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+		source.registerCorsConfiguration("/**", configuration);
+
+		return source;
 	}
 
 	// Maps the "roles" claim from the JWT into ROLE_MANAGER / ROLE_EMPLOYEE
