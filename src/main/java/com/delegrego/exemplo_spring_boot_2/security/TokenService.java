@@ -36,7 +36,8 @@ public class TokenService {
 
 		// Extract roles (ROLE_MANAGER -> MANAGER)
 		String roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-				.map(a -> a.replace("ROLE_", "")).collect(Collectors.joining(" "));
+				.filter(authority -> authority.startsWith("ROLE_")).map(authority -> authority.substring(5))
+				.collect(Collectors.joining(" "));
 
 		JwtClaimsSet claims = JwtClaimsSet.builder().issuer(issuer).issuedAt(now)
 				.expiresAt(now.plus(expirationMinutes, ChronoUnit.MINUTES)).subject(authentication.getName())
