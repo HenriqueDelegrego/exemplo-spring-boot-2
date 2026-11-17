@@ -67,6 +67,7 @@ public class SecurityConfig {
 		return jwtAuthenticationConverter;
 	}
 
+	// TODO: BCrypt
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
