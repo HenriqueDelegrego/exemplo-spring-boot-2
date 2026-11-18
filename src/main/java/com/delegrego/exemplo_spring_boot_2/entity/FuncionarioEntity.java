@@ -3,9 +3,13 @@ package com.delegrego.exemplo_spring_boot_2.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.delegrego.exemplo_spring_boot_2.security.FuncionarioRole;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -56,8 +60,9 @@ public class FuncionarioEntity {
 	@Column(name = "salario", precision = 10, scale = 2)
 	private BigDecimal salario;
 
-	@Column(name = "gerente", nullable = false)
-	private boolean gerente;
+	@Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private FuncionarioRole role;
 
 	// Indica que o campo abaixo é um objeto incorporado
 	@Embedded

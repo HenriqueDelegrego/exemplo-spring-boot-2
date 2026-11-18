@@ -1,4 +1,3 @@
-
 async function cadastrarFuncionario() {
     document.getElementById('formFuncionario').addEventListener('submit', async function (e) {
         e.preventDefault();
@@ -13,7 +12,7 @@ async function cadastrarFuncionario() {
                 senha: form.senha.value,
                 dataNascimento: form.dataNascimento.value,
                 salario: parseFloat(form.salario.value) || 0,
-                gerente: form.gerente.checked,
+                role: form.roles.value,
                 endereco: {
                     estado: form.estado.value,
                     cidade: form.cidade.value,
@@ -25,10 +24,13 @@ async function cadastrarFuncionario() {
                 idDepartamento: parseInt(form.departamento.value)
             };
 
+            const accessToken = sessionStorage.getItem('accessToken');
+
             const response = await fetch('/funcionarios', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify(funcionario)
             });

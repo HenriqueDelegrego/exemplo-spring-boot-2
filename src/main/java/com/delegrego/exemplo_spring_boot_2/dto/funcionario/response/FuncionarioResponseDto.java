@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import com.delegrego.exemplo_spring_boot_2.dto.departamento.response.DepartamentoResponseDto;
 import com.delegrego.exemplo_spring_boot_2.dto.endereco.response.EnderecoResponseDto;
+import com.delegrego.exemplo_spring_boot_2.security.FuncionarioRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class FuncionarioResponseDto {
 
 	private BigDecimal salario;
 
-	private boolean gerente;
+	private FuncionarioRole role;
 
 	private EnderecoResponseDto endereco;
 

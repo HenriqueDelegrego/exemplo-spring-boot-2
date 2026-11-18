@@ -32,7 +32,7 @@ public class FuncionarioDetails implements UserDetails {
 	 * 
 	 * @return nome do funcionário
 	 */
-	public String obterNome() {
+	public String getName() {
 		return funcionario.getNome();
 	}
 
@@ -41,20 +41,14 @@ public class FuncionarioDetails implements UserDetails {
 	 * 
 	 * @return true se for gerente, false caso contrário
 	 */
-	public boolean isGerente() {
-		return funcionario.isGerente();
-	}
 
-	public Long obterId() {
+	public Long getId() {
 		return funcionario.getIdFuncionario();
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (funcionario.isGerente()) {
-			return List.of(new SimpleGrantedAuthority("ROLE_GERENTE"));
-		}
-		return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+		return List.of(new SimpleGrantedAuthority("ROLE_" + funcionario.getRole()));
 	}
 
 	@Override
@@ -86,4 +80,5 @@ public class FuncionarioDetails implements UserDetails {
 	public String getUsername() {
 		return funcionario.getEmail();
 	}
+
 }

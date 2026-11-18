@@ -1,9 +1,31 @@
 async function ocultarAcoes() {
     try {
-        const response = await fetch('/funcionarios/me/gerente');
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        const response = await fetch('/funcionarios/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        if (response.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Erro ao buscar funcionário');
+        }
         const funcionario = await response.json();
 
-        if (!funcionario.gerente) {
+        if (funcionario.role !== 'GERENTE') {
             const acoesElements = document.querySelectorAll('.acoes');
             acoesElements.forEach(element => {
                 element.style.display = "none";
@@ -15,9 +37,31 @@ async function ocultarAcoes() {
 }
 
 async function carregarFuncionarios() {
+
     try {
-        const response = await fetch('/funcionarios');
-        if (!response.ok) throw new Error('Erro ao buscar funcionários');
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        const response = await fetch('/funcionarios', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        if (response.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Erro ao buscar funcionários');
+        }
 
         const funcionarios = await response.json();
         const container = document.getElementById('funcionarios');
@@ -41,7 +85,7 @@ async function carregarFuncionarios() {
     <strong>Email:</strong> <span>${func.email}</span>
     <strong>Data de Nascimento:</strong> <span>${new Date(func.dataNascimento).toLocaleDateString('pt-BR')}</span>
     <strong>Salário:</strong> <span>R$ ${func.salario?.toFixed(2) || "0.00"}</span>
-    <strong>Função:</strong> <span>${func.gerente ? "Gerente" : "Funcionário"}</span>
+    <strong>Função:</strong> <span>${func.role === 'GERENTE' ? "Gerente" : "Funcionário"}</span>
     <strong>Departamento:</strong> <span>${func.departamento?.nmDepartamento || "N/A"}</span>
     <strong>Criado por:</strong> <span>${func.criadoPor || "N/A"}</span>
     <strong>Endereço:</strong>
@@ -60,22 +104,35 @@ async function carregarFuncionarios() {
 
 }
 
-
-
 function editarFuncionario(id) {
     window.location.href = `edicao-funcionario.html?id=${id}`;
 }
-
-
 
 async function confirmarExclusao(id) {
     const confirmacao = confirm("Tem certeza que deseja excluir este funcionário?");
     if (!confirmacao) return;
 
     try {
+
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
         const resposta = await fetch(`/funcionarios/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
         });
+
+        if (resposta.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
 
         if (resposta.ok) {
             alert("Funcionário excluído com sucesso!");

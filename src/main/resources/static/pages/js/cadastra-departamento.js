@@ -7,13 +7,28 @@ document.getElementById('formDepartamento').addEventListener('submit', async fun
     };
 
     try {
+
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
         const response = await fetch('/departamentos', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(departamento)
         });
+
+        if (response.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
 
         if (response.ok) {
             alert('Departamento cadastrado com sucesso!');

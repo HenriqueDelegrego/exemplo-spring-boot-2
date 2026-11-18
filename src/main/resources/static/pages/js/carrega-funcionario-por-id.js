@@ -2,11 +2,51 @@ const form = document.getElementById("formEdicaoFuncionario");
 const params = new URLSearchParams(window.location.search);
 const funcionarioId = params.get("id");
 
+
+async function carregarRoles(roleAtual) {
+
+    const select = document.getElementById("roles");
+
+    try {
+
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        const res = await fetch(`/api/roles`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+        const roles = await res.json();
+
+        roles.forEach(role => {
+            const option = document.createElement("option");
+            option.value = role;
+            option.textContent = role;
+            if (role === roleAtual) {
+                option.selected = true;
+            }
+            select.appendChild(option);
+        });
+    } catch (err) {
+        alert("Erro ao carregar roles: " + err.message);
+    }
+
+}
+
 async function carregarDepartamentosSelecionaveis(departamentoAtualId) {
     const select = document.getElementById("departamentosSelect");
 
     try {
-        const res = await fetch("/departamentos");
+
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        const res = await fetch(`/departamentos`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
         const departamentos = await res.json();
 
         departamentos.forEach(dep => {
@@ -25,8 +65,15 @@ async function carregarDepartamentosSelecionaveis(departamentoAtualId) {
 
 async function carregarFuncionario() {
     try {
-        const response = await fetch(`/funcionarios/${funcionarioId}`);
-        if (!response.ok) throw new Error("Funcionário não encontrado");
+        const accessToken = sessionStorage.getItem('accessToken');
+
+
+        const response = await fetch(`/funcionarios/${funcionarioId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }); if (!response.ok) throw new Error("Funcionário não encontrado");
 
         const func = await response.json();
         form.id.value = func.idFuncionario;
@@ -37,7 +84,7 @@ async function carregarFuncionario() {
         form.senha.value = func.senha;
         form.dataNascimento.value = func.dataNascimento;
         form.salario.value = func.salario;
-        form.gerente.checked = func.gerente;
+        await carregarRoles(func.role);
 
         form.estado.value = func.endereco?.estado || "";
         form.cidade.value = func.endereco?.cidade || "";

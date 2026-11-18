@@ -23,9 +23,10 @@ public class FuncionarioDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
 		FuncionarioEntity funcionario = repo.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
-		return new FuncionarioDetails(funcionario); // Retorna os detalhes do funcionário para autenticação
-	}
 
+		return new FuncionarioDetails(funcionario);
+	}
 }
