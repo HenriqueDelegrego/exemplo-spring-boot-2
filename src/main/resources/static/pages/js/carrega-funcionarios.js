@@ -128,7 +128,7 @@ async function confirmarExclusao(id) {
             }
         });
 
-        if (response.status === 401) {
+        if (resposta.status === 401) {
             sessionStorage.removeItem('accessToken');
             window.location.replace('/pages/html/login.html');
             return;
