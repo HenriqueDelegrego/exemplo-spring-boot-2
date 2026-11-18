@@ -1,4 +1,4 @@
-async function carregarDepartamentos() {
+async function carregarRoles() {
     try {
 
         const accessToken = sessionStorage.getItem('accessToken');
@@ -24,4 +24,4 @@ async function carregarDepartamentos() {
     }
 }
 
-carregarDepartamentos();
+carregarRoles();

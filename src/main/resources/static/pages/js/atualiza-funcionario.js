@@ -9,7 +9,7 @@ form.addEventListener("submit", async function (e) {
         email: form.email.value,
         dataNascimento: form.dataNascimento.value,
         salario: parseFloat(form.salario.value) || 0,
-        gerente: form.gerente.checked,
+        role: form.roles.value,
         endereco: {
             estado: form.estado.value,
             cidade: form.cidade.value,
@@ -23,7 +23,7 @@ form.addEventListener("submit", async function (e) {
 
     try {
 
-         const accessToken = sessionStorage.getItem('accessToken');
+        const accessToken = sessionStorage.getItem('accessToken');
 
 
         const res = await fetch(`/funcionarios/${id}`, {

@@ -12,7 +12,7 @@ async function cadastrarFuncionario() {
                 senha: form.senha.value,
                 dataNascimento: form.dataNascimento.value,
                 salario: parseFloat(form.salario.value) || 0,
-                gerente: form.gerente.checked,
+                role: form.roles.value,
                 endereco: {
                     estado: form.estado.value,
                     cidade: form.cidade.value,
