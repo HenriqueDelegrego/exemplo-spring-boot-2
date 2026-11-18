@@ -1,6 +1,29 @@
 async function carregarDepartamentos() {
     try {
-        const response = await fetch('/departamentos');
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        const response = await fetch('/departamentos', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        if (response.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Erro ao buscar departamentos');
+        }
+
         const departamentos = await response.json();
 
         const lista = document.getElementById('departamentos');
@@ -28,10 +51,33 @@ async function carregarDepartamentos() {
 
 async function ocultarAcoesSeNaoGerente() {
     try {
-        const response = await fetch('/funcionarios/me/gerente');
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        const response = await fetch('/funcionarios/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        if (response.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Erro ao buscar funcionário');
+        }
+
         const funcionario = await response.json();
 
-        if (!funcionario.gerente) {
+        if (funcionario.role !== 'GERENTE') {
             const acoesElements = document.querySelectorAll('.acoes');
             acoesElements.forEach(element => {
                 element.style.display = "none";
@@ -42,23 +88,45 @@ async function ocultarAcoesSeNaoGerente() {
     }
 }
 
-function editarDepartamento(idDepartamento) {
-    window.location.href = `edicao-departamento.html?id=${idDepartamento}`;
+function editarDepartamento(id) {
+    window.location.href = `edicao-departamento.html?id=${id}`;
 }
 
-async function confirmarExclusao(idDepartamento) {
+async function confirmarExclusao(id) {
     const confirmacao = confirm("Tem certeza que deseja excluir este departamento?");
     if (!confirmacao) return;
-
     try {
-        const resposta = await fetch(`/departamentos/${idDepartamento}`, {
-            method: 'DELETE'
+
+        console.log(`Excluindo departamento com ID: ${id}`);
+
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        const response = await fetch(`/departamentos/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
         });
 
-        if (resposta.ok) {
+        if (response.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.replace('/pages/html/login.html');
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Erro ao excluir departamento');
+        }
+
+        if (response.ok) {
             window.location.reload();
         } else {
-            const erro = await resposta.text();
+            const erro = await response.text();
             alert("Erro ao excluir: " + erro);
         }
     } catch (erro) {

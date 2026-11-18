@@ -6,7 +6,15 @@ async function carregarDepartamentosSelecionaveis(departamentoAtualId) {
     const select = document.getElementById("departamentosSelect");
 
     try {
-        const res = await fetch("/departamentos");
+
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        const res = await fetch(`/departamentos`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
         const departamentos = await res.json();
 
         departamentos.forEach(dep => {
@@ -25,8 +33,15 @@ async function carregarDepartamentosSelecionaveis(departamentoAtualId) {
 
 async function carregarFuncionario() {
     try {
-        const response = await fetch(`/funcionarios/${funcionarioId}`);
-        if (!response.ok) throw new Error("Funcionário não encontrado");
+        const accessToken = sessionStorage.getItem('accessToken');
+
+
+        const response = await fetch(`/departamentos/${funcionarioId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }); if (!response.ok) throw new Error("Funcionário não encontrado");
 
         const func = await response.json();
         form.id.value = func.idFuncionario;

@@ -22,10 +22,15 @@ form.addEventListener("submit", async function (e) {
     };
 
     try {
+
+         const accessToken = sessionStorage.getItem('accessToken');
+
+
         const res = await fetch(`/funcionarios/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`,
             },
             body: JSON.stringify(funcionario),
         });

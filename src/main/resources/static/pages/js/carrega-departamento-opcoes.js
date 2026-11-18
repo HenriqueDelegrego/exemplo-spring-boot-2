@@ -1,7 +1,14 @@
 async function carregarDepartamentos() {
     try {
-        const response = await fetch('/departamentos');
-        if (!response.ok) throw new Error('Erro ao buscar departamentos');
+
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        const response = await fetch(`/departamentos`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }); if (!response.ok) throw new Error('Erro ao buscar departamentos');
 
         const departamentos = await response.json();
         const select = document.getElementById('departamentos');
