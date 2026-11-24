@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioAtualizarDto;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.request.FuncionarioCriarDto;
+import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioListResponse;
 import com.delegrego.exemplo_spring_boot_2.dto.funcionario.response.FuncionarioResponseDto;
 import com.delegrego.exemplo_spring_boot_2.entity.FuncionarioEntity;
 import com.delegrego.exemplo_spring_boot_2.security.FuncionarioAutenticadoResponse;
@@ -59,7 +60,7 @@ public class FuncionarioController {
 	 *         {@link HttpStatus#OK}
 	 */
 	@GetMapping
-	public ResponseEntity<List<FuncionarioResponseDto>> listarFuncionarios(
+	public ResponseEntity<List<FuncionarioListResponse>> listarFuncionarios(
 			@RequestParam(required = false) String pesquisa) {
 		return ResponseEntity.status(HttpStatus.OK).body(servico.listarFuncionarios(pesquisa));
 	}
